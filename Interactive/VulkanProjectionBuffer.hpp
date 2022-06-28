@@ -1,9 +1,9 @@
 #ifndef NV_PROJECTION_BUFFER_HPP
 #define NV_PROJECTION_BUFFER_HPP
 #include <vulkan/vulkan.hpp>
-#include <VulkanDevice.hpp>
-#include <VulkanBuffer.hpp>
-#include <VulkanCamera.hpp>
+#include "../Structures/VulkanDevice.hpp"
+#include "../Structures/VulkanBuffer.hpp"
+#include "VulkanCamera.hpp"
 
 struct ProjectionData {
     glm::mat4 projection;

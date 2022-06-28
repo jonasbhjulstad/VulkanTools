@@ -5,9 +5,9 @@
 #include <imgui.h>
 #include <imgui_impl_vulkan.h>
 #include <imgui_impl_glfw.h>
-#include <VulkanInstance.hpp>
-#include <VulkanPipelineInitializers.hpp>
-#include <VulkanInitializers.hpp>
+#include <Structures/VulkanInstance.hpp>
+#include <Utilities/VulkanPipelineInitializers.hpp>
+#include <Utilities/VulkanInitializers.hpp>
 
 
 

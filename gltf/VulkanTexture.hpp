@@ -19,8 +19,8 @@
 #include <ktx.h>
 #include <ktxvulkan.h>
 
-#include <VulkanBuffer.hpp>
-#include <VulkanDevice.hpp>
+#include "../Structures/VulkanBuffer.hpp"
+#include "../Structures/VulkanDevice.hpp"
 
 class Texture
 {

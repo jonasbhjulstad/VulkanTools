@@ -8,7 +8,8 @@
 * This code is licensed under the MIT license (MIT) (http://opensource.org/licenses/MIT)
 */
 #include "VulkanSwapChain.hpp"
-
+#include "../Utilities/VulkanInitializers.hpp"
+#include <Utilities/VulkanTools.hpp>
 /** @brief Creates the platform specific surface abstraction of the native platform window used for presentation */	
 void VulkanSwapChain::initSurface(VkInstance instance, GLFWwindow* window, VkSurfaceKHR _surface, uint32_t width, uint32_t height)
 {

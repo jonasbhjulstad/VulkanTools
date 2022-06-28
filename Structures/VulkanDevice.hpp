@@ -2,7 +2,7 @@
 #define Vulkan_DEVICE_HPP
 #include <string>
 #include <vector>
-#include <VulkanBuffer.hpp>
+#include "VulkanBuffer.hpp"
 
 struct VulkanDevice
 {

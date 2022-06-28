@@ -10,8 +10,8 @@
 #include "VulkanglTFModel.hpp"
 #define TINYGLTF_IMPLEMENTATION
 #include "tiny_gltf.h"
-#include <VulkanTools.hpp>
-#include <VulkanInitializers.hpp>
+#include <Utilities/VulkanTools.hpp>
+#include <Utilities/VulkanInitializers.hpp>
 
 VkDescriptorSetLayout vkglTF::descriptorSetLayoutImage = VK_NULL_HANDLE;
 VkDescriptorSetLayout vkglTF::descriptorSetLayoutUbo = VK_NULL_HANDLE;

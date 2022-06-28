@@ -1,5 +1,5 @@
 #include "VulkanInstance.hpp"
-
+#include <Utilities/VulkanInitializers.hpp>
 void destroyVulkanInstance(VulkanInstance& vI)
 {
 	// Clean up Vulkan resources

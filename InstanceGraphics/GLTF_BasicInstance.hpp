@@ -3,10 +3,10 @@
 #include <vector>
 #include <memory>
 #include <vulkan/vulkan.hpp>
-#include <VulkanglTFModel.hpp>
-#include <VulkanInitializers.hpp>
-#include <VulkanBuffer.hpp>
-#include <VulkanTools.hpp>
+#include "../gltf/VulkanglTFModel.hpp"
+#include <Utilities/VulkanInitializers.hpp>
+#include "../Structures/VulkanBuffer.hpp"
+#include <Utilities/VulkanTools.hpp>
 #include "GLTF_Assets.hpp"
 #include "VulkanNodeInstance.hpp"
 #include "VulkanEdgeInstance.hpp"

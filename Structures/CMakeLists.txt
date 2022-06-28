@@ -1,5 +1,0 @@
-file(GLOB STRUCTURES_SRC "*.cpp")
-add_library(Structures STATIC ${STRUCTURES_SRC})
-target_include_directories(Structures PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-target_link_libraries(Structures PRIVATE Vulkan::Vulkan Initializers Utilities)
-target_link_libraries(Structures PUBLIC imgui glfw3 Interactive)

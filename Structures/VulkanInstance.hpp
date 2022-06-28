@@ -5,10 +5,10 @@
 #include <GLFW/glfw3.h>
 #include <imgui_impl_vulkan.h>
 #include <imgui_impl_glfw.h>
-#include <VulkanProjectionBuffer.hpp>
+#include <Interactive/VulkanProjectionBuffer.hpp>
 #include "VulkanDevice.hpp"
 #include "VulkanSwapChain.hpp"
-#include "VulkanTools.hpp"
+#include <Utilities/VulkanTools.hpp>
 
 struct VulkanInstance
 {

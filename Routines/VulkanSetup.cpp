@@ -1,8 +1,9 @@
 #include "VulkanSetup.hpp"
-#include <VulkanDebug.hpp>
-#include <VulkanInitializers.hpp>
-#include <VulkanPipelineInitializers.hpp>
-#include <VulkanUtils.hpp>
+#include <iostream>
+#include <Utilities/VulkanDebug.hpp>
+#include <Utilities/VulkanInitializers.hpp>
+#include <Utilities/VulkanPipelineInitializers.hpp>
+#include <Utilities/VulkanUtils.hpp>
 VkResult createVulkanInstance(bool enableValidation,
 							  const std::string &name,
 							  VkInstance& instance,

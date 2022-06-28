@@ -1,8 +1,7 @@
 #ifndef Vulkan_SETUP_HPP
 #define Vulkan_SETUP_HPP
 #include <string>
-#include <iostream>
-#include <VulkanInstance.hpp>
+#include <Structures/VulkanInstance.hpp>
 
 VkResult createVulkanInstance(bool enableValidation,
 							  const std::string &name,

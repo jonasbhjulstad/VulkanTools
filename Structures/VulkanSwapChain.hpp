@@ -20,8 +20,6 @@
 
 #include <vulkan/vulkan.hpp>
 #include <GLFW/glfw3.h>
-#include "VulkanInitializers.hpp"
-#include "VulkanTools.hpp"
 #include <imgui_impl_vulkan.h>
 
 

@@ -2,8 +2,8 @@
 #define NV_ASSETS_HPP
 #include <string>
 #include <memory>
-#include <VulkanglTFModel.hpp>
-#include <VulkanTexture.hpp>
+#include "../gltf/VulkanglTFModel.hpp"
+#include "../gltf/VulkanTexture.hpp"
 
 
 std::unique_ptr<vkglTF::Model> loadModel(const std::string &modelPath, VulkanDevice *vulkanDevice, VkQueue queue);

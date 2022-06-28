@@ -10,8 +10,8 @@
 
 #include "VulkanDevice.hpp"
 #include <chrono>
-#include <VulkanInitializers.hpp>
-#include "VulkanTools.hpp"
+#include "../Utilities/VulkanInitializers.hpp"
+#include <Utilities/VulkanTools.hpp>
 #include <limits>
 /**
  * Default constructor

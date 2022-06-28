@@ -8,6 +8,19 @@
 
 #include "VulkanDebug.hpp"
 #include <iostream>
+#include <cstring>
+#include <fstream>
+#include <assert.h>
+#include <stdio.h>
+#include <vector>
+#include <sstream>
+#include <math.h>
+#include <stdlib.h>
+#ifdef _WIN32
+#include <windows.h>
+#include <fcntl.h>
+#include <io.h>
+#endif
 
 namespace debug
 {

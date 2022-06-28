@@ -1,5 +1,5 @@
 #include "GLTF_Assets.hpp"
-#include <VulkanTools.hpp>
+#include <Utilities/VulkanTools.hpp>
 std::unique_ptr<vkglTF::Model> loadModel(const std::string &modelPath, VulkanDevice *vulkanDevice, VkQueue queue)
 {
     const uint32_t glTFLoadingFlags = vkglTF::FileLoadingFlags::PreTransformVertices | vkglTF::FileLoadingFlags::PreMultiplyVertexColors | vkglTF::FileLoadingFlags::FlipY;

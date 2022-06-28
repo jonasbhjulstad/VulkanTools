@@ -7,8 +7,8 @@
 */
 
 #include "VulkanTexture.hpp"
-#include <VulkanInitializers.hpp>
-#include <VulkanTools.hpp>
+#include <Utilities/VulkanInitializers.hpp>
+#include <Utilities/VulkanTools.hpp>
 void Texture::updateDescriptor()
 {
 	descriptor.sampler = sampler;
