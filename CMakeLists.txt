@@ -1,15 +1,16 @@
 cmake_minimum_required(VERSION 3.23)
-project(CLCPP_Vulkan_Tools)
+project(Vulkan_Tools)
 
 find_package(Vulkan REQUIRED)
 find_package(glfw3 3.3 REQUIRED)
 find_package(glm REQUIRED)
+find_package(Threads REQUIRED)
 find_package(Ktx REQUIRED)
 
 include(FetchContent)
 option(EXTERNAL_IMGUI ON)
+if (NOT ON)
 find_package(imgui REQUIRED HINTS "/usr/local/cmake/")
-if (${IMGUI_FOUND})
 else()
 message(STATUS "ImGui fetched from https://github.com/ocornut/imgui")
 FetchContent_Declare(
@@ -17,7 +18,6 @@ FetchContent_Declare(
     GIT_REPOSITORY https://github.com/ocornut/imgui
 )
 FetchContent_MakeAvailable(imgui_repo)
-message(WARNING ${imgui_repo_SOURCE_DIR})
 set(IMGUI_BACKEND_SRC ${imgui_repo_SOURCE_DIR}/backends/imgui_impl_vulkan.cpp ${imgui_repo_SOURCE_DIR}/backends/imgui_impl_glfw.cpp)
 set(IMGUI_BACKEND_HEADERS ${imgui_repo_SOURCE_DIR}/backends/imgui_impl_vulkan.h ${imgui_repo_SOURCE_DIR}/backends/imgui_impl_glfw.h)
 file(COPY ${IMGUI_BACKEND_SRC} DESTINATION ${imgui_repo_SOURCE_DIR})
@@ -30,20 +30,24 @@ target_include_directories(imgui PUBLIC $<BUILD_INTERFACE:${imgui_repo_SOURCE_DI
 # target_include_directories(imgui PUBLIC ${imgui_repo_SOURCE_DIR} "${imgui_repo_SOURCE_DIR}/backends")
 endif()
 
-file(GLOB CLCPP_VULKAN_TOOLS_SRC gltf/*.cpp InstanceGraphics/*.cpp Interactive/*.cpp Routines/*.cpp Structures/*.cpp Utilities/*.cpp)
-file(GLOB CLCPP_VULKAN_TOOLS_HEADERS gltf/*.h InstanceGraphics/*.h Interactive/*.h Routines/*.h Structures/*.h Utilities/*.h)
-add_library(VulkanTools STATIC ${CLCPP_VULKAN_TOOLS_SRC} ${CLCPP_VULKAN_TOOLS_HEADERS})
-target_include_directories(VulkanTools PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}> $<INSTALL_INTERFACE:include/VulkanTools>)
-target_link_libraries(VulkanTools Vulkan::Vulkan imgui glfw3 glm)
-if (NOT IMGUI_FOUND)
-install(TARGETS imgui EXPORT imguiConfig)
-install(EXPORT imguiConfig DESTINATION ${CMAKE_INSTALL_PREFIX}/cmake/imguiConfig.cmake)
+file(GLOB VULKAN_TOOLS_SRC VulkanTools/gltf/*.cpp VulkanTools/InstanceGraphics/*.cpp VulkanTools/Interactive/*.cpp VulkanTools/Routines/*.cpp VulkanTools/Structures/*.cpp VulkanTools/Utilities/*.cpp)
+file(GLOB VULKAN_TOOLS_HEADERS VulkanTools/gltf/*.h VulkanTools/gltf/*.hpp VulkanTools/InstanceGraphics/*.hpp VulkanTools/Interactive/*.hpp VulkanTools/Routines/*.hpp VulkanTools/Structures/*.hpp VulkanTools/Utilities/*.hpp)
+add_library(VulkanTools STATIC)
+target_sources(VulkanTools PRIVATE ${VULKAN_TOOLS_SRC} PUBLIC FILE_SET HEADERS 
+BASE_DIRS "${PROJECT_SOURCE_FOLDER}" FILES ${VULKAN_TOOLS_HEADERS})
+target_include_directories(VulkanTools PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}> $<INSTALL_INTERFACE:include>)
+target_link_libraries(VulkanTools KTX::ktx Vulkan::Vulkan imgui glfw glm::glm)
+if (NOT imgui_FOUND)
+install(TARGETS imgui EXPORT imguiConfig ARCHIVE DESTINATION lib PUBLIC_HEADER DESTINATION include/imgui)
+install(EXPORT imguiConfig DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/cmake/imguiConfig.cmake)
+install(FILES ${IMGUI_HEADERS} DESTINATION include/imgui)
 endif()
 
-install(TARGETS VulkanTools EXPORT CLCPP_VulkanToolsConfig)
-install(EXPORT CLCPP_VulkanToolsConfig NAMESPACE CLCPP_VulkanTools DESTINATION ${CMAKE_INSTALL_PREFIX}/cmake/CLCPP_VulkanToolsConfig.cmake)
-# install(EXPORT CLCPP_VulkanToolsConfig NAMESPACE CLCPP_VulkanTools DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(TARGETS VulkanTools EXPORT VulkanToolsConfig FILE_SET HEADERS DESTINATION include)
+install(EXPORT VulkanToolsConfig NAMESPACE VulkanTools:: DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/cmake/VulkanTools)
+# install(FILES ${VULKAN_TOOLS_HEADERS} DESTINATION include/VulkanTools)
 
+# install(EXPORT VulkanToolsConfig NAMESPACE VulkanTools DESTINATION ${CMAKE_INSTALL_LIBDIR})
 
 
 
