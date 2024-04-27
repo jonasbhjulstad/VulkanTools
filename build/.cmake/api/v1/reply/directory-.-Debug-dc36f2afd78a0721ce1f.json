@@ -1,0 +1,246 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"install"
+		],
+		"files" : 
+		[
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 41,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 42,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 43,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 46,
+				"parent" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 47,
+				"parent" : 0
+			}
+		]
+	},
+	"installers" : 
+	[
+		{
+			"backtrace" : 1,
+			"component" : "Unspecified",
+			"destination" : "lib",
+			"paths" : 
+			[
+				"libimgui.a"
+			],
+			"targetId" : "imgui::@6890427a1f51a3e7e1df",
+			"targetIndex" : 1,
+			"type" : "target"
+		},
+		{
+			"backtrace" : 2,
+			"component" : "Unspecified",
+			"destination" : "/usr/local/lib/cmake/imguiConfig.cmake",
+			"exportName" : "imguiConfig",
+			"exportTargets" : 
+			[
+				{
+					"id" : "imgui::@6890427a1f51a3e7e1df",
+					"index" : 1
+				}
+			],
+			"paths" : 
+			[
+				"CMakeFiles/Export/49d180369873b459d9aa04fcf781500e/imguiConfig.cmake"
+			],
+			"type" : "export"
+		},
+		{
+			"backtrace" : 3,
+			"component" : "Unspecified",
+			"destination" : "include/imgui",
+			"paths" : 
+			[
+				"build/_deps/imgui_repo-src/imconfig.h",
+				"build/_deps/imgui_repo-src/imgui.h",
+				"build/_deps/imgui_repo-src/imgui_impl_glfw.h",
+				"build/_deps/imgui_repo-src/imgui_impl_vulkan.h",
+				"build/_deps/imgui_repo-src/imgui_internal.h",
+				"build/_deps/imgui_repo-src/imstb_rectpack.h",
+				"build/_deps/imgui_repo-src/imstb_textedit.h",
+				"build/_deps/imgui_repo-src/imstb_truetype.h"
+			],
+			"type" : "file"
+		},
+		{
+			"backtrace" : 4,
+			"component" : "Unspecified",
+			"destination" : "lib",
+			"paths" : 
+			[
+				"libVulkanTools.a"
+			],
+			"targetId" : "VulkanTools::@6890427a1f51a3e7e1df",
+			"targetIndex" : 0,
+			"type" : "target"
+		},
+		{
+			"backtrace" : 4,
+			"component" : "Unspecified",
+			"destination" : "include",
+			"fileSetDirectories" : 
+			[
+				"/home/deb/Downloads/CLCPP-Vulkan-Tools/"
+			],
+			"fileSetName" : "HEADERS",
+			"fileSetTarget" : 
+			{
+				"id" : "VulkanTools::@6890427a1f51a3e7e1df",
+				"index" : 0
+			},
+			"fileSetType" : "HEADERS",
+			"paths" : 
+			[
+				{
+					"from" : "VulkanTools/InstanceGraphics/GLTF_Assets.hpp",
+					"to" : "VulkanTools/InstanceGraphics/GLTF_Assets.hpp"
+				},
+				{
+					"from" : "VulkanTools/InstanceGraphics/GLTF_BasicInstance.hpp",
+					"to" : "VulkanTools/InstanceGraphics/GLTF_BasicInstance.hpp"
+				},
+				{
+					"from" : "VulkanTools/InstanceGraphics/VulkanEdgeInstance.hpp",
+					"to" : "VulkanTools/InstanceGraphics/VulkanEdgeInstance.hpp"
+				},
+				{
+					"from" : "VulkanTools/InstanceGraphics/VulkanNodeInstance.hpp",
+					"to" : "VulkanTools/InstanceGraphics/VulkanNodeInstance.hpp"
+				},
+				{
+					"from" : "VulkanTools/Interactive/VulkanCamera.hpp",
+					"to" : "VulkanTools/Interactive/VulkanCamera.hpp"
+				},
+				{
+					"from" : "VulkanTools/Interactive/VulkanProjectionBuffer.hpp",
+					"to" : "VulkanTools/Interactive/VulkanProjectionBuffer.hpp"
+				},
+				{
+					"from" : "VulkanTools/Routines/VulkanSetup.hpp",
+					"to" : "VulkanTools/Routines/VulkanSetup.hpp"
+				},
+				{
+					"from" : "VulkanTools/Routines/VulkanWindow.hpp",
+					"to" : "VulkanTools/Routines/VulkanWindow.hpp"
+				},
+				{
+					"from" : "VulkanTools/Structures/VulkanBuffer.hpp",
+					"to" : "VulkanTools/Structures/VulkanBuffer.hpp"
+				},
+				{
+					"from" : "VulkanTools/Structures/VulkanDevice.hpp",
+					"to" : "VulkanTools/Structures/VulkanDevice.hpp"
+				},
+				{
+					"from" : "VulkanTools/Structures/VulkanInstance.hpp",
+					"to" : "VulkanTools/Structures/VulkanInstance.hpp"
+				},
+				{
+					"from" : "VulkanTools/Structures/VulkanSwapChain.hpp",
+					"to" : "VulkanTools/Structures/VulkanSwapChain.hpp"
+				},
+				{
+					"from" : "VulkanTools/Utilities/VulkanDebug.hpp",
+					"to" : "VulkanTools/Utilities/VulkanDebug.hpp"
+				},
+				{
+					"from" : "VulkanTools/Utilities/VulkanInitializers.hpp",
+					"to" : "VulkanTools/Utilities/VulkanInitializers.hpp"
+				},
+				{
+					"from" : "VulkanTools/Utilities/VulkanPipelineInitializers.hpp",
+					"to" : "VulkanTools/Utilities/VulkanPipelineInitializers.hpp"
+				},
+				{
+					"from" : "VulkanTools/Utilities/VulkanTools.hpp",
+					"to" : "VulkanTools/Utilities/VulkanTools.hpp"
+				},
+				{
+					"from" : "VulkanTools/Utilities/VulkanUtils.hpp",
+					"to" : "VulkanTools/Utilities/VulkanUtils.hpp"
+				},
+				{
+					"from" : "VulkanTools/gltf/VulkanTexture.hpp",
+					"to" : "VulkanTools/gltf/VulkanTexture.hpp"
+				},
+				{
+					"from" : "VulkanTools/gltf/VulkanglTFModel.hpp",
+					"to" : "VulkanTools/gltf/VulkanglTFModel.hpp"
+				},
+				{
+					"from" : "VulkanTools/gltf/json.hpp",
+					"to" : "VulkanTools/gltf/json.hpp"
+				},
+				{
+					"from" : "VulkanTools/gltf/stb_image.h",
+					"to" : "VulkanTools/gltf/stb_image.h"
+				},
+				{
+					"from" : "VulkanTools/gltf/stb_image_write.h",
+					"to" : "VulkanTools/gltf/stb_image_write.h"
+				},
+				{
+					"from" : "VulkanTools/gltf/tiny_gltf.h",
+					"to" : "VulkanTools/gltf/tiny_gltf.h"
+				}
+			],
+			"type" : "fileSet"
+		},
+		{
+			"backtrace" : 5,
+			"component" : "Unspecified",
+			"destination" : "/usr/local/lib/cmake/VulkanTools",
+			"exportName" : "VulkanToolsConfig",
+			"exportTargets" : 
+			[
+				{
+					"id" : "VulkanTools::@6890427a1f51a3e7e1df",
+					"index" : 0
+				}
+			],
+			"paths" : 
+			[
+				"CMakeFiles/Export/52514b350dbbe639590e1462a02d2f3f/VulkanToolsConfig.cmake"
+			],
+			"type" : "export"
+		}
+	],
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	}
+}

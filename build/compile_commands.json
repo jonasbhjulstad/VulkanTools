@@ -1,0 +1,140 @@
+[
+{
+  "directory": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build",
+  "command": "/usr/bin/g++ -I/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src -g -o CMakeFiles/imgui.dir/_deps/imgui_repo-src/imgui.cpp.o -c /home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src/imgui.cpp",
+  "file": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src/imgui.cpp",
+  "output": "CMakeFiles/imgui.dir/_deps/imgui_repo-src/imgui.cpp.o"
+},
+{
+  "directory": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build",
+  "command": "/usr/bin/g++ -I/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src -g -o CMakeFiles/imgui.dir/_deps/imgui_repo-src/imgui_demo.cpp.o -c /home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src/imgui_demo.cpp",
+  "file": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src/imgui_demo.cpp",
+  "output": "CMakeFiles/imgui.dir/_deps/imgui_repo-src/imgui_demo.cpp.o"
+},
+{
+  "directory": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build",
+  "command": "/usr/bin/g++ -I/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src -g -o CMakeFiles/imgui.dir/_deps/imgui_repo-src/imgui_draw.cpp.o -c /home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src/imgui_draw.cpp",
+  "file": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src/imgui_draw.cpp",
+  "output": "CMakeFiles/imgui.dir/_deps/imgui_repo-src/imgui_draw.cpp.o"
+},
+{
+  "directory": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build",
+  "command": "/usr/bin/g++ -I/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src -g -o CMakeFiles/imgui.dir/_deps/imgui_repo-src/imgui_impl_glfw.cpp.o -c /home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src/imgui_impl_glfw.cpp",
+  "file": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src/imgui_impl_glfw.cpp",
+  "output": "CMakeFiles/imgui.dir/_deps/imgui_repo-src/imgui_impl_glfw.cpp.o"
+},
+{
+  "directory": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build",
+  "command": "/usr/bin/g++ -I/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src -g -o CMakeFiles/imgui.dir/_deps/imgui_repo-src/imgui_impl_vulkan.cpp.o -c /home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src/imgui_impl_vulkan.cpp",
+  "file": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src/imgui_impl_vulkan.cpp",
+  "output": "CMakeFiles/imgui.dir/_deps/imgui_repo-src/imgui_impl_vulkan.cpp.o"
+},
+{
+  "directory": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build",
+  "command": "/usr/bin/g++ -I/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src -g -o CMakeFiles/imgui.dir/_deps/imgui_repo-src/imgui_tables.cpp.o -c /home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src/imgui_tables.cpp",
+  "file": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src/imgui_tables.cpp",
+  "output": "CMakeFiles/imgui.dir/_deps/imgui_repo-src/imgui_tables.cpp.o"
+},
+{
+  "directory": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build",
+  "command": "/usr/bin/g++ -I/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src -g -o CMakeFiles/imgui.dir/_deps/imgui_repo-src/imgui_widgets.cpp.o -c /home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src/imgui_widgets.cpp",
+  "file": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src/imgui_widgets.cpp",
+  "output": "CMakeFiles/imgui.dir/_deps/imgui_repo-src/imgui_widgets.cpp.o"
+},
+{
+  "directory": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build",
+  "command": "/usr/bin/g++ -DDEBUG -DKTX_FEATURE_KTX1 -DKTX_FEATURE_KTX2 -DKTX_FEATURE_WRITE -D_DEBUG -I/home/deb/Downloads/CLCPP-Vulkan-Tools -I/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src -isystem /usr/lib -g -o CMakeFiles/VulkanTools.dir/VulkanTools/InstanceGraphics/GLTF_Assets.cpp.o -c /home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/InstanceGraphics/GLTF_Assets.cpp",
+  "file": "/home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/InstanceGraphics/GLTF_Assets.cpp",
+  "output": "CMakeFiles/VulkanTools.dir/VulkanTools/InstanceGraphics/GLTF_Assets.cpp.o"
+},
+{
+  "directory": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build",
+  "command": "/usr/bin/g++ -DDEBUG -DKTX_FEATURE_KTX1 -DKTX_FEATURE_KTX2 -DKTX_FEATURE_WRITE -D_DEBUG -I/home/deb/Downloads/CLCPP-Vulkan-Tools -I/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src -isystem /usr/lib -g -o CMakeFiles/VulkanTools.dir/VulkanTools/InstanceGraphics/GLTF_BasicInstance.cpp.o -c /home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/InstanceGraphics/GLTF_BasicInstance.cpp",
+  "file": "/home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/InstanceGraphics/GLTF_BasicInstance.cpp",
+  "output": "CMakeFiles/VulkanTools.dir/VulkanTools/InstanceGraphics/GLTF_BasicInstance.cpp.o"
+},
+{
+  "directory": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build",
+  "command": "/usr/bin/g++ -DDEBUG -DKTX_FEATURE_KTX1 -DKTX_FEATURE_KTX2 -DKTX_FEATURE_WRITE -D_DEBUG -I/home/deb/Downloads/CLCPP-Vulkan-Tools -I/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src -isystem /usr/lib -g -o CMakeFiles/VulkanTools.dir/VulkanTools/Interactive/VulkanCamera.cpp.o -c /home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/Interactive/VulkanCamera.cpp",
+  "file": "/home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/Interactive/VulkanCamera.cpp",
+  "output": "CMakeFiles/VulkanTools.dir/VulkanTools/Interactive/VulkanCamera.cpp.o"
+},
+{
+  "directory": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build",
+  "command": "/usr/bin/g++ -DDEBUG -DKTX_FEATURE_KTX1 -DKTX_FEATURE_KTX2 -DKTX_FEATURE_WRITE -D_DEBUG -I/home/deb/Downloads/CLCPP-Vulkan-Tools -I/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src -isystem /usr/lib -g -o CMakeFiles/VulkanTools.dir/VulkanTools/Interactive/VulkanProjectionBuffer.cpp.o -c /home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/Interactive/VulkanProjectionBuffer.cpp",
+  "file": "/home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/Interactive/VulkanProjectionBuffer.cpp",
+  "output": "CMakeFiles/VulkanTools.dir/VulkanTools/Interactive/VulkanProjectionBuffer.cpp.o"
+},
+{
+  "directory": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build",
+  "command": "/usr/bin/g++ -DDEBUG -DKTX_FEATURE_KTX1 -DKTX_FEATURE_KTX2 -DKTX_FEATURE_WRITE -D_DEBUG -I/home/deb/Downloads/CLCPP-Vulkan-Tools -I/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src -isystem /usr/lib -g -o CMakeFiles/VulkanTools.dir/VulkanTools/Routines/VulkanSetup.cpp.o -c /home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/Routines/VulkanSetup.cpp",
+  "file": "/home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/Routines/VulkanSetup.cpp",
+  "output": "CMakeFiles/VulkanTools.dir/VulkanTools/Routines/VulkanSetup.cpp.o"
+},
+{
+  "directory": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build",
+  "command": "/usr/bin/g++ -DDEBUG -DKTX_FEATURE_KTX1 -DKTX_FEATURE_KTX2 -DKTX_FEATURE_WRITE -D_DEBUG -I/home/deb/Downloads/CLCPP-Vulkan-Tools -I/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src -isystem /usr/lib -g -o CMakeFiles/VulkanTools.dir/VulkanTools/Routines/VulkanWindow.cpp.o -c /home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/Routines/VulkanWindow.cpp",
+  "file": "/home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/Routines/VulkanWindow.cpp",
+  "output": "CMakeFiles/VulkanTools.dir/VulkanTools/Routines/VulkanWindow.cpp.o"
+},
+{
+  "directory": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build",
+  "command": "/usr/bin/g++ -DDEBUG -DKTX_FEATURE_KTX1 -DKTX_FEATURE_KTX2 -DKTX_FEATURE_WRITE -D_DEBUG -I/home/deb/Downloads/CLCPP-Vulkan-Tools -I/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src -isystem /usr/lib -g -o CMakeFiles/VulkanTools.dir/VulkanTools/Structures/VulkanBuffer.cpp.o -c /home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/Structures/VulkanBuffer.cpp",
+  "file": "/home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/Structures/VulkanBuffer.cpp",
+  "output": "CMakeFiles/VulkanTools.dir/VulkanTools/Structures/VulkanBuffer.cpp.o"
+},
+{
+  "directory": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build",
+  "command": "/usr/bin/g++ -DDEBUG -DKTX_FEATURE_KTX1 -DKTX_FEATURE_KTX2 -DKTX_FEATURE_WRITE -D_DEBUG -I/home/deb/Downloads/CLCPP-Vulkan-Tools -I/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src -isystem /usr/lib -g -o CMakeFiles/VulkanTools.dir/VulkanTools/Structures/VulkanDevice.cpp.o -c /home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/Structures/VulkanDevice.cpp",
+  "file": "/home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/Structures/VulkanDevice.cpp",
+  "output": "CMakeFiles/VulkanTools.dir/VulkanTools/Structures/VulkanDevice.cpp.o"
+},
+{
+  "directory": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build",
+  "command": "/usr/bin/g++ -DDEBUG -DKTX_FEATURE_KTX1 -DKTX_FEATURE_KTX2 -DKTX_FEATURE_WRITE -D_DEBUG -I/home/deb/Downloads/CLCPP-Vulkan-Tools -I/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src -isystem /usr/lib -g -o CMakeFiles/VulkanTools.dir/VulkanTools/Structures/VulkanInstance.cpp.o -c /home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/Structures/VulkanInstance.cpp",
+  "file": "/home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/Structures/VulkanInstance.cpp",
+  "output": "CMakeFiles/VulkanTools.dir/VulkanTools/Structures/VulkanInstance.cpp.o"
+},
+{
+  "directory": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build",
+  "command": "/usr/bin/g++ -DDEBUG -DKTX_FEATURE_KTX1 -DKTX_FEATURE_KTX2 -DKTX_FEATURE_WRITE -D_DEBUG -I/home/deb/Downloads/CLCPP-Vulkan-Tools -I/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src -isystem /usr/lib -g -o CMakeFiles/VulkanTools.dir/VulkanTools/Structures/VulkanSwapChain.cpp.o -c /home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/Structures/VulkanSwapChain.cpp",
+  "file": "/home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/Structures/VulkanSwapChain.cpp",
+  "output": "CMakeFiles/VulkanTools.dir/VulkanTools/Structures/VulkanSwapChain.cpp.o"
+},
+{
+  "directory": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build",
+  "command": "/usr/bin/g++ -DDEBUG -DKTX_FEATURE_KTX1 -DKTX_FEATURE_KTX2 -DKTX_FEATURE_WRITE -D_DEBUG -I/home/deb/Downloads/CLCPP-Vulkan-Tools -I/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src -isystem /usr/lib -g -o CMakeFiles/VulkanTools.dir/VulkanTools/Utilities/VulkanDebug.cpp.o -c /home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/Utilities/VulkanDebug.cpp",
+  "file": "/home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/Utilities/VulkanDebug.cpp",
+  "output": "CMakeFiles/VulkanTools.dir/VulkanTools/Utilities/VulkanDebug.cpp.o"
+},
+{
+  "directory": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build",
+  "command": "/usr/bin/g++ -DDEBUG -DKTX_FEATURE_KTX1 -DKTX_FEATURE_KTX2 -DKTX_FEATURE_WRITE -D_DEBUG -I/home/deb/Downloads/CLCPP-Vulkan-Tools -I/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src -isystem /usr/lib -g -o CMakeFiles/VulkanTools.dir/VulkanTools/Utilities/VulkanPipelineInitializers.cpp.o -c /home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/Utilities/VulkanPipelineInitializers.cpp",
+  "file": "/home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/Utilities/VulkanPipelineInitializers.cpp",
+  "output": "CMakeFiles/VulkanTools.dir/VulkanTools/Utilities/VulkanPipelineInitializers.cpp.o"
+},
+{
+  "directory": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build",
+  "command": "/usr/bin/g++ -DDEBUG -DKTX_FEATURE_KTX1 -DKTX_FEATURE_KTX2 -DKTX_FEATURE_WRITE -D_DEBUG -I/home/deb/Downloads/CLCPP-Vulkan-Tools -I/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src -isystem /usr/lib -g -o CMakeFiles/VulkanTools.dir/VulkanTools/Utilities/VulkanTools.cpp.o -c /home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/Utilities/VulkanTools.cpp",
+  "file": "/home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/Utilities/VulkanTools.cpp",
+  "output": "CMakeFiles/VulkanTools.dir/VulkanTools/Utilities/VulkanTools.cpp.o"
+},
+{
+  "directory": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build",
+  "command": "/usr/bin/g++ -DDEBUG -DKTX_FEATURE_KTX1 -DKTX_FEATURE_KTX2 -DKTX_FEATURE_WRITE -D_DEBUG -I/home/deb/Downloads/CLCPP-Vulkan-Tools -I/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src -isystem /usr/lib -g -o CMakeFiles/VulkanTools.dir/VulkanTools/Utilities/VulkanUtils.cpp.o -c /home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/Utilities/VulkanUtils.cpp",
+  "file": "/home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/Utilities/VulkanUtils.cpp",
+  "output": "CMakeFiles/VulkanTools.dir/VulkanTools/Utilities/VulkanUtils.cpp.o"
+},
+{
+  "directory": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build",
+  "command": "/usr/bin/g++ -DDEBUG -DKTX_FEATURE_KTX1 -DKTX_FEATURE_KTX2 -DKTX_FEATURE_WRITE -D_DEBUG -I/home/deb/Downloads/CLCPP-Vulkan-Tools -I/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src -isystem /usr/lib -g -o CMakeFiles/VulkanTools.dir/VulkanTools/gltf/VulkanTexture.cpp.o -c /home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/gltf/VulkanTexture.cpp",
+  "file": "/home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/gltf/VulkanTexture.cpp",
+  "output": "CMakeFiles/VulkanTools.dir/VulkanTools/gltf/VulkanTexture.cpp.o"
+},
+{
+  "directory": "/home/deb/Downloads/CLCPP-Vulkan-Tools/build",
+  "command": "/usr/bin/g++ -DDEBUG -DKTX_FEATURE_KTX1 -DKTX_FEATURE_KTX2 -DKTX_FEATURE_WRITE -D_DEBUG -I/home/deb/Downloads/CLCPP-Vulkan-Tools -I/home/deb/Downloads/CLCPP-Vulkan-Tools/build/_deps/imgui_repo-src -isystem /usr/lib -g -o CMakeFiles/VulkanTools.dir/VulkanTools/gltf/VulkanglTFModel.cpp.o -c /home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/gltf/VulkanglTFModel.cpp",
+  "file": "/home/deb/Downloads/CLCPP-Vulkan-Tools/VulkanTools/gltf/VulkanglTFModel.cpp",
+  "output": "CMakeFiles/VulkanTools.dir/VulkanTools/gltf/VulkanglTFModel.cpp.o"
+}
+]
