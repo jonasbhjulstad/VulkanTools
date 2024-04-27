@@ -1,8 +1,0 @@
-/home/deb/Downloads/CLCPP-Vulkan-Tools/build/CMakeFiles/imgui.dir
-/home/deb/Downloads/CLCPP-Vulkan-Tools/build/CMakeFiles/VulkanTools.dir
-/home/deb/Downloads/CLCPP-Vulkan-Tools/build/CMakeFiles/edit_cache.dir
-/home/deb/Downloads/CLCPP-Vulkan-Tools/build/CMakeFiles/rebuild_cache.dir
-/home/deb/Downloads/CLCPP-Vulkan-Tools/build/CMakeFiles/list_install_components.dir
-/home/deb/Downloads/CLCPP-Vulkan-Tools/build/CMakeFiles/install.dir
-/home/deb/Downloads/CLCPP-Vulkan-Tools/build/CMakeFiles/install/local.dir
-/home/deb/Downloads/CLCPP-Vulkan-Tools/build/CMakeFiles/install/strip.dir
