@@ -1,54 +1,56 @@
 cmake_minimum_required(VERSION 3.23)
-project(Vulkan_Tools)
+project(VulkanTools)
+set(PROJECT_NAMESPACE VulkanTools)
+set(PROJECT_VERSION 0.1.0)
 
-find_package(Vulkan REQUIRED)
-find_package(glfw3 3.3 REQUIRED)
-find_package(glm REQUIRED)
-find_package(Threads REQUIRED)
-find_package(Ktx REQUIRED)
+include(cmake/external_packages.cmake)
 
-include(FetchContent)
-option(EXTERNAL_IMGUI ON)
-if (NOT ON)
-find_package(imgui REQUIRED HINTS "/usr/local/cmake/")
-else()
-message(STATUS "ImGui fetched from https://github.com/ocornut/imgui")
-FetchContent_Declare(
-    imgui_repo
-    GIT_REPOSITORY https://github.com/ocornut/imgui
-)
-FetchContent_MakeAvailable(imgui_repo)
-set(IMGUI_BACKEND_SRC ${imgui_repo_SOURCE_DIR}/backends/imgui_impl_vulkan.cpp ${imgui_repo_SOURCE_DIR}/backends/imgui_impl_glfw.cpp)
-set(IMGUI_BACKEND_HEADERS ${imgui_repo_SOURCE_DIR}/backends/imgui_impl_vulkan.h ${imgui_repo_SOURCE_DIR}/backends/imgui_impl_glfw.h)
-file(COPY ${IMGUI_BACKEND_SRC} DESTINATION ${imgui_repo_SOURCE_DIR})
-file(COPY ${IMGUI_BACKEND_HEADERS} DESTINATION ${imgui_repo_SOURCE_DIR})
-file(GLOB IMGUI_SRC CONFIGURE_DEPENDS "${imgui_repo_SOURCE_DIR}/*.cpp")
-file(GLOB IMGUI_HEADERS CONFIGURE_DEPENDS "${imgui_repo_SOURCE_DIR}/*.h")
-add_library(imgui STATIC ${IMGUI_SRC} ${IMGUI_HEADERS})
-target_link_libraries(imgui PUBLIC Vulkan::Vulkan)
-target_include_directories(imgui PUBLIC $<BUILD_INTERFACE:${imgui_repo_SOURCE_DIR}> $<INSTALL_INTERFACE:include/imgui>)
-# target_include_directories(imgui PUBLIC ${imgui_repo_SOURCE_DIR} "${imgui_repo_SOURCE_DIR}/backends")
-endif()
 
-file(GLOB VULKAN_TOOLS_SRC VulkanTools/gltf/*.cpp VulkanTools/InstanceGraphics/*.cpp VulkanTools/Interactive/*.cpp VulkanTools/Routines/*.cpp VulkanTools/Structures/*.cpp VulkanTools/Utilities/*.cpp)
-file(GLOB VULKAN_TOOLS_HEADERS VulkanTools/gltf/*.h VulkanTools/gltf/*.hpp VulkanTools/InstanceGraphics/*.hpp VulkanTools/Interactive/*.hpp VulkanTools/Routines/*.hpp VulkanTools/Structures/*.hpp VulkanTools/Utilities/*.hpp)
-add_library(VulkanTools STATIC)
-target_sources(VulkanTools PRIVATE ${VULKAN_TOOLS_SRC} PUBLIC FILE_SET HEADERS 
-BASE_DIRS "${PROJECT_SOURCE_FOLDER}" FILES ${VULKAN_TOOLS_HEADERS})
-target_include_directories(VulkanTools PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}> $<INSTALL_INTERFACE:include>)
-target_link_libraries(VulkanTools KTX::ktx Vulkan::Vulkan imgui glfw glm::glm)
-if (NOT imgui_FOUND)
-install(TARGETS imgui EXPORT imguiConfig ARCHIVE DESTINATION lib PUBLIC_HEADER DESTINATION include/imgui)
-install(EXPORT imguiConfig DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/cmake/imguiConfig.cmake)
-install(FILES ${IMGUI_HEADERS} DESTINATION include/imgui)
-endif()
-
-install(TARGETS VulkanTools EXPORT VulkanToolsConfig FILE_SET HEADERS DESTINATION include)
-install(EXPORT VulkanToolsConfig NAMESPACE VulkanTools:: DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/cmake/VulkanTools)
+file(GLOB_RECURSE VULKAN_TOOLS_SOURCES "source/*.cpp")
+add_library(VulkanTools ${VULKAN_TOOLS_SOURCES})
+target_include_directories(VulkanTools PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include>)
+target_link_libraries(VulkanTools PRIVATE KTX::ktx Vulkan::Vulkan imgui glfw glm::glm)
 # install(FILES ${VULKAN_TOOLS_HEADERS} DESTINATION include/VulkanTools)
-
+# include(${PROJECT_SOURCE_DIR}/cmake/CPM.cmake)
+# find_package(Vulkan REQUIRED)
+# find_package(glfw3 3.3 REQUIRED)
+# find_package(glm REQUIRED)
+# find_package(Threads REQUIRED)
+# find_package(Ktx REQUIRED)
 # install(EXPORT VulkanToolsConfig NAMESPACE VulkanTools DESTINATION ${CMAKE_INSTALL_LIBDIR})
-
+packageProject(
+  # the name of the target to export
+  NAME ${PROJECT_NAME}
+  # the version of the target to export
+  VERSION ${PROJECT_VERSION}
+  # a temporary directory to create the config files
+  BINARY_DIR ${PROJECT_BINARY_DIR}
+  # location of the target's public headers
+  INCLUDE_DIR ${PROJECT_SOURCE_DIR}/
+  # should match the target's INSTALL_INTERFACE include directory
+  INCLUDE_DESTINATION include/${PROJECT_NAME}-${PROJECT_VERSION}
+  # (optional) option to install only header files with matching pattern
+  INCLUDE_HEADER_PATTERN "*.h"
+  # semicolon separated list of the project's dependencies
+  DEPENDENCIES "Vulkan 1.2.162; glfw 3.3; glm; Ktx"
+  # (optional) create a header containing the version info
+  # Note: that the path to headers should be lowercase
+  VERSION_HEADER "${PROJECT_NAME}/version.h"
+  # (optional) create a export header using GenerateExportHeader module
+  EXPORT_HEADER "${PROJECT_NAME}/export.h"
+  # (optional) install your library with a namespace (Note: do NOT add extra '::')
+  NAMESPACE ${PROJECT_NAMESPACE}
+  # (optional) define the project's version compatibility, defaults to `AnyNewerVersion`
+  # supported values: `AnyNewerVersion|SameMajorVersion|SameMinorVersion|ExactVersion`
+  COMPATIBILITY AnyNewerVersion
+  # (optional) option to disable the versioning of install destinations
+  DISABLE_VERSION_SUFFIX YES
+  # (optional) option to ignore target architecture for package resolution
+  # defaults to YES for header only (i.e. INTERFACE) libraries
+  ARCH_INDEPENDENT YES
+  # (optional) option to generate CPack variables
+  CPACK YES
+)
 
 
 
