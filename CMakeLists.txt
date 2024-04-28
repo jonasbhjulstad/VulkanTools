@@ -9,7 +9,7 @@ include(cmake/external_packages.cmake)
 file(GLOB_RECURSE VULKAN_TOOLS_SOURCES "source/*.cpp")
 add_library(VulkanTools ${VULKAN_TOOLS_SOURCES})
 target_include_directories(VulkanTools PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include>)
-target_link_libraries(VulkanTools PRIVATE KTX::ktx Vulkan::Vulkan imgui glfw glm::glm)
+target_link_libraries(VulkanTools PRIVATE KTX::ktx Vulkan::Vulkan imgui::imgui glfw glm::glm)
 # install(FILES ${VULKAN_TOOLS_HEADERS} DESTINATION include/VulkanTools)
 # include(${PROJECT_SOURCE_DIR}/cmake/CPM.cmake)
 # find_package(Vulkan REQUIRED)
@@ -26,7 +26,7 @@ packageProject(
   # a temporary directory to create the config files
   BINARY_DIR ${PROJECT_BINARY_DIR}
   # location of the target's public headers
-  INCLUDE_DIR ${PROJECT_SOURCE_DIR}/
+  INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include
   # should match the target's INSTALL_INTERFACE include directory
   INCLUDE_DESTINATION include/${PROJECT_NAME}-${PROJECT_VERSION}
   # (optional) option to install only header files with matching pattern
