@@ -32,7 +32,7 @@ packageProject(
   # (optional) option to install only header files with matching pattern
   INCLUDE_HEADER_PATTERN "*.h"
   # semicolon separated list of the project's dependencies
-  DEPENDENCIES "Vulkan 1.2.162; glfw 3.3; glm; Ktx"
+  DEPENDENCIES "Vulkan 1.2.162; glfw3 3.3; Ktx"
   # (optional) create a header containing the version info
   # Note: that the path to headers should be lowercase
   VERSION_HEADER "${PROJECT_NAME}/version.h"
