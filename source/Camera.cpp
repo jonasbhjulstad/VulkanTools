@@ -133,6 +133,10 @@
 
 				float moveSpeed = deltaTime * movementSpeed;
 
+				if (io.KeysDown[ImGuiMod_Shift])
+				{
+					moveSpeed *= 5.0f;
+				}
 				if (io.KeysDown[ImGuiKey_W])
 					position += camFront * moveSpeed;
 				if (io.KeysDown[ImGuiKey_S])

@@ -1,0 +1,26 @@
+# ninja log v5
+1	1376	1716632054797403031	CMakeFiles/VulkanTools.dir/source/Debug.cpp.o	8802ee112e9cfa0c
+1	2320	1716632055741387070	CMakeFiles/VulkanTools.dir/source/Camera.cpp.o	193290b18197bb6a
+6	5752	1716632059173329252	CMakeFiles/VulkanTools.dir/source/Utils.cpp.o	6531ed8f8569bd4e
+0	5933	1716632059353326230	CMakeFiles/VulkanTools.dir/source/Buffer.cpp.o	282559736f733ac6
+2	6018	1716632059437324819	CMakeFiles/VulkanTools.dir/source/Device.cpp.o	3d9e90d942dc49d0
+5	6331	1716632059749319582	CMakeFiles/VulkanTools.dir/source/SwapChain.cpp.o	6fc69b4fbd41f335
+13	6333	1716632059753319515	CMakeFiles/VulkanTools.dir/source/VulkanTexture.cpp.o	84315faea0eff727
+5	6392	1716632059813318507	CMakeFiles/VulkanTools.dir/source/Tools.cpp.o	abb861f9098c2f75
+2	7085	1716632060505306904	CMakeFiles/VulkanTools.dir/source/GLTF_Assets.cpp.o	65b340c84939e14a
+4	7223	1716632060641304625	CMakeFiles/VulkanTools.dir/source/Setup.cpp.o	e89d269f28f964e6
+3	7254	1716632060673304088	CMakeFiles/VulkanTools.dir/source/Instance.cpp.o	2e847e50f8eede61
+4	7318	1716632060737303016	CMakeFiles/VulkanTools.dir/source/ProjectionBuffer.cpp.o	3711c6bd2b7d431
+2	7348	1716632060769302479	CMakeFiles/VulkanTools.dir/source/GLTF_BasicInstance.cpp.o	e51e24490669720d
+16	7466	1716632060885300536	CMakeFiles/VulkanTools.dir/source/Window.cpp.o	b45c2ff15bae97a3
+3	7580	1716632061001298591	CMakeFiles/VulkanTools.dir/source/PipelineInitializers.cpp.o	ab20eacd7b2e3147
+15	12858	1716632066261210889	CMakeFiles/VulkanTools.dir/source/VulkanglTFModel.cpp.o	990a6d91c0c13e78
+12858	13074	1716632066477207305	libVulkanTools.a	481691199415d648
+4	55	0	CMakeFiles/install.util	293d0b465ba1f90a
+3	12	0	CMakeFiles/install.util	293d0b465ba1f90a
+4	988	1716741639846385036	CMakeFiles/VulkanTools.dir/source/Camera.cpp.o	193290b18197bb6a
+988	1204	1716741640054383854	libVulkanTools.a	481691199415d648
+4	33	0	CMakeFiles/install.util	293d0b465ba1f90a
+3	940	1716742015616053680	CMakeFiles/VulkanTools.dir/source/Camera.cpp.o	193290b18197bb6a
+940	1147	1716742015812052384	libVulkanTools.a	481691199415d648
+5	29	0	CMakeFiles/install.util	293d0b465ba1f90a
