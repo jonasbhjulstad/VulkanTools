@@ -20,14 +20,15 @@
 class Camera
 {
 private:
-	float fov;
-	float znear, zfar;
+
+	float fov_old;
+	float znear_old, zfar_old, aspect_old;
 	ImGuiWindow* window;
 	ImGuiContext* imguiContext;
 	void updateViewMatrix();
 public:
 	ImVec2 mousePos_old = {.0f,.0f};
-
+	float fov, znear, zfar, aspect;
 	enum CameraType { lookat, firstperson };
 	CameraType type = CameraType::lookat;
 

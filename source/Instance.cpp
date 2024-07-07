@@ -44,8 +44,6 @@ void destroyVulkanInstance(VulkanInstance& vI)
 	// }
 
 	vkDestroyInstance(vI.instance, nullptr);
-
-    
     
 }
 
