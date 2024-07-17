@@ -2,7 +2,6 @@
 #define NV_NODE_INSTANCE_HPP
 #include <vector>
 #include <vulkan/vulkan.hpp>
-#include <igraph/igraph.h>
 struct NodeInstanceData
 {
     glm::vec3 pos;
