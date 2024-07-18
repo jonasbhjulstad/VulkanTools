@@ -10,7 +10,7 @@
 #include <VulkanTools/GLTF_Assets.hpp>
 #include <VulkanTools/NodeInstance.hpp>
 
-namespace glTFBasicInstance
+namespace VkVP
 {
     enum InstanceBindIDs
     {
@@ -70,10 +70,10 @@ namespace glTFBasicInstance
     };
 
     template <typename InstanceData>
-    VulkanBuffer prepareInstanceBuffer(std::vector<InstanceData> &instanceData, VulkanDevice *vulkanDevice, VkQueue queue)
+    VulkanBuffer prepareInstanceBuffer(std::vector<InstanceData> &instancePipelineData, VulkanDevice *vulkanDevice, VkQueue queue)
     {
         VulkanBuffer instanceBuffer;
-        uint32_t N_instances = static_cast<uint32_t>(instanceData.size());
+        uint32_t N_instances = static_cast<uint32_t>(instancePipelineData.size());
         instanceBuffer.size = N_instances * sizeof(InstanceData);
 
         struct
@@ -88,7 +88,7 @@ namespace glTFBasicInstance
             instanceBuffer.size,
             &stagingBuffer.buffer,
             &stagingBuffer.memory,
-            instanceData.data()));
+            instancePipelineData.data()));
 
         VK_CHECK_RESULT(vulkanDevice->createBuffer(
             VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT,
@@ -121,7 +121,6 @@ namespace glTFBasicInstance
         return instanceBuffer;
     }
 
-    std::vector<VkDescriptorPoolSize> getPoolSizes();
 
     VkDescriptorSetLayout uniformDescriptorSetLayout(VkDevice device);
 
@@ -180,9 +179,9 @@ namespace glTFBasicInstance
             initializers::vertexInputAttributeDescription(GLTF_BIP_VERTEX_BIND_ID, 3, VK_FORMAT_R32G32B32_SFLOAT, sizeof(float) * 8), // Location 3: Color
         };
 
-        std::vector<VkVertexInputAttributeDescription> instanceDataDescriptions = InstanceData::getAttributeDescriptions(GLTF_BIP_INSTANCE_BIND_ID, 4);
+        std::vector<VkVertexInputAttributeDescription> instancePipelineDataDescriptions = InstanceData::getAttributeDescriptions(GLTF_BIP_INSTANCE_BIND_ID, 4);
 
-        attributeDescriptions.insert(attributeDescriptions.end(), instanceDataDescriptions.begin(), instanceDataDescriptions.end());
+        attributeDescriptions.insert(attributeDescriptions.end(), instancePipelineDataDescriptions.begin(), instancePipelineDataDescriptions.end());
         VkPipelineVertexInputStateCreateInfo inputState = initializers::pipelineVertexInputStateCreateInfo();
         inputState.pVertexBindingDescriptions = bindingDescriptions.data();
         inputState.pVertexAttributeDescriptions = attributeDescriptions.data();
@@ -199,7 +198,7 @@ namespace glTFBasicInstance
         return pipeline;
     }
 
-    void buildCommandBuffer(InstancePipelineData &BI_data, VkCommandBuffer commandBuffer);
+    void buildCommandBuffer(InstancePipelineData &instancePipelineData, VkCommandBuffer commandBuffer);
 
     template <typename InstanceData>
     std::unique_ptr<InstancePipelineData> prepareInstanceRendering(InstanceRenderingParams &p, std::vector<InstanceData>& instanceData)
@@ -207,33 +206,28 @@ namespace glTFBasicInstance
 
         VkDevice device = p.vulkanDevice->logicalDevice;
 
-        std::unique_ptr<InstancePipelineData> BI_data = std::make_unique<InstancePipelineData>(device);
+        std::unique_ptr<InstancePipelineData> instancePipelineData = std::make_unique<InstancePipelineData>(device);
 
-        BI_data->model = loadModel(p.modelPath, p.vulkanDevice, p.queue);
-        BI_data->instanceBuffer = prepareInstanceBuffer(instanceData, p.vulkanDevice, p.queue);
+        instancePipelineData->model = loadModel(p.modelPath, p.vulkanDevice, p.queue);
+        instancePipelineData->instanceBuffer = prepareInstanceBuffer(instanceData, p.vulkanDevice, p.queue);
         if (!p.texturePath.empty())
         {
-            BI_data->texture = loadTexture(p.texturePath, p.vulkanDevice, p.queue);
-            BI_data->descriptorSetLayout = textureDescriptorSetLayout(device);
+            instancePipelineData->texture = loadTexture(p.texturePath, p.vulkanDevice, p.queue);
+            instancePipelineData->descriptorSetLayout = textureDescriptorSetLayout(device);
         }
         else
         {
-            BI_data->descriptorSetLayout = uniformDescriptorSetLayout(device);
+            instancePipelineData->descriptorSetLayout = uniformDescriptorSetLayout(device);
         }
-        BI_data->pipelineLayout = setupPipelineLayout(device, BI_data->descriptorSetLayout);
-        BI_data->descriptorSet = setupDescriptorSets(device, BI_data->descriptorSetLayout, p.descriptorPool, p.uniformProjectionBuffer, nullptr);
-        BI_data->pipeline = setupPipeline<InstanceData>(p.vertexShaderPath, p.fragmentShaderPath, BI_data->pipelineLayout, BI_data->shaderStages, device, p.renderPass, p.pipelineCache);
-        BI_data->offset = p.offset;
-        BI_data->N_instances = instanceData.size();
+        instancePipelineData->pipelineLayout = setupPipelineLayout(device, instancePipelineData->descriptorSetLayout);
+        instancePipelineData->descriptorSet = setupDescriptorSets(device, instancePipelineData->descriptorSetLayout, p.descriptorPool, p.uniformProjectionBuffer, nullptr);
+        instancePipelineData->pipeline = setupPipeline<InstanceData>(p.vertexShaderPath, p.fragmentShaderPath, instancePipelineData->pipelineLayout, instancePipelineData->shaderStages, device, p.renderPass, p.pipelineCache);
+        instancePipelineData->offset = p.offset;
+        instancePipelineData->N_instances = instanceData.size();
 
-        return BI_data;
+        return instancePipelineData;
     }
 
-    std::vector<VkDescriptorPoolSize> getPoolSizes()
-    {
-        return {initializers::descriptorPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1),
-                initializers::descriptorPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 1)};
-    }
 
     VkDescriptorSetLayout uniformDescriptorSetLayout(VkDevice device)
     {
@@ -296,17 +290,17 @@ namespace glTFBasicInstance
         return descriptorSet;
     }
 
-    void buildCommandBuffer(InstancePipelineData &BI_data, VkCommandBuffer commandBuffer)
+    void buildCommandBuffer(InstancePipelineData &instancePipelineData, VkCommandBuffer commandBuffer)
     {
-        vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, BI_data.pipelineLayout, 0, 1, &BI_data.descriptorSet, 0, nullptr);
-        vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, BI_data.pipeline);
+        vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, instancePipelineData.pipelineLayout, 0, 1, &instancePipelineData.descriptorSet, 0, nullptr);
+        vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, instancePipelineData.pipeline);
 
-        vkCmdBindVertexBuffers(commandBuffer, GLTF_BIP_VERTEX_BIND_ID, 1, &BI_data.model->vertices.buffer, BI_data.offset);
-        vkCmdBindVertexBuffers(commandBuffer, GLTF_BIP_INSTANCE_BIND_ID, 1, &BI_data.instanceBuffer.buffer, BI_data.offset);
+        vkCmdBindVertexBuffers(commandBuffer, GLTF_BIP_VERTEX_BIND_ID, 1, &instancePipelineData.model->vertices.buffer, instancePipelineData.offset);
+        vkCmdBindVertexBuffers(commandBuffer, GLTF_BIP_INSTANCE_BIND_ID, 1, &instancePipelineData.instanceBuffer.buffer, instancePipelineData.offset);
 
-        vkCmdBindIndexBuffer(commandBuffer, BI_data.model->indices.buffer, 0, VK_INDEX_TYPE_UINT32);
+        vkCmdBindIndexBuffer(commandBuffer, instancePipelineData.model->indices.buffer, 0, VK_INDEX_TYPE_UINT32);
 
-        vkCmdDrawIndexed(commandBuffer, BI_data.model->indices.count, BI_data.N_instances, 0, 0, 0);
+        vkCmdDrawIndexed(commandBuffer, instancePipelineData.model->indices.count, instancePipelineData.N_instances, 0, 0, 0);
     }
 
 }

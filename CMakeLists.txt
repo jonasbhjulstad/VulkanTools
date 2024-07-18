@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.23)
 project(VulkanTools)
 set(PROJECT_NAMESPACE VulkanTools)
 set(PROJECT_VERSION 0.1.0)
-
+include(cmake/ccache.cmake)
 include(cmake/external_packages.cmake)
 
 
