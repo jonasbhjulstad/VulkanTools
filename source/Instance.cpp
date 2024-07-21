@@ -64,5 +64,6 @@ void ImGui_Vulkan_Init(const VulkanInstance &vulkanInstance)
     init_info.MinImageCount = 2;
     init_info.ImageCount = vulkanInstance.swapChain.imageCount;
     init_info.CheckVkResultFn = check_vk_result;
+	init_info.RenderPass = vulkanInstance.renderPass;
     ImGui_ImplVulkan_Init(&init_info);
 }
