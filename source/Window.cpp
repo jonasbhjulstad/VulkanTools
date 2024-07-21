@@ -1,9 +1,25 @@
 #include <VulkanTools/Window.hpp>
+#include <exception>
 void setupGLFWVulkanWindow(VulkanInstance &vulkanInstance,
 						   int width,
 						   int height,
 						   uint32_t minImageCount)
 {
+
+  glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+  vulkanInstance.glfwWindow =
+      glfwCreateWindow(width, height, "ParticleCompute", nullptr, nullptr);
+
+  if (!glfwVulkanSupported()) {
+    throw std::runtime_error("GLFW: Vulkan Not Supported\n");
+  }
+  uint32_t extensions_count = 0;
+  const char **extensions =
+      glfwGetRequiredInstanceExtensions(&extensions_count);
+  for (int i = 0; i < extensions_count; i++) {
+    vulkanInstance.enabledInstanceExtensions.push_back(extensions[i]);
+  }
+
 	ImGui_ImplVulkanH_Window *wd = &vulkanInstance.ImGuiWindow;
 	wd->Swapchain = vulkanInstance.swapChain.swapChain;
 	wd->Surface = vulkanInstance.surface;
@@ -26,7 +42,6 @@ void setupGLFWVulkanWindow(VulkanInstance &vulkanInstance,
 
 	VkPresentModeKHR present_modes[] = {VK_PRESENT_MODE_FIFO_KHR};
 	wd->PresentMode = ImGui_ImplVulkanH_SelectPresentMode(physicalDevice, wd->Surface, &present_modes[0], IM_ARRAYSIZE(present_modes));
-	// printf("[vulkan] Selected PresentMode = %d\n", wd->PresentMode);
 
 	ImGui_ImplVulkanH_CreateOrResizeWindow(vulkanInstance.instance, physicalDevice, logicalDevice, wd, queueFamily, NULL, width, height, minImageCount);
 }
