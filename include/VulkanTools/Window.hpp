@@ -9,8 +9,9 @@
 #include <imgui/imgui_impl_glfw.h>
 #include <imgui/imgui_impl_vulkan.h>
 #include <vulkan/vulkan.hpp>
-namespace VkVP
-{
+namespace VkVP {
+
+void assignGLFWRequiredInstanceExtensions(VulkanInstance &vulkanInstance);
 void setupGLFWVulkanWindow(VulkanInstance &vulkanInstance, int width,
                            int height, uint32_t minImageCount = 2);
 
@@ -24,5 +25,5 @@ bool getFrameBufferSizeChange(GLFWwindow *window, uint32_t &width,
 
 void resizeImGuiWindow(VulkanInstance &vulkanInstance, uint32_t width,
                        uint32_t height);
-}
+} // namespace VkVP
 #endif // Vulkan_WINDOW_HPP

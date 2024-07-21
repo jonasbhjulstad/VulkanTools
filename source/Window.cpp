@@ -2,6 +2,17 @@
 #include <exception>
 
 namespace VkVP {
+
+
+void assignGLFWRequiredInstanceExtensions(VulkanInstance &vulkanInstance) {
+
+  uint32_t extensions_count = 0;
+  const char **extensions =
+      glfwGetRequiredInstanceExtensions(&extensions_count);
+  for (int i = 0; i < extensions_count; i++) {
+    vulkanInstance.enabledInstanceExtensions.push_back(extensions[i]);
+  }
+}
 void setupGLFWVulkanWindow(VulkanInstance &vulkanInstance, int width,
                            int height, uint32_t minImageCount) {
 
@@ -11,12 +22,6 @@ void setupGLFWVulkanWindow(VulkanInstance &vulkanInstance, int width,
 
   if (!glfwVulkanSupported()) {
     throw std::runtime_error("GLFW: Vulkan Not Supported\n");
-  }
-  uint32_t extensions_count = 0;
-  const char **extensions =
-      glfwGetRequiredInstanceExtensions(&extensions_count);
-  for (int i = 0; i < extensions_count; i++) {
-    vulkanInstance.enabledInstanceExtensions.push_back(extensions[i]);
   }
 
   ImGui_ImplVulkanH_Window *wd = &vulkanInstance.ImGuiWindow;
