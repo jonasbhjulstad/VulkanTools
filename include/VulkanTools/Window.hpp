@@ -21,4 +21,7 @@ void cleanupGLFWVulkanWindow(VkInstance instance, VkDevice device,
 bool getFrameBufferSizeChange(GLFWwindow *window, uint32_t &width,
                               uint32_t &height);
 
+void resizeImGuiWindow(VulkanInstance &vulkanInstance, uint32_t width,
+                       uint32_t height);
+
 #endif // Vulkan_WINDOW_HPP
