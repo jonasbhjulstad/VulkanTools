@@ -18,4 +18,7 @@ void recreateWindow(VulkanInstance &vulkanInstance, Camera &camera, int width,
 void cleanupGLFWVulkanWindow(VkInstance instance, VkDevice device,
                              ImGui_ImplVulkanH_Window *wd);
 
+bool getFrameBufferSizeChange(GLFWwindow *window, uint32_t &width,
+                              uint32_t &height);
+
 #endif // Vulkan_WINDOW_HPP

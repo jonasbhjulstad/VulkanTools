@@ -76,3 +76,18 @@ void cleanupGLFWVulkanWindow(VkInstance instance, VkDevice device, ImGui_ImplVul
 {
 	ImGui_ImplVulkanH_DestroyWindow(instance, device, wd, NULL);
 }
+
+
+bool getFrameBufferSizeChange(GLFWwindow *window, uint32_t &width,
+                              uint32_t &height) {
+
+  int w_new, h_new;
+  glfwGetFramebufferSize(window, &w_new, &h_new);
+
+  if (w_new != width || h_new != height) {
+    width = w_new;
+    height = h_new;
+    return true;
+  }
+  return false;
+}
