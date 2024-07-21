@@ -1,3 +1,4 @@
+#define GLFW_INCLUDE_VULKAN
 #include <VulkanTools/Window.hpp>
 #include <exception>
 
@@ -13,7 +14,7 @@ void assignGLFWRequiredInstanceExtensions(VulkanInstance &vulkanInstance) {
   }
 }
 
-GLFWWindow *createGLFWWindow(uint32_t width, uint32_t height,
+GLFWwindow *createGLFWWindow(uint32_t width, uint32_t height,
                              const char *title) {
   glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
   auto glfwWindow = glfwCreateWindow(width, height, title, nullptr, nullptr);
@@ -60,6 +61,10 @@ void setupGLFWVulkanWindow(VulkanInstance &vulkanInstance, int width,
   ImGui_ImplVulkanH_CreateOrResizeWindow(
       vulkanInstance.instance, physicalDevice, logicalDevice, wd, queueFamily,
       NULL, width, height, minImageCount);
+
+  VK_CHECK_RESULT(glfwCreateWindowSurface(vulkanInstance.instance,
+                                          vulkanInstance.glfwWindow, nullptr,
+                                          &vulkanInstance.surface));
 }
 
 void recreateWindow(VulkanInstance &vulkanInstance, Camera &camera, int width,
