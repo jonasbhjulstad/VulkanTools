@@ -1,21 +1,21 @@
 #ifndef Vulkan_WINDOW_HPP
 #define Vulkan_WINDOW_HPP
-#include <vulkan/vulkan.hpp>
 #include <GLFW/glfw3.h>
-#include <imgui/imgui.h>
-#include <imgui/imgui_impl_vulkan.h>
-#include <imgui/imgui_impl_glfw.h>
+#include <VulkanTools/Camera.hpp>
+#include <VulkanTools/Initializers.hpp>
 #include <VulkanTools/Instance.hpp>
 #include <VulkanTools/PipelineInitializers.hpp>
-#include <VulkanTools/Initializers.hpp>
+#include <imgui/imgui.h>
+#include <imgui/imgui_impl_glfw.h>
+#include <imgui/imgui_impl_vulkan.h>
+#include <vulkan/vulkan.hpp>
 
+void setupGLFWVulkanWindow(VulkanInstance &vulkanInstance, int width,
+                           int height, uint32_t minImageCount = 2);
 
-
-void setupGLFWVulkanWindow(
-                       VulkanInstance &vulkanInstance,
-                       int width,
-                       int height,
-                       uint32_t minImageCount = 2);
-void cleanupGLFWVulkanWindow(VkInstance instance, VkDevice device, ImGui_ImplVulkanH_Window *wd);
+void recreateWindow(VulkanInstance &vulkanInstance, Camera &camera, int width,
+                    int height);
+void cleanupGLFWVulkanWindow(VkInstance instance, VkDevice device,
+                             ImGui_ImplVulkanH_Window *wd);
 
 #endif // Vulkan_WINDOW_HPP

@@ -10,6 +10,7 @@
 #include <VulkanTools/GLTF_Assets.hpp>
 #include <VulkanTools/NodeInstance.hpp>
 
+
 namespace VkVP
 {
     enum InstanceBindIDs

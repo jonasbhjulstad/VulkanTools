@@ -31,6 +31,47 @@ void setupGLFWVulkanWindow(VulkanInstance &vulkanInstance,
 	ImGui_ImplVulkanH_CreateOrResizeWindow(vulkanInstance.instance, physicalDevice, logicalDevice, wd, queueFamily, NULL, width, height, minImageCount);
 }
 
+
+void recreateWindow(
+    VulkanInstance &vulkanInstance, Camera &camera, int width, int height) {
+  VkDevice logicalDevice = vulkanInstance.vulkanDevice->logicalDevice;
+  // Ensure all operations on the device have been finished before destroying
+  // resources
+  vkDeviceWaitIdle(logicalDevice);
+  vulkanInstance.swapChain.create(&vulkanInstance.ImGuiWindow,
+                                  (uint32_t *)&width, (uint32_t *)&height,
+                                  false);
+  vulkanInstance.ImGuiWindow.Swapchain = vulkanInstance.swapChain.swapChain;
+  // Recreate the frame buffersqueuePresent
+  vkDestroyImageView(logicalDevice, vulkanInstance.depthStencil.view, nullptr);
+  vkDestroyImage(logicalDevice, vulkanInstance.depthStencil.image, nullptr);
+  vkFreeMemory(logicalDevice, vulkanInstance.depthStencil.mem, nullptr);
+  initializers::setupDepthStencil(vulkanInstance, width, height);
+  for (uint32_t i = 0; i < vulkanInstance.frameBuffers.size(); i++) {
+    vkDestroyFramebuffer(logicalDevice, vulkanInstance.frameBuffers[i],
+                         nullptr);
+  }
+  initializers::setupFrameBuffer(
+      logicalDevice, vulkanInstance.renderPass, width, height,
+      vulkanInstance.depthStencil.view, vulkanInstance.swapChain,
+      vulkanInstance.frameBuffers);
+
+  // Command buffers need to be recreated as they may store
+  // references to the recreated frame buffer
+  initializers::destroyCommandBuffers(logicalDevice,
+                                      vulkanInstance.vulkanDevice->commandPool,
+                                      vulkanInstance.drawCmdBuffers);
+  initializers::createCommandBuffers(
+      logicalDevice, vulkanInstance.drawCmdBuffers, vulkanInstance.swapChain,
+      vulkanInstance.vulkanDevice->commandPool);
+
+  vkDeviceWaitIdle(logicalDevice);
+
+  if ((width > 0.0f) && (height > 0.0f)) {
+    camera.updateAspectRatio((float)width / (float)height);
+  }
+}
+
 void cleanupGLFWVulkanWindow(VkInstance instance, VkDevice device, ImGui_ImplVulkanH_Window *wd)
 {
 	ImGui_ImplVulkanH_DestroyWindow(instance, device, wd, NULL);

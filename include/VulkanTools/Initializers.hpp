@@ -14,7 +14,7 @@
 #define Vulkan_INITIALIZERS_HPP
 #include <vector>
 #include <vulkan/vulkan.hpp>
-
+#include <VulkanTools/Tools.hpp>
 namespace initializers {
 
 inline VkMemoryAllocateInfo memoryAllocateInfo() {
