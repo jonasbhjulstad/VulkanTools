@@ -3,7 +3,6 @@
 
 namespace VkVP {
 
-
 void assignGLFWRequiredInstanceExtensions(VulkanInstance &vulkanInstance) {
 
   uint32_t extensions_count = 0;
@@ -13,17 +12,19 @@ void assignGLFWRequiredInstanceExtensions(VulkanInstance &vulkanInstance) {
     vulkanInstance.enabledInstanceExtensions.push_back(extensions[i]);
   }
 }
-void setupGLFWVulkanWindow(VulkanInstance &vulkanInstance, int width,
-                           int height, uint32_t minImageCount) {
 
+GLFWWindow *createGLFWWindow(uint32_t width, uint32_t height,
+                             const char *title) {
   glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-  vulkanInstance.glfwWindow =
-      glfwCreateWindow(width, height, "ParticleCompute", nullptr, nullptr);
+  auto glfwWindow = glfwCreateWindow(width, height, title, nullptr, nullptr);
 
   if (!glfwVulkanSupported()) {
     throw std::runtime_error("GLFW: Vulkan Not Supported\n");
   }
-
+  return glfwWindow;
+}
+void setupGLFWVulkanWindow(VulkanInstance &vulkanInstance, int width,
+                           int height, uint32_t minImageCount) {
   ImGui_ImplVulkanH_Window *wd = &vulkanInstance.ImGuiWindow;
   wd->Swapchain = vulkanInstance.swapChain.swapChain;
   wd->Surface = vulkanInstance.surface;

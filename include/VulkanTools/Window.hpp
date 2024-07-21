@@ -10,7 +10,8 @@
 #include <imgui/imgui_impl_vulkan.h>
 #include <vulkan/vulkan.hpp>
 namespace VkVP {
-
+GLFWWindow *createGLFWWindow(uint32_t width, uint32_t height,
+                             const char *title);
 void assignGLFWRequiredInstanceExtensions(VulkanInstance &vulkanInstance);
 void setupGLFWVulkanWindow(VulkanInstance &vulkanInstance, int width,
                            int height, uint32_t minImageCount = 2);
