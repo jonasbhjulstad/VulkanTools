@@ -1,4 +1,5 @@
 #include <VulkanTools/Submit.hpp>
+#include <VulkanTools/Initializers.hpp>
 namespace VkVP {
 void submitBuffers(VulkanInstance &vulkanInstance, uint32_t &currentBufferIdx) {
   VK_CHECK_RESULT(vulkanInstance.swapChain.acquireNextImage(
@@ -14,5 +15,62 @@ void submitBuffers(VulkanInstance &vulkanInstance, uint32_t &currentBufferIdx) {
       vulkanInstance.queue, currentBufferIdx,
       vulkanInstance.semaphores.renderComplete));
   VK_CHECK_RESULT(vkQueueWaitIdle(vulkanInstance.queue));
+}
+
+void submitComputeBuffer(VkQueue queue, VkCommandBuffer computeCommandBuffer,
+                         VkSemaphore graphicsSemaphore,
+                         VkSemaphore computeSemaphore) {
+  VkPipelineStageFlags waitStageMask = VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT;
+
+  // Submit compute commands
+  VkSubmitInfo computeSubmitInfo = initializers::submitInfo();
+  computeSubmitInfo.commandBufferCount = 1;
+  computeSubmitInfo.pCommandBuffers = &computeCommandBuffer;
+  computeSubmitInfo.waitSemaphoreCount = 1;
+  computeSubmitInfo.pWaitSemaphores = &graphicsSemaphore;
+  computeSubmitInfo.pWaitDstStageMask = &waitStageMask;
+  computeSubmitInfo.signalSemaphoreCount = 1;
+  computeSubmitInfo.pSignalSemaphores = &computeSemaphore;
+  VK_CHECK_RESULT(vkQueueSubmit(queue, 1, &computeSubmitInfo, VK_NULL_HANDLE));
+}
+
+void submitGraphicsBuffer(VulkanInstance &vulkanInstance,
+                          uint32_t &currentBuffer,
+                          VkSemaphore graphicsSemaphore,
+                          VkSemaphore computeSemaphore) {
+
+  VkResult result = vulkanInstance.swapChain.acquireNextImage(
+      vulkanInstance.semaphores.presentComplete, &currentBuffer);
+
+  VkPipelineStageFlags graphicsWaitStageMasks[] = {
+      VK_PIPELINE_STAGE_VERTEX_INPUT_BIT,
+      VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT};
+  VkSemaphore graphicsWaitSemaphores[] = {
+      computeSemaphore, vulkanInstance.semaphores.presentComplete};
+  VkSemaphore graphicsSignalSemaphores[] = {
+      graphicsSemaphore, vulkanInstance.semaphores.renderComplete};
+  auto submitInfo = initializers::submitInfo();
+  // Submit graphics commands
+  submitInfo.commandBufferCount = 1;
+  submitInfo.pCommandBuffers = &vulkanInstance.drawCmdBuffers[currentBuffer];
+  submitInfo.waitSemaphoreCount = 2;
+  submitInfo.pWaitSemaphores = graphicsWaitSemaphores;
+  submitInfo.pWaitDstStageMask = graphicsWaitStageMasks;
+  submitInfo.signalSemaphoreCount = 2;
+  submitInfo.pSignalSemaphores = graphicsSignalSemaphores;
+  VK_CHECK_RESULT(
+      vkQueueSubmit(vulkanInstance.queue, 1, &submitInfo, VK_NULL_HANDLE));
+  submitBuffers(vulkanInstance, currentBuffer);
+}
+
+// submits compute-graphics semaphore synchronized command buffers
+void submitBuffers(VulkanInstance &vulkanInstance,
+                   VkCommandBuffer computeCommandBuffer,
+                   VkSemaphore graphicsSemaphore,
+                   VkSemaphore computeSemaphore) {
+  submitComputeBuffer(vulkanInstance.queue, computeCommandBuffer,
+                      graphicsSemaphore, computeSemaphore);
+  submitGraphicsBuffer(vulkanInstance, vulkanInstance.currentBuffer,
+                       graphicsSemaphore, computeSemaphore);
 }
 } // namespace VkVP
