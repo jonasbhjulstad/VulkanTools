@@ -19,6 +19,7 @@ struct VulkanInstance
 
     // Handle to the device graphics queue that command buffers are submitted to
 	VkQueue queue;
+	VkQueue computeQueue;
 	// Depth buffer format (selected during Vulkan initialization)
 	VkFormat depthFormat;
 

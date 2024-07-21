@@ -93,7 +93,7 @@ VkResult createVulkanInstance(bool enableValidation,
 	return vkCreateInstance(&instanceCreateInfo, nullptr, &instance);
 }
 
-void setupVulkanPhysicalDevice(VulkanInstance &vulkanInstance, bool enableValidation)
+void setupVulkanPhysicalDevice(VulkanInstance &vulkanInstance, bool enableValidation, bool enable_compute_queue)
 {
 	// If requested, we enable the default validation layers for debugging
 	if (enableValidation)
@@ -157,6 +157,11 @@ void setupVulkanPhysicalDevice(VulkanInstance &vulkanInstance, bool enableValida
 
 	// Get a graphics queue from the device
 	vkGetDeviceQueue(device, vulkanDevice->queueFamilyIndices.graphics, 0, &vulkanInstance.queue);
+
+	if(enable_compute_queue)
+	{
+		vkGetDeviceQueue(device, vulkanDevice->queueFamilyIndices.compute, 0, &vulkanInstance.computeQueue);
+	}
 
 	// Find a suitable depth format
 	VkBool32 validDepthFormat = getSupportedDepthFormat(physicalDevice, &vulkanInstance.depthFormat);

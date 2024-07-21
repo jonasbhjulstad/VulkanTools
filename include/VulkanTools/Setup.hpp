@@ -9,7 +9,7 @@ VkResult createVulkanInstance(bool enableValidation,
 							  std::vector<std::string> &supportedInstanceExtensions,
 							  std::vector<const char *> &enabledInstanceExtensions,
 							  uint32_t apiVersion);
-void setupVulkanPhysicalDevice(VulkanInstance &vulkanInstance, bool enableValidation);
+void setupVulkanPhysicalDevice(VulkanInstance &vulkanInstance, bool enableValidation, bool enable_compute_queue = false);
 
 void prepareVulkan(VulkanInstance &vulkanInstance, uint32_t width, uint32_t height);
 
