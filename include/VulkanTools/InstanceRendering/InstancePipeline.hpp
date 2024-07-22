@@ -71,7 +71,7 @@ namespace VkVP
     };
 
     template <typename InstanceData>
-    VulkanBuffer prepareInstanceBuffer(std::vector<InstanceData> &instancePipelineData, VulkanDevice *vulkanDevice, VkQueue queue)
+    VulkanBuffer prepareInstanceBuffer(std::vector<InstanceData> &instancePipelineData, VulkanDevice *vulkanDevice, VkQueue queue, VkMemoryPropertyFlags memPropFlags = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT)
     {
         VulkanBuffer instanceBuffer;
         uint32_t N_instances = static_cast<uint32_t>(instancePipelineData.size());
@@ -92,7 +92,7 @@ namespace VkVP
             instancePipelineData.data()));
 
         VK_CHECK_RESULT(vulkanDevice->createBuffer(
-            VK_BUFFER_USAGE_VERTEX_BUFFER_BIT | VK_BUFFER_USAGE_TRANSFER_DST_BIT,
+            memPropFlags | VK_BUFFER_USAGE_TRANSFER_DST_BIT,
             VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT,
             instanceBuffer.size,
             &instanceBuffer.buffer,
