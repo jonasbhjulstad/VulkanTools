@@ -1,22 +1,22 @@
 #include <VulkanTools/Initializers.hpp>
 #include <VulkanTools/Submit.hpp>
 namespace VkVP {
-// void submitBuffers(VulkanInstance &vulkanInstance, uint32_t
-// &currentBufferIdx) {
-//   VK_CHECK_RESULT(vulkanInstance.swapChain.acquireNextImage(
-//       vulkanInstance.semaphores.presentComplete, &currentBufferIdx));
-//   vulkanInstance.submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-//   vulkanInstance.submitInfo.commandBufferCount = 1;
-//   vulkanInstance.submitInfo.pCommandBuffers =
-//       &vulkanInstance.drawCmdBuffers[currentBufferIdx];
-//   vulkanInstance.submitInfo.pNext = nullptr;
-//   VK_CHECK_RESULT(vkQueueSubmit(vulkanInstance.queue, 1,
-//                                 &vulkanInstance.submitInfo, VK_NULL_HANDLE));
-//   VK_CHECK_RESULT(vulkanInstance.swapChain.queuePresent(
-//       vulkanInstance.queue, currentBufferIdx,
-//       vulkanInstance.semaphores.renderComplete));
-//   VK_CHECK_RESULT(vkQueueWaitIdle(vulkanInstance.queue));
-// }
+void submitBuffers(VulkanInstance &vulkanInstance, uint32_t
+&currentBufferIdx) {
+  VK_CHECK_RESULT(vulkanInstance.swapChain.acquireNextImage(
+      vulkanInstance.semaphores.presentComplete, &currentBufferIdx));
+  vulkanInstance.submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+  vulkanInstance.submitInfo.commandBufferCount = 1;
+  vulkanInstance.submitInfo.pCommandBuffers =
+      &vulkanInstance.drawCmdBuffers[currentBufferIdx];
+  vulkanInstance.submitInfo.pNext = nullptr;
+  VK_CHECK_RESULT(vkQueueSubmit(vulkanInstance.queue, 1,
+                                &vulkanInstance.submitInfo, VK_NULL_HANDLE));
+  VK_CHECK_RESULT(vulkanInstance.swapChain.queuePresent(
+      vulkanInstance.queue, currentBufferIdx,
+      vulkanInstance.semaphores.renderComplete));
+  VK_CHECK_RESULT(vkQueueWaitIdle(vulkanInstance.queue));
+}
 
 void submitComputeBuffer(VkQueue queue, VkCommandBuffer computeCommandBuffer,
                          VkSemaphore graphicsSemaphore,
