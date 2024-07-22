@@ -68,6 +68,8 @@ namespace VkVP
         VkRenderPass renderPass;
         VkPipelineCache pipelineCache = nullptr;
         VkDeviceSize* offset;
+        VkBufferUsageFlags bufferUsageFlags = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT;
+        
     };
 
     template <typename InstanceData>
@@ -210,7 +212,7 @@ namespace VkVP
         std::unique_ptr<InstancePipelineData> instancePipelineData = std::make_unique<InstancePipelineData>(device);
 
         instancePipelineData->model = loadModel(p.modelPath, p.vulkanDevice, p.queue);
-        instancePipelineData->instanceBuffer = prepareInstanceBuffer(instanceData, p.vulkanDevice, p.queue);
+        instancePipelineData->instanceBuffer = prepareInstanceBuffer(instanceData, p.vulkanDevice, p.queue, p.bufferUsageFlags);
         if (!p.texturePath.empty())
         {
             instancePipelineData->texture = loadTexture(p.texturePath, p.vulkanDevice, p.queue);
