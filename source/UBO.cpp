@@ -42,3 +42,14 @@ void UBO::update(const std::string &name, void *data) const {
   size_t offset = get_offset(name);
   memcpy((char *)buffer.mapped + offset, data, get_size(name));
 }
+
+
+std::unordered_map<const char*, UBO> make_ubos(VulkanDevice& device, const std::vector<UBOEntry>& entries)
+{
+    std::unordered_map<const char*, UBO> ubos;
+    for (const auto& entry : entries)
+    {
+        ubos.emplace(entry.name.c_str(), UBO(device, entry.fields));
+    }
+    return ubos;
+}

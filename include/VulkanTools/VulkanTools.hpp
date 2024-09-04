@@ -17,4 +17,4 @@
 #include <VulkanTools/Buffer.hpp>
 #include <VulkanTools/gltf/glTFModel.hpp>
 #include <VulkanTools/gltf/Texture.hpp>
-
+#include <VulkanTools/UBO.hpp>

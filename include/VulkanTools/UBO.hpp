@@ -5,9 +5,16 @@
 #include <VulkanTools/Device.hpp>
 #include <VulkanTools/glsl_types.hpp>
 #include <vulkan/vulkan.hpp>
+#include <unordered_map>
 struct UBOField {
   std::string name;
   size_t size;
+};
+
+struct UBOEntry
+{
+  std::string name;
+  std::vector<UBOField> fields;
 };
 
 struct UBO {
@@ -24,4 +31,7 @@ struct UBO {
 
   void update(const std::string &name, void *data) const;
 };
+std::unordered_map<const char*, UBO> make_ubos(VulkanDevice& device, const std::vector<UBOEntry>& entries);
+
+
 #endif
