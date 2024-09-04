@@ -16,5 +16,7 @@
 #include <VulkanTools/Tools.hpp>
 #include <VulkanTools/Buffer.hpp>
 #include <VulkanTools/gltf/glTFModel.hpp>
+#include <VulkanTools/GLTF_Assets.hpp>
 #include <VulkanTools/gltf/Texture.hpp>
 #include <VulkanTools/UBO.hpp>
+#include <VulkanTools/Setup.hpp>
