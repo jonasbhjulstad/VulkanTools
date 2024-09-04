@@ -6,7 +6,6 @@
 #include <VulkanTools/Tools.hpp>
 #include <VulkanTools/Submit.hpp>
 #include <VulkanTools/Window.hpp>
-#include <VulkanTools/ProjectionBuffer.hpp>
 #include <VulkanTools/Device.hpp>
 #include <VulkanTools/SwapChain.hpp>
 #include <VulkanTools/Renderpass.hpp>
