@@ -12,9 +12,9 @@
 #ifndef Vulkan_INITIALIZERS_HPP
 
 #define Vulkan_INITIALIZERS_HPP
+#include <VulkanTools/Tools.hpp>
 #include <vector>
 #include <vulkan/vulkan.hpp>
-#include <VulkanTools/Tools.hpp>
 namespace initializers {
 
 inline VkMemoryAllocateInfo memoryAllocateInfo() {
@@ -240,6 +240,8 @@ descriptorSetLayoutCreateInfo(const VkDescriptorSetLayoutBinding *pBindings,
   return descriptorSetLayoutCreateInfo;
 }
 
+
+
 inline VkDescriptorSetLayoutCreateInfo descriptorSetLayoutCreateInfo(
     const std::vector<VkDescriptorSetLayoutBinding> &bindings) {
   VkDescriptorSetLayoutCreateInfo descriptorSetLayoutCreateInfo{};
@@ -249,6 +251,24 @@ inline VkDescriptorSetLayoutCreateInfo descriptorSetLayoutCreateInfo(
   descriptorSetLayoutCreateInfo.bindingCount =
       static_cast<uint32_t>(bindings.size());
   return descriptorSetLayoutCreateInfo;
+}
+
+
+inline VkDescriptorSetLayout
+uniformDescriptorSetLayouts(VkDevice device, uint32_t uniformCount = 1) {
+
+  std::vector<VkDescriptorSetLayoutBinding> setLayoutBindings(
+      uniformCount,
+      initializers::descriptorSetLayoutBinding(
+          VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT, 0));
+
+  VkDescriptorSetLayout descriptorSetLayout;
+  VkDescriptorSetLayoutCreateInfo descriptorLayout =
+      initializers::descriptorSetLayoutCreateInfo(setLayoutBindings);
+  VK_CHECK_RESULT(vkCreateDescriptorSetLayout(device, &descriptorLayout,
+                                              nullptr, &descriptorSetLayout));
+
+  return descriptorSetLayout;
 }
 
 inline VkPipelineLayoutCreateInfo

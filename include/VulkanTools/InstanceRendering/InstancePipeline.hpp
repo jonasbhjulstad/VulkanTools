@@ -203,6 +203,7 @@ namespace VkVP
 
     void buildCommandBuffer(InstancePipelineData &instancePipelineData, VkCommandBuffer commandBuffer);
 
+
     template <typename InstanceData>
     std::unique_ptr<InstancePipelineData> prepareInstanceRendering(InstanceRenderingParams &p, std::vector<InstanceData>& instanceData)
     {
