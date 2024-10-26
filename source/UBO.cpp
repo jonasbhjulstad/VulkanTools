@@ -44,9 +44,9 @@ void UBO::update(const std::string &name, void *data) const {
 }
 
 
-std::unordered_map<const char*, UBO> make_ubos(VulkanDevice& device, const std::vector<UBOEntry>& entries)
+std::unordered_map<std::string, UBO> make_ubos(VulkanDevice& device, const std::vector<UBOEntry>& entries)
 {
-    std::unordered_map<const char*, UBO> ubos;
+    std::unordered_map<std::string, UBO> ubos;
     for (const auto& entry : entries)
     {
         ubos.emplace(entry.name.c_str(), UBO(device, entry.fields));

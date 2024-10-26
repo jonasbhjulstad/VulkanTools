@@ -4,15 +4,15 @@
 #include <VulkanTools/Camera.hpp>
 #include <VulkanTools/Device.hpp>
 #include <VulkanTools/glsl_types.hpp>
-#include <vulkan/vulkan.hpp>
+#include <string>
 #include <unordered_map>
+#include <vulkan/vulkan.hpp>
 struct UBOField {
   std::string name;
   size_t size;
 };
 
-struct UBOEntry
-{
+struct UBOEntry {
   std::string name;
   std::vector<UBOField> fields;
 };
@@ -31,7 +31,7 @@ struct UBO {
 
   void update(const std::string &name, void *data) const;
 };
-std::unordered_map<const char*, UBO> make_ubos(VulkanDevice& device, const std::vector<UBOEntry>& entries);
-
+std::unordered_map<std::string, UBO>
+make_ubos(VulkanDevice &device, const std::vector<UBOEntry> &entries);
 
 #endif
