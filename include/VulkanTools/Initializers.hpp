@@ -343,7 +343,7 @@ inline VkWriteDescriptorSet writeDescriptorSet(VkDescriptorSet dstSet,
   return writeDescriptorSet;
 }
 
-inline VkVertexInputBindingDescription
+constexpr inline VkVertexInputBindingDescription
 vertexInputBindingDescription(uint32_t binding, uint32_t stride,
                               VkVertexInputRate inputRate) {
   VkVertexInputBindingDescription vInputBindDescription{};
@@ -353,7 +353,7 @@ vertexInputBindingDescription(uint32_t binding, uint32_t stride,
   return vInputBindDescription;
 }
 
-inline VkVertexInputAttributeDescription
+constexpr inline VkVertexInputAttributeDescription
 vertexInputAttributeDescription(uint32_t binding, uint32_t location,
                                 VkFormat format, uint32_t offset) {
   VkVertexInputAttributeDescription vInputAttribDescription{};
