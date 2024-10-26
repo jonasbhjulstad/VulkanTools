@@ -7,6 +7,7 @@
 #include <string>
 #include <unordered_map>
 #include <vulkan/vulkan.hpp>
+namespace VkVP {
 struct UBOField {
   std::string name;
   size_t size;
@@ -34,4 +35,5 @@ struct UBO {
 std::unordered_map<std::string, UBO>
 make_ubos(VulkanDevice &device, const std::vector<UBOEntry> &entries);
 
+} // namespace VkVP
 #endif
