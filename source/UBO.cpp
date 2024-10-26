@@ -1,12 +1,13 @@
 #include <VulkanTools/Tools.hpp>
 #include <VulkanTools/UBO.hpp>
 #include <numeric>
+namespace VkVP {
 UBO::UBO(VulkanDevice &device, const std::vector<UBOField> &fields)
     : fields(fields),
       total_size(std::accumulate(fields.begin(), fields.end(), 0,
-                           [](size_t result, const UBOField &field) {
-                             return result + field.size;
-                           })) {
+                                 [](size_t result, const UBOField &field) {
+                                   return result + field.size;
+                                 })) {
   VK_CHECK_RESULT(device.createBuffer(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
                                       VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
                                           VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
@@ -43,13 +44,13 @@ void UBO::update(const std::string &name, void *data) const {
   memcpy((char *)buffer.mapped + offset, data, get_size(name));
 }
 
-
-std::unordered_map<std::string, UBO> make_ubos(VulkanDevice& device, const std::vector<UBOEntry>& entries)
-{
-    std::unordered_map<std::string, UBO> ubos;
-    for (const auto& entry : entries)
-    {
-        ubos.emplace(entry.name.c_str(), UBO(device, entry.fields));
-    }
-    return ubos;
+std::unordered_map<std::string, VkVP::UBO>
+make_ubos(VulkanDevice &device, const std::vector<UBOEntry> &entries) {
+  std::unordered_map<std::string, UBO> ubos;
+  for (const auto &entry : entries) {
+    ubos.emplace(entry.name.c_str(), UBO(device, entry.fields));
+  }
+  return ubos;
 }
+
+} // namespace VkVP
