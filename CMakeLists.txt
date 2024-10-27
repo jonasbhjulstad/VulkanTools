@@ -5,7 +5,7 @@ set(PROJECT_VERSION 0.1.0)
 include(cmake/ccache.cmake)
 include(cmake/external_packages.cmake)
 
-option(VULKAN_TOOLS_PRECOMPILE_MAIN_HEADER "Precompile main header" ON)
+option(VULKAN_TOOLS_PRECOMPILE_MAIN_HEADER "Precompile main header" OFF)
 file(GLOB_RECURSE VULKAN_TOOLS_SOURCES "source/*.cpp")
 add_library(VulkanTools ${VULKAN_TOOLS_SOURCES})
 target_include_directories(VulkanTools PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include>)

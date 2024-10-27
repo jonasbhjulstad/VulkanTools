@@ -28,7 +28,7 @@ struct UBO
   const uint32_t total_size;
   uint32_t binding{};
   UBO(VulkanDevice &device, const std::vector<UBOField> &fields, uint32_t binding = 0);
-
+  UBO(VulkanDevice& device, const UBOEntry& entry);
   void update(void *data) const;
 
   uint32_t get_offset(const std::string &name) const;
