@@ -14,7 +14,6 @@ UBO::UBO(VulkanDevice &device, const std::vector<UBOField> &fields, uint32_t bin
     &buffer,
     sizeof(total_size)));
 }
-
 void UBO::update(void *data) const { memcpy(buffer.mapped, data, total_size); }
 
 uint32_t UBO::get_offset(const std::string &name) const
@@ -46,8 +45,12 @@ void UBO::update(const std::string &name, void *data) const
 
 std::unordered_map<std::string, VkVP::UBO> make_ubos(VulkanDevice &device, const std::vector<UBOEntry> &entries)
 {
-  std::unordered_map<std::string, UBO> ubos;
-  for (const auto &entry : entries) { ubos.emplace(entry.name.c_str(), UBO(device, entry.fields)); }
+
+  std::unordered_map<std::string, VkVP::UBO> ubos;
+
+  std::transform(entries.begin(), entries.end(), std::inserter(ubos, ubos.end()), [&](const UBOEntry &entry) {
+    return std::make_pair(entry.name, VkVP::UBO(device, entry.fields, entry.binding));
+  });
   return ubos;
 }
 

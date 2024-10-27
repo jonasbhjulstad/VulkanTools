@@ -8,22 +8,25 @@
 #include <unordered_map>
 #include <vulkan/vulkan.hpp>
 namespace VkVP {
-struct UBOField {
+struct UBOField
+{
   std::string name;
   uint32_t size;
 };
 
-struct UBOEntry {
+struct UBOEntry
+{
   std::string name;
   std::vector<UBOField> fields;
+  uint32_t binding{};
 };
 
-struct UBO {
+struct UBO
+{
   VulkanBuffer buffer;
   const std::vector<UBOField> fields;
   const uint32_t total_size;
   uint32_t binding{};
-
   UBO(VulkanDevice &device, const std::vector<UBOField> &fields, uint32_t binding = 0);
 
   void update(void *data) const;
@@ -32,10 +35,10 @@ struct UBO {
 
   uint32_t get_size(const std::string &name) const;
 
-  void update(const std::string &name, void *data) const;
+  void update(const std::string &name, void *
+  data) const;
 };
-std::unordered_map<std::string, UBO>
-make_ubos(VulkanDevice &device, const std::vector<UBOEntry> &entries);
+std::unordered_map<std::string, UBO> make_ubos(VulkanDevice &device, const std::vector<UBOEntry> &entries);
 
-} // namespace VkVP
+}// namespace VkVP
 #endif
