@@ -10,7 +10,7 @@
 namespace VkVP {
 struct UBOField {
   std::string name;
-  size_t size;
+  uint32_t size;
 };
 
 struct UBOEntry {
@@ -21,14 +21,16 @@ struct UBOEntry {
 struct UBO {
   VulkanBuffer buffer;
   const std::vector<UBOField> fields;
-  const size_t total_size;
-  UBO(VulkanDevice &device, const std::vector<UBOField> &fields);
+  const uint32_t total_size;
+  uint32_t binding{};
+
+  UBO(VulkanDevice &device, const std::vector<UBOField> &fields, uint32_t binding = 0);
 
   void update(void *data) const;
 
-  size_t get_offset(const std::string &name) const;
+  uint32_t get_offset(const std::string &name) const;
 
-  size_t get_size(const std::string &name) const;
+  uint32_t get_size(const std::string &name) const;
 
   void update(const std::string &name, void *data) const;
 };
