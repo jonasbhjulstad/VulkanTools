@@ -26,8 +26,8 @@ struct UBO
   VulkanBuffer buffer;
   const std::vector<UBOField> fields;
   const uint32_t total_size;
-  uint32_t binding{};
-  UBO(VulkanDevice &device, const std::vector<UBOField> &fields, uint32_t binding = 0);
+  uint32_t binding = 0;
+  UBO(VulkanDevice &device, const std::vector<UBOField> &fields, uint32_t binding);
   UBO(VulkanDevice& device, const UBOEntry& entry);
   void update(void *data) const;
 
@@ -37,8 +37,10 @@ struct UBO
 
   void update(const std::string &name, void *
   data) const;
+  static VkDescriptorSetLayout createDescriptorSetLayout(VkDevice device, const std::vector<UBO>& ubos);
+  static uint32_t N_distinct_bindings(const std::vector<UBO>& ubos);
 };
-std::unordered_map<std::string, UBO> make_ubos(VulkanDevice &device, const std::vector<UBOEntry> &entries);
+
 
 }// namespace VkVP
 #endif

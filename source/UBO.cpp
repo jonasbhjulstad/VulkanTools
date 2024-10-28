@@ -14,8 +14,7 @@ UBO::UBO(VulkanDevice &device, const std::vector<UBOField> &fields, uint32_t bin
     &buffer,
     sizeof(total_size)));
 }
-  UBO::UBO(VulkanDevice& device, const UBOEntry& entry)
-  : UBO(device, entry.fields, entry.binding){}
+UBO::UBO(VulkanDevice &device, const UBOEntry &entry) : UBO(device, entry.fields, entry.binding) {}
 void UBO::update(void *data) const { memcpy(buffer.mapped, data, total_size); }
 
 uint32_t UBO::get_offset(const std::string &name) const
