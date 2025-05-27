@@ -4,12 +4,12 @@
 #include <VulkanTools/Initializers.hpp>
 #include <VulkanTools/PipelineInitializers.hpp>
 #include <VulkanTools/Utils.hpp>
-VkResult createVulkanInstance(bool enableValidation,
+auto createVulkanInstance(bool enableValidation,
 							  const std::string &name,
 							  VkInstance& instance,
 							  std::vector<std::string> &supportedInstanceExtensions,
 							  std::vector<const char *> &enabledInstanceExtensions,
-							  uint32_t apiVersion)
+							  uint32_t apiVersion) -> VkResult
 {
 
 	VkApplicationInfo appInfo = {};
@@ -30,7 +30,7 @@ VkResult createVulkanInstance(bool enableValidation,
 		{
 			for (VkExtensionProperties extension : extensions)
 			{
-				supportedInstanceExtensions.push_back(extension.extensionName);
+				supportedInstanceExtensions.emplace_back(extension.extensionName);
 			}
 		}
 	}
@@ -51,7 +51,7 @@ VkResult createVulkanInstance(bool enableValidation,
 
 	VkInstanceCreateInfo instanceCreateInfo = {};
 	instanceCreateInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
-	instanceCreateInfo.pNext = NULL;
+	instanceCreateInfo.pNext = nullptr;
 	instanceCreateInfo.pApplicationInfo = &appInfo;
 	if (instanceExtensions.size() > 0)
 	{
@@ -67,7 +67,7 @@ VkResult createVulkanInstance(bool enableValidation,
 	if (enableValidation)
 	{
 		// Check if this layer is available at instance level
-		uint32_t instanceLayerCount;
+		uint32_t instanceLayerCount = 0;
 		vkEnumerateInstanceLayerProperties(&instanceLayerCount, nullptr);
 		std::vector<VkLayerProperties> instanceLayerProperties(instanceLayerCount);
 		vkEnumerateInstanceLayerProperties(&instanceLayerCount, instanceLayerProperties.data());
@@ -112,14 +112,14 @@ void setupVulkanPhysicalDevice(VulkanInstance &vulkanInstance, bool enableValida
 	VK_CHECK_RESULT(vkEnumeratePhysicalDevices(vulkanInstance.instance, &gpuCount, nullptr));
 	if (gpuCount == 0)
 	{
-		std::cerr << "Failed to find GPUs with Vulkan support." << std::endl;
+		std::cerr << "Failed to find GPUs with Vulkan support." << '\n';
 	}
 	
 	// Enumerate devices
 	std::vector<VkPhysicalDevice> physicalDevices(gpuCount);
 	if (vkEnumeratePhysicalDevices(vulkanInstance.instance, &gpuCount, physicalDevices.data()) != VK_SUCCESS)
 	{
-		std::cerr << "Failed to find GPUs with Vulkan support." << std::endl;
+		std::cerr << "Failed to find GPUs with Vulkan support." << '\n';
 	}
 
 	// GPU selection
@@ -143,7 +143,7 @@ void setupVulkanPhysicalDevice(VulkanInstance &vulkanInstance, bool enableValida
 	// and encapsulates functions related to a device
 	if (vulkanDevice->createLogicalDevice(vulkanInstance.enabledFeatures, vulkanInstance.enabledDeviceExtensions, nullptr) != VK_SUCCESS)
 	{
-		std::cerr << "Failed to create logical device!" << std::endl;
+		std::cerr << "Failed to create logical device!" << '\n';
 	}
 
     // Descriptor pool

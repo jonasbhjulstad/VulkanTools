@@ -7,13 +7,13 @@
 */
 
 #include <VulkanTools/Tools.hpp>
-#include <math.h>
-#include <stdlib.h>
+#include <cmath>
+#include <cstdlib>
 #include <string>
 #include <cstring>
 #include <fstream>
-#include <assert.h>
-#include <stdio.h>
+#include <cassert>
+#include <cstdio>
 #include <vector>
 #include <stdexcept>
 #include <fstream>
@@ -28,7 +28,7 @@ namespace tools
 {
 	bool errorModeSilent = false;
 
-	std::string errorString(VkResult errorCode)
+	auto errorString(VkResult errorCode) -> std::string
 	{
 		switch (errorCode)
 		{
@@ -64,7 +64,7 @@ namespace tools
 		}
 	}
 
-	std::string physicalDeviceTypeString(VkPhysicalDeviceType type)
+	auto physicalDeviceTypeString(VkPhysicalDeviceType type) -> std::string
 	{
 		switch (type)
 		{
@@ -82,7 +82,7 @@ namespace tools
 		}
 	}
 
-	VkBool32 getSupportedDepthFormat(VkPhysicalDevice physicalDevice, VkFormat *depthFormat)
+	auto getSupportedDepthFormat(VkPhysicalDevice physicalDevice, VkFormat *depthFormat) -> VkBool32
 	{
 		// Since all depth formats may be optional, we need to find a suitable depth format to use
 		// Start with the highest precision packed format
@@ -109,7 +109,7 @@ namespace tools
 	}
 
 	// Returns if a given format support LINEAR filtering
-	VkBool32 formatIsFilterable(VkPhysicalDevice physicalDevice, VkFormat format, VkImageTiling tiling)
+	auto formatIsFilterable(VkPhysicalDevice physicalDevice, VkFormat format, VkImageTiling tiling) -> VkBool32
 	{
 		VkFormatProperties formatProps;
 		vkGetPhysicalDeviceFormatProperties(physicalDevice, format, &formatProps);
@@ -319,7 +319,7 @@ namespace tools
 	}
 
 
-	VkShaderModule loadShaderModule(const char *fileName, VkDevice device)
+	auto loadShaderModule(const char *fileName, VkDevice device) -> VkShaderModule
 	{
 		std::ifstream is(fileName, std::ios::binary | std::ios::in | std::ios::ate);
 
@@ -333,13 +333,13 @@ namespace tools
 
 			assert(size > 0);
 
-			VkShaderModule shaderModule;
+			VkShaderModule shaderModule = nullptr;
 			VkShaderModuleCreateInfo moduleCreateInfo{};
 			moduleCreateInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
 			moduleCreateInfo.codeSize = size;
 			moduleCreateInfo.pCode = (uint32_t *)shaderCode;
 
-			VK_CHECK_RESULT(vkCreateShaderModule(device, &moduleCreateInfo, NULL, &shaderModule));
+			VK_CHECK_RESULT(vkCreateShaderModule(device, &moduleCreateInfo, nullptr, &shaderModule));
 
 			delete[] shaderCode;
 
@@ -353,13 +353,13 @@ namespace tools
 		}
 	}
 
-	bool fileExists(const std::string &filename)
+	auto fileExists(const std::string &filename) -> bool
 	{
 		std::ifstream f(filename.c_str());
 		return !f.fail();
 	}
 
-	uint32_t alignedSize(uint32_t value, uint32_t alignment)
+	auto alignedSize(uint32_t value, uint32_t alignment) -> uint32_t
 	{
 		return (value + alignment - 1) & ~(alignment - 1);
 	}

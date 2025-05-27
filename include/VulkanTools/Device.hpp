@@ -9,15 +9,15 @@ struct VulkanDevice
 	/** @brief Physical device representation */
 	VkPhysicalDevice physicalDevice;
 	/** @brief Logical device representation (application's view of the device) */
-	VkDevice logicalDevice;
+	VkDevice logicalDevice{};
 	/** @brief Properties of the physical device including limits that the application can check against */
-	VkPhysicalDeviceProperties properties;
+	VkPhysicalDeviceProperties properties{};
 	/** @brief Features of the physical device that an application can use to check if a feature is supported */
-	VkPhysicalDeviceFeatures features;
+	VkPhysicalDeviceFeatures features{};
 	/** @brief Features that have been enabled for use on the physical device */
-	VkPhysicalDeviceFeatures enabledFeatures;
+	VkPhysicalDeviceFeatures enabledFeatures{};
 	/** @brief Memory types and heaps of the physical device */
-	VkPhysicalDeviceMemoryProperties memoryProperties;
+	VkPhysicalDeviceMemoryProperties memoryProperties{};
 	/** @brief Queue family properties of the physical device */
 	std::vector<VkQueueFamilyProperties> queueFamilyProperties;
 	/** @brief List of extensions supported by the device */
@@ -32,7 +32,7 @@ struct VulkanDevice
 		uint32_t graphics;
 		uint32_t compute;
 		uint32_t transfer;
-	} queueFamilyIndices;
+	} queueFamilyIndices{};
 	operator VkDevice() const
 	{
 		return logicalDevice;
@@ -50,7 +50,7 @@ struct VulkanDevice
 	auto createCommandBuffer(VkCommandBufferLevel level, bool begin = false) -> VkCommandBuffer;
 	void            flushCommandBuffer(VkCommandBuffer commandBuffer, VkQueue queue, VkCommandPool pool, bool free = true);
 	void            flushCommandBuffer(VkCommandBuffer commandBuffer, VkQueue queue, bool free = true);
-	auto            extensionSupported(std::string extension) -> bool;
+	auto            extensionSupported(const std::string& extension) -> bool;
 	auto        getSupportedDepthFormat(bool checkSamplingSupport) -> VkFormat;
 };
 

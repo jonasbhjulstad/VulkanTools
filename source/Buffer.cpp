@@ -8,7 +8,7 @@
  *
  * @return VkResult of the buffer mapping call
  */
-VkResult VulkanBuffer::map(VkDeviceSize size, VkDeviceSize offset)
+auto VulkanBuffer::map(VkDeviceSize size, VkDeviceSize offset) -> VkResult
 {
 	return vkMapMemory(device, memory, offset, size, 0, &mapped);
 }
@@ -34,7 +34,7 @@ void VulkanBuffer::unmap()
  *
  * @return VkResult of the bindVulkanBufferMemory call
  */
-VkResult VulkanBuffer::bind(VkDeviceSize offset)
+auto VulkanBuffer::bind(VkDeviceSize offset) -> VkResult
 {
 	return vkBindBufferMemory(device, buffer, memory, offset);
 }
@@ -76,7 +76,7 @@ void VulkanBuffer::copyTo(void *data, VkDeviceSize size)
  *
  * @return VkResult of the flush call
  */
-VkResult VulkanBuffer::flush(VkDeviceSize size, VkDeviceSize offset)
+auto VulkanBuffer::flush(VkDeviceSize size, VkDeviceSize offset) -> VkResult
 {
 	VkMappedMemoryRange mappedRange = {};
 	mappedRange.sType = VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE;
@@ -96,7 +96,7 @@ VkResult VulkanBuffer::flush(VkDeviceSize size, VkDeviceSize offset)
  *
  * @return VkResult of the invalidate call
  */
-VkResult VulkanBuffer::invalidate(VkDeviceSize size, VkDeviceSize offset)
+auto VulkanBuffer::invalidate(VkDeviceSize size, VkDeviceSize offset) -> VkResult
 {
 	VkMappedMemoryRange mappedRange = {};
 	mappedRange.sType = VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE;

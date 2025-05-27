@@ -1,5 +1,5 @@
 #include <VulkanTools/Utils.hpp>
-VkBool32 getSupportedDepthFormat(VkPhysicalDevice physicalDevice, VkFormat *depthFormat)
+auto getSupportedDepthFormat(VkPhysicalDevice physicalDevice, VkFormat *depthFormat) -> VkBool32
 {
     // Since all depth formats may be optional, we need to find a suitable depth format to use
     // Start with the highest precision packed format

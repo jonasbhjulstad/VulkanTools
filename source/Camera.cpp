@@ -2,7 +2,7 @@
 
 	void Camera::updateViewMatrix()
 	{
-		glm::mat4 rotM = glm::mat4(1.0f);
+		auto rotM = glm::mat4(1.0f);
 		glm::mat4 transM;
 
 		rotM = glm::rotate(rotM, glm::radians(rotation.x * (flipY ? -1.0f : 1.0f)), glm::vec3(1.0f, 0.0f, 0.0f));

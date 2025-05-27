@@ -60,7 +60,7 @@ namespace vkglTF
 		VkSampler sampler;
 		void updateDescriptor();
 		void destroy();
-		void fromglTfImage(tinygltf::Image& gltfimage, std::string path, VulkanDevice* device, VkQueue copyQueue);
+		void fromglTfImage(tinygltf::Image& gltfimage, const std::string& path, VulkanDevice* device, VkQueue copyQueue);
 	};
 
 	/*
@@ -218,9 +218,9 @@ namespace vkglTF
 		static VkPipelineVertexInputStateCreateInfo pipelineVertexInputStateCreateInfo;
 		static auto inputBindingDescription(uint32_t binding) -> VkVertexInputBindingDescription;
 		static auto inputAttributeDescription(uint32_t binding, uint32_t location, VertexComponent component) -> VkVertexInputAttributeDescription;
-		static auto inputAttributeDescriptions(uint32_t binding, const std::vector<VertexComponent> components) -> std::vector<VkVertexInputAttributeDescription>;
+		static auto inputAttributeDescriptions(uint32_t binding, const std::vector<VertexComponent>& components) -> std::vector<VkVertexInputAttributeDescription>;
 		/** @brief Returns the default pipeline vertex input state create info structure for the requested vertex components */
-		static auto getPipelineVertexInputState(const std::vector<VertexComponent> components) -> VkPipelineVertexInputStateCreateInfo*;
+		static auto getPipelineVertexInputState(const std::vector<VertexComponent>& components) -> VkPipelineVertexInputStateCreateInfo*;
 	};
 
 	enum FileLoadingFlags {
@@ -289,7 +289,7 @@ namespace vkglTF
 		void loadImages(tinygltf::Model& gltfModel, VulkanDevice* device, VkQueue transferQueue);
 		void loadMaterials(tinygltf::Model& gltfModel);
 		void loadAnimations(tinygltf::Model& gltfModel);
-		void loadFromFile(std::string filename, VulkanDevice* device, VkQueue transferQueue, uint32_t fileLoadingFlags = vkglTF::FileLoadingFlags::None, float scale = 1.0f);
+		void loadFromFile(const std::string& filename, VulkanDevice* device, VkQueue transferQueue, uint32_t fileLoadingFlags = vkglTF::FileLoadingFlags::None, float scale = 1.0f);
 		void bindBuffers(VkCommandBuffer commandBuffer);
 		void drawNode(Node* node, VkCommandBuffer commandBuffer, uint32_t renderFlags = 0, VkPipelineLayout pipelineLayout = VK_NULL_HANDLE, uint32_t bindImageSet = 1);
 		void draw(VkCommandBuffer commandBuffer, uint32_t renderFlags = 0, VkPipelineLayout pipelineLayout = VK_NULL_HANDLE, uint32_t bindImageSet = 1);

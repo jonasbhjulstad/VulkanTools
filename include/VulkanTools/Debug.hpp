@@ -60,7 +60,7 @@ namespace debugmarker
     void beginRegion(VkCommandBuffer cmdbuffer, const char *pMarkerName, glm::vec4 color);
 
     // Insert a new debug marker into the command buffer
-    void insert(VkCommandBuffer cmdbuffer, std::string markerName, glm::vec4 color);
+    void insert(VkCommandBuffer cmdbuffer, const std::string& markerName, glm::vec4 color);
 
     // End the current debug marker region
     void endRegion(VkCommandBuffer cmdBuffer);

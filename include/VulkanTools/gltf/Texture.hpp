@@ -38,7 +38,7 @@ class Texture
 
 	void      updateDescriptor();
 	void      destroy();
-	auto loadKTXFile(std::string filename, ktxTexture **target) -> ktxResult;
+	auto loadKTXFile(const std::string& filename, ktxTexture **target) -> ktxResult;
 };
 
 class Texture2D : public Texture

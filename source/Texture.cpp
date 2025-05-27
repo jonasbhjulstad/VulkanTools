@@ -9,6 +9,7 @@
 #include <VulkanTools/gltf/Texture.hpp>
 #include <VulkanTools/Initializers.hpp>
 #include <VulkanTools/Tools.hpp>
+#include <utility>
 void Texture::updateDescriptor()
 {
 	descriptor.sampler = sampler;
@@ -27,7 +28,7 @@ void Texture::destroy()
 	vkFreeMemory(device->logicalDevice, deviceMemory, nullptr);
 }
 
-ktxResult Texture::loadKTXFile(std::string filename, ktxTexture **target)
+auto Texture::loadKTXFile(const std::string& filename, ktxTexture **target) -> ktxResult
 {
 	ktxResult result = KTX_SUCCESS;
 
@@ -53,8 +54,8 @@ ktxResult Texture::loadKTXFile(std::string filename, ktxTexture **target)
 	*/
 void Texture2D::loadFromFile(std::string filename, VkFormat format, VulkanDevice *device, VkQueue copyQueue, VkImageUsageFlags imageUsageFlags, VkImageLayout imageLayout, bool forceLinear)
 {
-	ktxTexture *ktxTexture;
-	ktxResult result = loadKTXFile(filename, &ktxTexture);
+	ktxTexture *ktxTexture = nullptr;
+	ktxResult result = loadKTXFile(std::move(filename), &ktxTexture);
 	assert(result == KTX_SUCCESS);
 
 	this->device = device;
@@ -85,8 +86,8 @@ void Texture2D::loadFromFile(std::string filename, VkFormat format, VulkanDevice
 	if (useStaging)
 	{
 		// Create a host-visible staging buffer that contains the raw image data
-		VkBuffer stagingBuffer;
-		VkDeviceMemory stagingMemory;
+		VkBuffer stagingBuffer = nullptr;
+		VkDeviceMemory stagingMemory = nullptr;
 
 		VkBufferCreateInfo bufferCreateInfo = initializers::bufferCreateInfo();
 		bufferCreateInfo.size = ktxTextureSize;
@@ -107,7 +108,7 @@ void Texture2D::loadFromFile(std::string filename, VkFormat format, VulkanDevice
 		VK_CHECK_RESULT(vkBindBufferMemory(device->logicalDevice, stagingBuffer, stagingMemory, 0));
 
 		// Copy texture data into staging buffer
-		uint8_t *data;
+		uint8_t *data = nullptr;
 		VK_CHECK_RESULT(vkMapMemory(device->logicalDevice, stagingMemory, 0, memReqs.size, 0, (void **)&data));
 		memcpy(data, ktxTextureData, ktxTextureSize);
 		vkUnmapMemory(device->logicalDevice, stagingMemory);
@@ -117,7 +118,7 @@ void Texture2D::loadFromFile(std::string filename, VkFormat format, VulkanDevice
 
 		for (uint32_t i = 0; i < mipLevels; i++)
 		{
-			ktx_size_t offset;
+			ktx_size_t offset = 0;
 			KTX_error_code result = ktxTexture_GetImageOffset(ktxTexture, i, 0, 0, &offset);
 			assert(result == KTX_SUCCESS);
 
@@ -209,8 +210,8 @@ void Texture2D::loadFromFile(std::string filename, VkFormat format, VulkanDevice
 		// Check if this support is supported for linear tiling
 		assert(formatProperties.linearTilingFeatures & VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT);
 
-		VkImage mappableImage;
-		VkDeviceMemory mappableMemory;
+		VkImage mappableImage = nullptr;
+		VkDeviceMemory mappableMemory = nullptr;
 
 		VkImageCreateInfo imageCreateInfo = initializers::imageCreateInfo();
 		imageCreateInfo.imageType = VK_IMAGE_TYPE_2D;
@@ -249,7 +250,7 @@ void Texture2D::loadFromFile(std::string filename, VkFormat format, VulkanDevice
 		subRes.mipLevel = 0;
 
 		VkSubresourceLayout subResLayout;
-		void *data;
+		void *data = nullptr;
 
 		// Get sub resources layout
 		// Includes row pitch, size offsets, etc.
@@ -347,8 +348,8 @@ void Texture2D::fromBuffer(void *buffer, VkDeviceSize bufferSize, VkFormat forma
 	VkCommandBuffer copyCmd = device->createCommandBuffer(VK_COMMAND_BUFFER_LEVEL_PRIMARY, true);
 
 	// Create a host-visible staging buffer that contains the raw image data
-	VkBuffer stagingBuffer;
-	VkDeviceMemory stagingMemory;
+	VkBuffer stagingBuffer = nullptr;
+	VkDeviceMemory stagingMemory = nullptr;
 
 	VkBufferCreateInfo bufferCreateInfo = initializers::bufferCreateInfo();
 	bufferCreateInfo.size = bufferSize;
@@ -369,7 +370,7 @@ void Texture2D::fromBuffer(void *buffer, VkDeviceSize bufferSize, VkFormat forma
 	VK_CHECK_RESULT(vkBindBufferMemory(device->logicalDevice, stagingBuffer, stagingMemory, 0));
 
 	// Copy texture data into staging buffer
-	uint8_t *data;
+	uint8_t *data = nullptr;
 	VK_CHECK_RESULT(vkMapMemory(device->logicalDevice, stagingMemory, 0, memReqs.size, 0, (void **)&data));
 	memcpy(data, buffer, bufferSize);
 	vkUnmapMemory(device->logicalDevice, stagingMemory);
@@ -469,7 +470,7 @@ void Texture2D::fromBuffer(void *buffer, VkDeviceSize bufferSize, VkFormat forma
 	// Create image view
 	VkImageViewCreateInfo viewCreateInfo = {};
 	viewCreateInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-	viewCreateInfo.pNext = NULL;
+	viewCreateInfo.pNext = nullptr;
 	viewCreateInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
 	viewCreateInfo.format = format;
 	viewCreateInfo.components = {VK_COMPONENT_SWIZZLE_R, VK_COMPONENT_SWIZZLE_G, VK_COMPONENT_SWIZZLE_B, VK_COMPONENT_SWIZZLE_A};
@@ -495,8 +496,8 @@ void Texture2D::fromBuffer(void *buffer, VkDeviceSize bufferSize, VkFormat forma
 	*/
 void Texture2DArray::loadFromFile(std::string filename, VkFormat format, VulkanDevice *device, VkQueue copyQueue, VkImageUsageFlags imageUsageFlags, VkImageLayout imageLayout)
 {
-	ktxTexture *ktxTexture;
-	ktxResult result = loadKTXFile(filename, &ktxTexture);
+	ktxTexture *ktxTexture = nullptr;
+	ktxResult result = loadKTXFile(std::move(filename), &ktxTexture);
 	assert(result == KTX_SUCCESS);
 
 	this->device = device;
@@ -512,8 +513,8 @@ void Texture2DArray::loadFromFile(std::string filename, VkFormat format, VulkanD
 	VkMemoryRequirements memReqs;
 
 	// Create a host-visible staging buffer that contains the raw image data
-	VkBuffer stagingBuffer;
-	VkDeviceMemory stagingMemory;
+	VkBuffer stagingBuffer = nullptr;
+	VkDeviceMemory stagingMemory = nullptr;
 
 	VkBufferCreateInfo bufferCreateInfo = initializers::bufferCreateInfo();
 	bufferCreateInfo.size = ktxTextureSize;
@@ -534,7 +535,7 @@ void Texture2DArray::loadFromFile(std::string filename, VkFormat format, VulkanD
 	VK_CHECK_RESULT(vkBindBufferMemory(device->logicalDevice, stagingBuffer, stagingMemory, 0));
 
 	// Copy texture data into staging buffer
-	uint8_t *data;
+	uint8_t *data = nullptr;
 	VK_CHECK_RESULT(vkMapMemory(device->logicalDevice, stagingMemory, 0, memReqs.size, 0, (void **)&data));
 	memcpy(data, ktxTextureData, ktxTextureSize);
 	vkUnmapMemory(device->logicalDevice, stagingMemory);
@@ -546,7 +547,7 @@ void Texture2DArray::loadFromFile(std::string filename, VkFormat format, VulkanD
 	{
 		for (uint32_t level = 0; level < mipLevels; level++)
 		{
-			ktx_size_t offset;
+			ktx_size_t offset = 0;
 			KTX_error_code result = ktxTexture_GetImageOffset(ktxTexture, level, layer, 0, &offset);
 			assert(result == KTX_SUCCESS);
 
@@ -680,8 +681,8 @@ void Texture2DArray::loadFromFile(std::string filename, VkFormat format, VulkanD
 	*/
 void TextureCubeMap::loadFromFile(std::string filename, VkFormat format, VulkanDevice *device, VkQueue copyQueue, VkImageUsageFlags imageUsageFlags, VkImageLayout imageLayout)
 {
-	ktxTexture *ktxTexture;
-	ktxResult result = loadKTXFile(filename, &ktxTexture);
+	ktxTexture *ktxTexture = nullptr;
+	ktxResult result = loadKTXFile(std::move(filename), &ktxTexture);
 	assert(result == KTX_SUCCESS);
 
 	this->device = device;
@@ -696,8 +697,8 @@ void TextureCubeMap::loadFromFile(std::string filename, VkFormat format, VulkanD
 	VkMemoryRequirements memReqs;
 
 	// Create a host-visible staging buffer that contains the raw image data
-	VkBuffer stagingBuffer;
-	VkDeviceMemory stagingMemory;
+	VkBuffer stagingBuffer = nullptr;
+	VkDeviceMemory stagingMemory = nullptr;
 
 	VkBufferCreateInfo bufferCreateInfo = initializers::bufferCreateInfo();
 	bufferCreateInfo.size = ktxTextureSize;
@@ -718,7 +719,7 @@ void TextureCubeMap::loadFromFile(std::string filename, VkFormat format, VulkanD
 	VK_CHECK_RESULT(vkBindBufferMemory(device->logicalDevice, stagingBuffer, stagingMemory, 0));
 
 	// Copy texture data into staging buffer
-	uint8_t *data;
+	uint8_t *data = nullptr;
 	VK_CHECK_RESULT(vkMapMemory(device->logicalDevice, stagingMemory, 0, memReqs.size, 0, (void **)&data));
 	memcpy(data, ktxTextureData, ktxTextureSize);
 	vkUnmapMemory(device->logicalDevice, stagingMemory);
@@ -730,7 +731,7 @@ void TextureCubeMap::loadFromFile(std::string filename, VkFormat format, VulkanD
 	{
 		for (uint32_t level = 0; level < mipLevels; level++)
 		{
-			ktx_size_t offset;
+			ktx_size_t offset = 0;
 			KTX_error_code result = ktxTexture_GetImageOffset(ktxTexture, level, 0, face, &offset);
 			assert(result == KTX_SUCCESS);
 

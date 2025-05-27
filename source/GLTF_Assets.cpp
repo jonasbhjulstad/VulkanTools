@@ -1,6 +1,6 @@
 #include <VulkanTools/GLTF_Assets.hpp>
 #include <VulkanTools/Tools.hpp>
-std::unique_ptr<vkglTF::Model> loadModel(const std::string &modelPath, VulkanDevice *vulkanDevice, VkQueue queue)
+auto loadModel(const std::string &modelPath, VulkanDevice *vulkanDevice, VkQueue queue) -> std::unique_ptr<vkglTF::Model>
 {
     const uint32_t glTFLoadingFlags = vkglTF::FileLoadingFlags::PreTransformVertices | vkglTF::FileLoadingFlags::PreMultiplyVertexColors | vkglTF::FileLoadingFlags::FlipY;
     std::unique_ptr<vkglTF::Model> model = std::make_unique<vkglTF::Model>();
@@ -8,17 +8,17 @@ std::unique_ptr<vkglTF::Model> loadModel(const std::string &modelPath, VulkanDev
     return model;
 }
 
-std::unique_ptr<Texture2D> loadTexture(const std::string &texturePath, VulkanDevice *vulkanDevice, VkQueue queue)
+auto loadTexture(const std::string &texturePath, VulkanDevice *vulkanDevice, VkQueue queue) -> std::unique_ptr<Texture2D>
 {
     std::unique_ptr<Texture2D> texture = std::make_unique<Texture2D>();
     texture->loadFromFile(texturePath, VK_FORMAT_R8G8B8A8_UNORM, vulkanDevice, queue);
     return texture;
 }
 
-VkPipelineShaderStageCreateInfo loadShader(
+auto loadShader(
     VkDevice device,
-    std::string fileName,
-    VkShaderStageFlagBits stage)
+    const std::string& fileName,
+    VkShaderStageFlagBits stage) -> VkPipelineShaderStageCreateInfo
 {
     VkPipelineShaderStageCreateInfo shaderStage = {};
     shaderStage.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;

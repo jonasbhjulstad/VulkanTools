@@ -11,7 +11,7 @@ auto loadTexture(const std::string &texturePath, VulkanDevice *vulkanDevice, VkQ
 
 auto loadShader(
     VkDevice device,
-    std::string fileName,
+    const std::string& fileName,
     VkShaderStageFlagBits stage) -> VkPipelineShaderStageCreateInfo;
 
 

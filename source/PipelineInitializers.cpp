@@ -124,7 +124,7 @@ namespace initializers
 		subpassDescription.pResolveAttachments = nullptr;
 
 		// Subpass dependencies for layout transitions
-		std::array<VkSubpassDependency, 2> dependencies;
+		std::array<VkSubpassDependency, 2> dependencies{};
 
 		dependencies[0].srcSubpass = VK_SUBPASS_EXTERNAL;
 		dependencies[0].dstSubpass = 0;
@@ -176,7 +176,7 @@ namespace initializers
 
 		VkFramebufferCreateInfo frameBufferCreateInfo = {};
 		frameBufferCreateInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
-		frameBufferCreateInfo.pNext = NULL;
+		frameBufferCreateInfo.pNext = nullptr;
 		frameBufferCreateInfo.renderPass = renderPass;
 		frameBufferCreateInfo.attachmentCount = 2;
 		frameBufferCreateInfo.pAttachments = attachments;

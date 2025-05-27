@@ -21,11 +21,11 @@ uint32_t vkglTF::descriptorBindingFlags = vkglTF::DescriptorBindingFlags::ImageB
 /*
 	We use a custom image loading function with tinyglTF, so we can do custom stuff loading ktx textures
 */
-bool loadImageDataFunc(tinygltf::Image* image, const int imageIndex, std::string* error, std::string* warning, int req_width, int req_height, const unsigned char* bytes, int size, void* userData)
+auto loadImageDataFunc(tinygltf::Image* image, const int imageIndex, std::string* error, std::string* warning, int req_width, int req_height, const unsigned char* bytes, int size, void* userData) -> bool
 {
 	// KTX files will be handled by our own code
-	if (image->uri.find_last_of(".") != std::string::npos) {
-		if (image->uri.substr(image->uri.find_last_of(".") + 1) == "ktx") {
+	if (image->uri.find_last_of('.') != std::string::npos) {
+		if (image->uri.substr(image->uri.find_last_of('.') + 1) == "ktx") {
 			return true;
 		}
 	}
@@ -33,7 +33,7 @@ bool loadImageDataFunc(tinygltf::Image* image, const int imageIndex, std::string
 	return tinygltf::LoadImageData(image, imageIndex, error, warning, req_width, req_height, bytes, size, userData);
 }
 
-bool loadImageDataFuncEmpty(tinygltf::Image* image, const int imageIndex, std::string* error, std::string* warning, int req_width, int req_height, const unsigned char* bytes, int size, void* userData) 
+auto loadImageDataFuncEmpty(tinygltf::Image* image, const int imageIndex, std::string* error, std::string* warning, int req_width, int req_height, const unsigned char* bytes, int size, void* userData) -> bool 
 {
 	// This function will be used for samples that don't require images to be loaded
 	return true;
@@ -62,14 +62,14 @@ void vkglTF::Texture::destroy()
 	}
 }
 
-void vkglTF::Texture::fromglTfImage(tinygltf::Image &gltfimage, std::string path, VulkanDevice *device, VkQueue copyQueue)
+void vkglTF::Texture::fromglTfImage(tinygltf::Image &gltfimage, const std::string& path, VulkanDevice *device, VkQueue copyQueue)
 {
 	this->device = device;
 
 	bool isKtx = false;
 	// Image points to an external ktx file
-	if (gltfimage.uri.find_last_of(".") != std::string::npos) {
-		if (gltfimage.uri.substr(gltfimage.uri.find_last_of(".") + 1) == "ktx") {
+	if (gltfimage.uri.find_last_of('.') != std::string::npos) {
+		if (gltfimage.uri.substr(gltfimage.uri.find_last_of('.') + 1) == "ktx") {
 			isKtx = true;
 		}
 	}
@@ -119,8 +119,8 @@ void vkglTF::Texture::fromglTfImage(tinygltf::Image &gltfimage, std::string path
 		memAllocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
 		VkMemoryRequirements memReqs{};
 
-		VkBuffer stagingBuffer;
-		VkDeviceMemory stagingMemory;
+		VkBuffer stagingBuffer = nullptr;
+		VkDeviceMemory stagingMemory = nullptr;
 
 		VkBufferCreateInfo bufferCreateInfo{};
 		bufferCreateInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
@@ -134,7 +134,7 @@ void vkglTF::Texture::fromglTfImage(tinygltf::Image &gltfimage, std::string path
 		VK_CHECK_RESULT(vkAllocateMemory(device->logicalDevice, &memAllocInfo, nullptr, &stagingMemory));
 		VK_CHECK_RESULT(vkBindBufferMemory(device->logicalDevice, stagingBuffer, stagingMemory, 0));
 
-		uint8_t* data;
+		uint8_t* data = nullptr;
 		VK_CHECK_RESULT(vkMapMemory(device->logicalDevice, stagingMemory, 0, memReqs.size, 0, (void**)&data));
 		memcpy(data, buffer, bufferSize);
 		vkUnmapMemory(device->logicalDevice, stagingMemory);
@@ -279,7 +279,7 @@ void vkglTF::Texture::fromglTfImage(tinygltf::Image &gltfimage, std::string path
 		// Texture is stored in an external ktx file
 		std::string filename = path + "/" + gltfimage.uri;
 
-		ktxTexture* ktxTexture;
+		ktxTexture* ktxTexture = nullptr;
 
 		ktxResult result = KTX_SUCCESS;
 
@@ -304,8 +304,8 @@ void vkglTF::Texture::fromglTfImage(tinygltf::Image &gltfimage, std::string path
 		vkGetPhysicalDeviceFormatProperties(device->physicalDevice, format, &formatProperties);
 
 		VkCommandBuffer copyCmd = device->createCommandBuffer(VK_COMMAND_BUFFER_LEVEL_PRIMARY, true);
-		VkBuffer stagingBuffer;
-		VkDeviceMemory stagingMemory;
+		VkBuffer stagingBuffer = nullptr;
+		VkDeviceMemory stagingMemory = nullptr;
 
 		VkBufferCreateInfo bufferCreateInfo = initializers::bufferCreateInfo();
 		bufferCreateInfo.size = ktxTextureSize;
@@ -322,7 +322,7 @@ void vkglTF::Texture::fromglTfImage(tinygltf::Image &gltfimage, std::string path
 		VK_CHECK_RESULT(vkAllocateMemory(device->logicalDevice, &memAllocInfo, nullptr, &stagingMemory));
 		VK_CHECK_RESULT(vkBindBufferMemory(device->logicalDevice, stagingBuffer, stagingMemory, 0));
 
-		uint8_t* data;
+		uint8_t* data = nullptr;
 		VK_CHECK_RESULT(vkMapMemory(device->logicalDevice, stagingMemory, 0, memReqs.size, 0, (void**)&data));
 		memcpy(data, ktxTextureData, ktxTextureSize);
 		vkUnmapMemory(device->logicalDevice, stagingMemory);
@@ -330,7 +330,7 @@ void vkglTF::Texture::fromglTfImage(tinygltf::Image &gltfimage, std::string path
 		std::vector<VkBufferImageCopy> bufferCopyRegions;
 		for (uint32_t i = 0; i < mipLevels; i++)
 		{
-			ktx_size_t offset;
+			ktx_size_t offset = 0;
 			KTX_error_code result = ktxTexture_GetImageOffset(ktxTexture, i, 0, 0, &offset);
 			assert(result == KTX_SUCCESS);
 			VkBufferImageCopy bufferCopyRegion = {};
@@ -469,8 +469,8 @@ void vkglTF::Primitive::setDimensions(glm::vec3 min, glm::vec3 max) {
 /*
 	glTF mesh
 */
-vkglTF::Mesh::Mesh(VulkanDevice *device, glm::mat4 matrix) {
-	this->device = device;
+vkglTF::Mesh::Mesh(VulkanDevice *device, glm::mat4 matrix) : device(device) {
+	
 	this->uniformBlock.matrix = matrix;
 	VK_CHECK_RESULT(device->createBuffer(
 		VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
@@ -495,11 +495,11 @@ vkglTF::Mesh::~Mesh() {
 /*
 	glTF node
 */
-glm::mat4 vkglTF::Node::localMatrix() {
+auto vkglTF::Node::localMatrix() -> glm::mat4 {
 	return glm::translate(glm::mat4(1.0f), translation) * glm::mat4(rotation) * glm::scale(glm::mat4(1.0f), scale) * matrix;
 }
 
-glm::mat4 vkglTF::Node::getMatrix() {
+auto vkglTF::Node::getMatrix() -> glm::mat4 {
 	glm::mat4 m = localMatrix();
 	vkglTF::Node *p = parent;
 	while (p) {
@@ -551,11 +551,11 @@ VkVertexInputBindingDescription vkglTF::Vertex::vertexInputBindingDescription;
 std::vector<VkVertexInputAttributeDescription> vkglTF::Vertex::vertexInputAttributeDescriptions;
 VkPipelineVertexInputStateCreateInfo vkglTF::Vertex::pipelineVertexInputStateCreateInfo;
 
-VkVertexInputBindingDescription vkglTF::Vertex::inputBindingDescription(uint32_t binding) {
+auto vkglTF::Vertex::inputBindingDescription(uint32_t binding) -> VkVertexInputBindingDescription {
 	return VkVertexInputBindingDescription({ binding, sizeof(Vertex), VK_VERTEX_INPUT_RATE_VERTEX });
 }
 
-VkVertexInputAttributeDescription vkglTF::Vertex::inputAttributeDescription(uint32_t binding, uint32_t location, VertexComponent component) {
+auto vkglTF::Vertex::inputAttributeDescription(uint32_t binding, uint32_t location, VertexComponent component) -> VkVertexInputAttributeDescription {
 	switch (component) {
 		case VertexComponent::Position: 
 			return VkVertexInputAttributeDescription({ location, binding, VK_FORMAT_R32G32B32_SFLOAT, offsetof(Vertex, pos) });
@@ -576,7 +576,7 @@ VkVertexInputAttributeDescription vkglTF::Vertex::inputAttributeDescription(uint
 	}
 }
 
-std::vector<VkVertexInputAttributeDescription> vkglTF::Vertex::inputAttributeDescriptions(uint32_t binding, const std::vector<VertexComponent> components) {
+auto vkglTF::Vertex::inputAttributeDescriptions(uint32_t binding, const std::vector<VertexComponent>& components) -> std::vector<VkVertexInputAttributeDescription> {
 	std::vector<VkVertexInputAttributeDescription> result;
 	uint32_t location = 0;
 	for (VertexComponent component : components) {
@@ -587,7 +587,7 @@ std::vector<VkVertexInputAttributeDescription> vkglTF::Vertex::inputAttributeDes
 }
 
 /** @brief Returns the default pipeline vertex input state create info structure for the requested vertex components */
-VkPipelineVertexInputStateCreateInfo* vkglTF::Vertex::getPipelineVertexInputState(const std::vector<VertexComponent> components) {
+auto vkglTF::Vertex::getPipelineVertexInputState(const std::vector<VertexComponent>& components) -> VkPipelineVertexInputStateCreateInfo* {
 	vertexInputBindingDescription = Vertex::inputBindingDescription(0);
 	Vertex::vertexInputAttributeDescriptions = Vertex::inputAttributeDescriptions(0, components);
 	pipelineVertexInputStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
@@ -598,7 +598,7 @@ VkPipelineVertexInputStateCreateInfo* vkglTF::Vertex::getPipelineVertexInputStat
 	return &pipelineVertexInputStateCreateInfo;
 }
 
-vkglTF::Texture* vkglTF::Model::getTexture(uint32_t index)
+auto vkglTF::Model::getTexture(uint32_t index) -> vkglTF::Texture*
 {
 
 	if (index < textures.size()) {
@@ -616,11 +616,11 @@ void vkglTF::Model::createEmptyTexture(VkQueue transferQueue)
 	emptyTexture.mipLevels = 1;
 
 	size_t bufferSize = emptyTexture.width * emptyTexture.height * 4;
-	unsigned char* buffer = new unsigned char[bufferSize];
+	auto* buffer = new unsigned char[bufferSize];
 	memset(buffer, 0, bufferSize);
 
-	VkBuffer stagingBuffer;
-	VkDeviceMemory stagingMemory;
+	VkBuffer stagingBuffer = nullptr;
+	VkDeviceMemory stagingMemory = nullptr;
 	VkBufferCreateInfo bufferCreateInfo = initializers::bufferCreateInfo();
 	bufferCreateInfo.size = bufferSize;
 	// This buffer is used as a transfer source for the buffer copy
@@ -637,7 +637,7 @@ void vkglTF::Model::createEmptyTexture(VkQueue transferQueue)
 	VK_CHECK_RESULT(vkBindBufferMemory(device->logicalDevice, stagingBuffer, stagingMemory, 0));
 
 	// Copy texture data into staging buffer
-	uint8_t* data;
+	uint8_t* data = nullptr;
 	VK_CHECK_RESULT(vkMapMemory(device->logicalDevice, stagingMemory, 0, memReqs.size, 0, (void**)&data));
 	memcpy(data, buffer, bufferSize);
 	vkUnmapMemory(device->logicalDevice, stagingMemory);
@@ -743,7 +743,7 @@ vkglTF::Model::~Model()
 
 void vkglTF::Model::loadNode(vkglTF::Node *parent, const tinygltf::Node &node, uint32_t nodeIndex, const tinygltf::Model &model, std::vector<uint32_t>& indexBuffer, std::vector<Vertex>& vertexBuffer, float globalscale)
 {
-	vkglTF::Node *newNode = new Node{};
+	auto *newNode = new Node{};
 	newNode->index = nodeIndex;
 	newNode->parent = parent;
 	newNode->name = node.name;
@@ -751,17 +751,17 @@ void vkglTF::Model::loadNode(vkglTF::Node *parent, const tinygltf::Node &node, u
 	newNode->matrix = glm::mat4(1.0f);
 
 	// Generate local node matrix
-	glm::vec3 translation = glm::vec3(0.0f);
+	auto translation = glm::vec3(0.0f);
 	if (node.translation.size() == 3) {
 		translation = glm::make_vec3(node.translation.data());
 		newNode->translation = translation;
 	}
-	glm::mat4 rotation = glm::mat4(1.0f);
+	auto rotation = glm::mat4(1.0f);
 	if (node.rotation.size() == 4) {
 		glm::quat q = glm::make_quat(node.rotation.data());
 		newNode->rotation = glm::mat4(q);
 	}
-	glm::vec3 scale = glm::vec3(1.0f);
+	auto scale = glm::vec3(1.0f);
 	if (node.scale.size() == 3) {
 		scale = glm::make_vec3(node.scale.data());
 		newNode->scale = scale;
@@ -775,8 +775,8 @@ void vkglTF::Model::loadNode(vkglTF::Node *parent, const tinygltf::Node &node, u
 
 	// Node with children
 	if (node.children.size() > 0) {
-		for (auto i = 0; i < node.children.size(); i++) {
-			loadNode(newNode, model.nodes[node.children[i]], node.children[i], model, indexBuffer, vertexBuffer, globalscale);
+		for (int i : node.children) {
+			loadNode(newNode, model.nodes[i], i, model, indexBuffer, vertexBuffer, globalscale);
 		}
 	}
 
@@ -785,13 +785,12 @@ void vkglTF::Model::loadNode(vkglTF::Node *parent, const tinygltf::Node &node, u
 		const tinygltf::Mesh mesh = model.meshes[node.mesh];
 		Mesh *newMesh = new Mesh(device, newNode->matrix);
 		newMesh->name = mesh.name;
-		for (size_t j = 0; j < mesh.primitives.size(); j++) {
-			const tinygltf::Primitive &primitive = mesh.primitives[j];
-			if (primitive.indices < 0) {
+		for (const auto & primitive : mesh.primitives) {
+				if (primitive.indices < 0) {
 				continue;
 			}
-			uint32_t indexStart = static_cast<uint32_t>(indexBuffer.size());
-			uint32_t vertexStart = static_cast<uint32_t>(vertexBuffer.size());
+			auto indexStart = static_cast<uint32_t>(indexBuffer.size());
+			auto vertexStart = static_cast<uint32_t>(vertexBuffer.size());
 			uint32_t indexCount = 0;
 			uint32_t vertexCount = 0;
 			glm::vec3 posMin{};
@@ -804,7 +803,7 @@ void vkglTF::Model::loadNode(vkglTF::Node *parent, const tinygltf::Node &node, u
 				const float *bufferTexCoords = nullptr;
 				const float* bufferColors = nullptr;
 				const float *bufferTangents = nullptr;
-				uint32_t numColorComponents;
+				uint32_t numColorComponents = 0;
 				const uint16_t *bufferJoints = nullptr;
 				const float *bufferWeights = nullptr;
 
@@ -895,7 +894,7 @@ void vkglTF::Model::loadNode(vkglTF::Node *parent, const tinygltf::Node &node, u
 
 				switch (accessor.componentType) {
 				case TINYGLTF_PARAMETER_TYPE_UNSIGNED_INT: {
-					uint32_t *buf = new uint32_t[accessor.count];
+					auto *buf = new uint32_t[accessor.count];
 					memcpy(buf, &buffer.data[accessor.byteOffset + bufferView.byteOffset], accessor.count * sizeof(uint32_t));
 					for (size_t index = 0; index < accessor.count; index++) {
 						indexBuffer.push_back(buf[index] + vertexStart);
@@ -904,7 +903,7 @@ void vkglTF::Model::loadNode(vkglTF::Node *parent, const tinygltf::Node &node, u
 					break;
 				}
 				case TINYGLTF_PARAMETER_TYPE_UNSIGNED_SHORT: {
-					uint16_t *buf = new uint16_t[accessor.count];
+					auto *buf = new uint16_t[accessor.count];
 					memcpy(buf, &buffer.data[accessor.byteOffset + bufferView.byteOffset], accessor.count * sizeof(uint16_t));
 					for (size_t index = 0; index < accessor.count; index++) {
 						indexBuffer.push_back(buf[index] + vertexStart);
@@ -913,7 +912,7 @@ void vkglTF::Model::loadNode(vkglTF::Node *parent, const tinygltf::Node &node, u
                     break;
 				}
 				case TINYGLTF_PARAMETER_TYPE_UNSIGNED_BYTE: {
-					uint8_t *buf = new uint8_t[accessor.count];
+					auto *buf = new uint8_t[accessor.count];
 					memcpy(buf, &buffer.data[accessor.byteOffset + bufferView.byteOffset], accessor.count * sizeof(uint8_t));
 					for (size_t index = 0; index < accessor.count; index++) {
 						indexBuffer.push_back(buf[index] + vertexStart);
@@ -922,11 +921,11 @@ void vkglTF::Model::loadNode(vkglTF::Node *parent, const tinygltf::Node &node, u
                     break;
 				}
 				default:
-					std::cerr << "Index component type " << accessor.componentType << " not supported!" << std::endl;
+					std::cerr << "Index component type " << accessor.componentType << " not supported!" << '\n';
 					return;
 				}
 			}
-			Primitive *newPrimitive = new Primitive(indexStart, indexCount, primitive.material > -1 ? materials[primitive.material] : materials.back());
+			auto *newPrimitive = new Primitive(indexStart, indexCount, primitive.material > -1 ? materials[primitive.material] : materials.back());
 			newPrimitive->firstVertex = vertexStart;
 			newPrimitive->vertexCount = vertexCount;
 			newPrimitive->setDimensions(posMin, posMax);
@@ -1032,7 +1031,7 @@ void vkglTF::Model::loadMaterials(tinygltf::Model &gltfModel)
 		materials.push_back(material);
 	}
 	// Push a default material at the end of the list for meshes with no material assigned
-	materials.push_back(Material(device));
+	materials.emplace_back(device);
 }
 
 void vkglTF::Model::loadAnimations(tinygltf::Model &gltfModel)
@@ -1066,7 +1065,7 @@ void vkglTF::Model::loadAnimations(tinygltf::Model &gltfModel)
 
 				assert(accessor.componentType == TINYGLTF_COMPONENT_TYPE_FLOAT);
 
-				float *buf = new float[accessor.count];
+				auto *buf = new float[accessor.count];
 				memcpy(buf, &buffer.data[accessor.byteOffset + bufferView.byteOffset], accessor.count * sizeof(float));
 				for (size_t index = 0; index < accessor.count; index++) {
 					sampler.inputs.push_back(buf[index]);
@@ -1092,16 +1091,16 @@ void vkglTF::Model::loadAnimations(tinygltf::Model &gltfModel)
 
 				switch (accessor.type) {
 				case TINYGLTF_TYPE_VEC3: {
-					glm::vec3 *buf = new glm::vec3[accessor.count];
+					auto *buf = new glm::vec3[accessor.count];
 					memcpy(buf, &buffer.data[accessor.byteOffset + bufferView.byteOffset], accessor.count * sizeof(glm::vec3));
 					for (size_t index = 0; index < accessor.count; index++) {
-						sampler.outputsVec4.push_back(glm::vec4(buf[index], 0.0f));
+						sampler.outputsVec4.emplace_back(buf[index], 0.0f);
 					}
                     delete[] buf;
                     break;
 				}
 				case TINYGLTF_TYPE_VEC4: {
-					glm::vec4 *buf = new glm::vec4[accessor.count];
+					auto *buf = new glm::vec4[accessor.count];
 					memcpy(buf, &buffer.data[accessor.byteOffset + bufferView.byteOffset], accessor.count * sizeof(glm::vec4));
 					for (size_t index = 0; index < accessor.count; index++) {
 						sampler.outputsVec4.push_back(buf[index]);
@@ -1110,7 +1109,7 @@ void vkglTF::Model::loadAnimations(tinygltf::Model &gltfModel)
                     break;
 				}
 				default: {
-					std::cout << "unknown type" << std::endl;
+					std::cout << "unknown type" << '\n';
 					break;
 				}
 				}
@@ -1133,7 +1132,7 @@ void vkglTF::Model::loadAnimations(tinygltf::Model &gltfModel)
 				channel.path = AnimationChannel::PathType::SCALE;
 			}
 			if (source.target_path == "weights") {
-				std::cout << "weights not yet supported, skipping channel" << std::endl;
+				std::cout << "weights not yet supported, skipping channel" << '\n';
 				continue;
 			}
 			channel.samplerIndex = source.sampler;
@@ -1149,7 +1148,7 @@ void vkglTF::Model::loadAnimations(tinygltf::Model &gltfModel)
 	}
 }
 
-void vkglTF::Model::loadFromFile(std::string filename, VulkanDevice *device, VkQueue transferQueue, uint32_t fileLoadingFlags, float scale)
+void vkglTF::Model::loadFromFile(const std::string& filename, VulkanDevice *device, VkQueue transferQueue, uint32_t fileLoadingFlags, float scale)
 {
 	tinygltf::Model gltfModel;
 	tinygltf::TinyGLTF gltfContext;
@@ -1186,9 +1185,9 @@ void vkglTF::Model::loadFromFile(std::string filename, VulkanDevice *device, VkQ
 		}
 		loadMaterials(gltfModel);
 		const tinygltf::Scene &scene = gltfModel.scenes[gltfModel.defaultScene > -1 ? gltfModel.defaultScene : 0];
-		for (size_t i = 0; i < scene.nodes.size(); i++) {
-			const tinygltf::Node node = gltfModel.nodes[scene.nodes[i]];
-			loadNode(nullptr, node, scene.nodes[i], gltfModel, indexBuffer, vertexBuffer, scale);
+		for (int i : scene.nodes) {
+			const tinygltf::Node node = gltfModel.nodes[i];
+			loadNode(nullptr, node, i, gltfModel, indexBuffer, vertexBuffer, scale);
 		}
 		if (gltfModel.animations.size() > 0) {
 			loadAnimations(gltfModel);
@@ -1243,7 +1242,7 @@ void vkglTF::Model::loadFromFile(std::string filename, VulkanDevice *device, VkQ
 		}
 	}
 
-	for (auto extension : gltfModel.extensionsUsed) {
+	for (const auto& extension : gltfModel.extensionsUsed) {
 		if (extension == "KHR_materials_pbrSpecularGlossiness") {
 			std::cout << "Required extension: " << extension;
 			metallicRoughnessWorkflow = false;
@@ -1260,7 +1259,7 @@ void vkglTF::Model::loadFromFile(std::string filename, VulkanDevice *device, VkQ
 	struct StagingBuffer {
 		VkBuffer buffer;
 		VkDeviceMemory memory;
-	} vertexStaging, indexStaging;
+	} vertexStaging{}, indexStaging{};
 
 	// Create staging buffers
 	// Vertex data
@@ -1472,7 +1471,7 @@ void vkglTF::Model::getSceneDimensions()
 void vkglTF::Model::updateAnimation(uint32_t index, float time)
 {
 	if (index > static_cast<uint32_t>(animations.size()) - 1) {
-		std::cout << "No animation with index " << index << std::endl;
+		std::cout << "No animation with index " << index << '\n';
 		return;
 	}
 	Animation &animation = animations[index];
@@ -1529,7 +1528,7 @@ void vkglTF::Model::updateAnimation(uint32_t index, float time)
 /*
 	Helper functions
 */
-vkglTF::Node* vkglTF::Model::findNode(Node *parent, uint32_t index) {
+auto vkglTF::Model::findNode(Node *parent, uint32_t index) -> vkglTF::Node* {
 	Node* nodeFound = nullptr;
 	if (parent->index == index) {
 		return parent;
@@ -1543,7 +1542,7 @@ vkglTF::Node* vkglTF::Model::findNode(Node *parent, uint32_t index) {
 	return nodeFound;
 }
 
-vkglTF::Node* vkglTF::Model::nodeFromIndex(uint32_t index) {
+auto vkglTF::Model::nodeFromIndex(uint32_t index) -> vkglTF::Node* {
 	Node* nodeFound = nullptr;
 	for (auto &node : nodes) {
 		nodeFound = findNode(node, index);

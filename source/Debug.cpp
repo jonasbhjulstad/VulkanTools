@@ -10,12 +10,12 @@
 #include <iostream>
 #include <cstring>
 #include <fstream>
-#include <assert.h>
-#include <stdio.h>
+#include <cassert>
+#include <cstdio>
 #include <vector>
 #include <sstream>
-#include <math.h>
-#include <stdlib.h>
+#include <cmath>
+#include <cstdlib>
 #ifdef _WIN32
 #include <windows.h>
 #include <fcntl.h>
@@ -28,11 +28,11 @@ namespace debug
 	PFN_vkDestroyDebugUtilsMessengerEXT vkDestroyDebugUtilsMessengerEXT;
 	VkDebugUtilsMessengerEXT debugUtilsMessenger;
 
-	VKAPI_ATTR VkBool32 VKAPI_CALL debugUtilsMessengerCallback(
+	VKAPI_ATTR auto VKAPI_CALL debugUtilsMessengerCallback(
 		VkDebugUtilsMessageSeverityFlagBitsEXT messageSeverity,
 		VkDebugUtilsMessageTypeFlagsEXT messageType,
 		const VkDebugUtilsMessengerCallbackDataEXT *pCallbackData,
-		void *pUserData)
+		void *pUserData) -> VkBool32
 	{
 		// Select prefix depending on flags passed to the callback
 		std::string prefix("");
@@ -163,7 +163,7 @@ namespace debugmarker
 		}
 	}
 
-	void insert(VkCommandBuffer cmdbuffer, std::string markerName, glm::vec4 color)
+	void insert(VkCommandBuffer cmdbuffer, const std::string& markerName, glm::vec4 color)
 	{
 		// Check for valid function pointer (may not be present if not running in a debugging application)
 		if (pfnCmdDebugMarkerInsert)

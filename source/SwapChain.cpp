@@ -17,8 +17,8 @@ void VulkanSwapChain::initSurface(VkInstance instance, GLFWwindow* window, VkSur
 	VkResult err = VK_SUCCESS;
 
 	// Get available queue family properties
-	uint32_t queueCount;
-	vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, &queueCount, NULL);
+	uint32_t queueCount = 0;
+	vkGetPhysicalDeviceQueueFamilyProperties(physicalDevice, &queueCount, nullptr);
 	assert(queueCount >= 1);
 
 	std::vector<VkQueueFamilyProperties> queueProps(queueCount);
@@ -71,20 +71,20 @@ void VulkanSwapChain::initSurface(VkInstance instance, GLFWwindow* window, VkSur
 	// Exit if either a graphics or a presenting queue hasn't been found
 	if (graphicsQueueNodeIndex == UINT32_MAX || presentQueueNodeIndex == UINT32_MAX) 
 	{
-		std::cerr << "Could not find a graphics and/or presenting queue" << std::endl;
+		std::cerr << "Could not find a graphics and/or presenting queue" << '\n';
 	}
 
 	// todo : Add support for separate graphics and presenting queue
 	if (graphicsQueueNodeIndex != presentQueueNodeIndex) 
 	{
-		std::cerr << "Separate graphics and presenting queues are not supported yet!" << std::endl;
+		std::cerr << "Separate graphics and presenting queues are not supported yet!" << '\n';
 	}
 
 	queueNodeIndex = graphicsQueueNodeIndex;
 
 	// Get list of supported surface formats
-	uint32_t formatCount;
-	VK_CHECK_RESULT(fpGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface, &formatCount, NULL));
+	uint32_t formatCount = 0;
+	VK_CHECK_RESULT(fpGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface, &formatCount, nullptr));
 	assert(formatCount > 0);
 
 	std::vector<VkSurfaceFormatKHR> surfaceFormats(formatCount);
@@ -166,8 +166,8 @@ void VulkanSwapChain::create(ImGui_ImplVulkanH_Window* wd, uint32_t *width, uint
 	VK_CHECK_RESULT(fpGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice, surface, &surfCaps));
 
 	// Get available present modes
-	uint32_t presentModeCount;
-	VK_CHECK_RESULT(fpGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, surface, &presentModeCount, NULL));
+	uint32_t presentModeCount = 0;
+	VK_CHECK_RESULT(fpGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, surface, &presentModeCount, nullptr));
 	assert(presentModeCount > 0);
 
 	std::vector<VkPresentModeKHR> presentModes(presentModeCount);
@@ -223,7 +223,7 @@ void VulkanSwapChain::create(ImGui_ImplVulkanH_Window* wd, uint32_t *width, uint
 	}
 
 	// Find the transformation of the surface
-	VkSurfaceTransformFlagsKHR preTransform;
+	VkSurfaceTransformFlagsKHR preTransform = 0;
 	if (surfCaps.supportedTransforms & VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR)
 	{
 		// We prefer a non-rotated transform
@@ -291,7 +291,7 @@ void VulkanSwapChain::create(ImGui_ImplVulkanH_Window* wd, uint32_t *width, uint
 		}
 		fpDestroySwapchainKHR(device, oldSwapchain, nullptr);
 	}
-	VK_CHECK_RESULT(fpGetSwapchainImagesKHR(device, swapChain, &imageCount, NULL));
+	VK_CHECK_RESULT(fpGetSwapchainImagesKHR(device, swapChain, &imageCount, nullptr));
 
 	// Get the swap chain images
 	images.resize(imageCount);
@@ -303,7 +303,7 @@ void VulkanSwapChain::create(ImGui_ImplVulkanH_Window* wd, uint32_t *width, uint
 	{
 		VkImageViewCreateInfo colorAttachmentView = {};
 		colorAttachmentView.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-		colorAttachmentView.pNext = NULL;
+		colorAttachmentView.pNext = nullptr;
 		colorAttachmentView.format = colorFormat;
 		colorAttachmentView.components = {
 			VK_COMPONENT_SWIZZLE_R,
@@ -337,7 +337,7 @@ void VulkanSwapChain::create(ImGui_ImplVulkanH_Window* wd, uint32_t *width, uint
 *
 * @return VkResult of the image acquisition
 */
-VkResult VulkanSwapChain::acquireNextImage(VkSemaphore presentCompleteSemaphore, uint32_t *imageIndex)
+auto VulkanSwapChain::acquireNextImage(VkSemaphore presentCompleteSemaphore, uint32_t *imageIndex) -> VkResult
 {
 	// By setting timeout to UINT64_MAX we will always wait until the next image has been acquired or an actual error is thrown
 	// With that we don't have to handle VK_NOT_READY
@@ -353,11 +353,11 @@ VkResult VulkanSwapChain::acquireNextImage(VkSemaphore presentCompleteSemaphore,
 *
 * @return VkResult of the queue presentation
 */
-VkResult VulkanSwapChain::queuePresent(VkQueue queue, uint32_t imageIndex, VkSemaphore waitSemaphore)
+auto VulkanSwapChain::queuePresent(VkQueue queue, uint32_t imageIndex, VkSemaphore waitSemaphore) -> VkResult
 {
 	VkPresentInfoKHR presentInfo = {};
 	presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
-	presentInfo.pNext = NULL;
+	presentInfo.pNext = nullptr;
 	presentInfo.swapchainCount = 1;
 	presentInfo.pSwapchains = &swapChain;
 	presentInfo.pImageIndices = &imageIndex;

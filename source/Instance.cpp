@@ -13,9 +13,9 @@ void destroyVulkanInstance(VulkanInstance& vI)
 	{
 		vkDestroyRenderPass(logicalDevice, vI.renderPass, nullptr);
 	}
-	for (uint32_t i = 0; i < vI.frameBuffers.size(); i++)
+	for (auto & frameBuffer : vI.frameBuffers)
 	{
-		vkDestroyFramebuffer(logicalDevice, vI.frameBuffers[i], nullptr);
+		vkDestroyFramebuffer(logicalDevice, frameBuffer, nullptr);
 	}
 
 	for (auto& shaderModule : vI.shaderModules)
@@ -58,7 +58,7 @@ void ImGui_Vulkan_Init(const VulkanInstance &vulkanInstance)
     init_info.Queue = vulkanInstance.queue;
     init_info.PipelineCache = vulkanInstance.pipelineCache;
     init_info.DescriptorPool = vulkanInstance.descriptorPool;
-    init_info.Allocator = NULL;
+    init_info.Allocator = nullptr;
     init_info.MinImageCount = 2;
     init_info.ImageCount = vulkanInstance.swapChain.imageCount;
     init_info.CheckVkResultFn = check_vk_result;
