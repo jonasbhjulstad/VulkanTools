@@ -8,8 +8,6 @@
 #include <VulkanTools/Buffer.hpp>
 #include <VulkanTools/Tools.hpp>
 #include <VulkanTools/GLTF_Assets.hpp>
-#include <VulkanTools/NodeInstance.hpp>
-#include <VulkanTools/EdgeInstance.hpp>
 
 namespace glTFBasicInstance
 {

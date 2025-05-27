@@ -44,14 +44,14 @@ namespace tools
 	extern bool errorModeSilent;
 
 	/** @brief Returns an error code as a string */
-	std::string errorString(VkResult errorCode);
+	auto errorString(VkResult errorCode) -> std::string;
 
 	/** @brief Returns the device type as a string */
-	std::string physicalDeviceTypeString(VkPhysicalDeviceType type);
+	auto physicalDeviceTypeString(VkPhysicalDeviceType type) -> std::string;
 
 	// Selected a suitable supported depth format starting with 32 bit down to 16 bit
 	// Returns false if none of the depth formats in the list is supported by the device
-	VkBool32 getSupportedDepthFormat(VkPhysicalDevice physicalDevice, VkFormat *depthFormat);
+	auto getSupportedDepthFormat(VkPhysicalDevice physicalDevice, VkFormat *depthFormat) -> VkBool32;
 
 
 	// Put an image memory barrier for setting an image layout on the sub resource into the given command buffer
@@ -91,11 +91,11 @@ namespace tools
 
 	// Load a SPIR-V shader (binary)
 
-	VkShaderModule loadShaderModule(const char *fileName, VkDevice device);
+	auto loadShaderModule(const char *fileName, VkDevice device) -> VkShaderModule;
 
 	/** @brief Checks if a file exists */
-	bool fileExists(const std::string &filename);
+	auto fileExists(const std::string &filename) -> bool;
 
-	uint32_t alignedSize(uint32_t value, uint32_t alignment);
+	auto alignedSize(uint32_t value, uint32_t alignment) -> uint32_t;
 }
 #endif

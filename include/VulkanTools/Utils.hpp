@@ -1,6 +1,6 @@
 #ifndef Vulkan_UTILS_HPP
 #define Vulkan_UTILS_HPP
 #include <vulkan/vulkan.hpp>
-VkBool32 getSupportedDepthFormat(VkPhysicalDevice physicalDevice, VkFormat *depthFormat);
+auto getSupportedDepthFormat(VkPhysicalDevice physicalDevice, VkFormat *depthFormat) -> VkBool32;
 
 #endif // Vulkan_UTILS_HPP

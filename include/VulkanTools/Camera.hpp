@@ -50,17 +50,17 @@ public:
 
 	void setContext(ImGuiContext* _context){ window = _context->NavWindow; imguiContext = _context;}
 
-	bool moving()
+	auto moving() -> bool
 	{
 		ImGuiIO& io = ImGui::GetIO();
 		return io.KeysDown[ImGuiKey_W] || io.KeysDown[ImGuiKey_A] || io.KeysDown[ImGuiKey_D] || io.KeysDown[ImGuiKey_S];
 	}
 
-	float getNearClip() { 
+	auto getNearClip() -> float { 
 		return znear;
 	}
 
-	float getFarClip() {
+	auto getFarClip() -> float {
 		return zfar;
 	}
 

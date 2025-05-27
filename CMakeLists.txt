@@ -5,7 +5,6 @@ set(PROJECT_VERSION 0.1.0)
 
 include(cmake/external_packages.cmake)
 
-
 file(GLOB_RECURSE VULKAN_TOOLS_SOURCES "source/*.cpp")
 add_library(VulkanTools ${VULKAN_TOOLS_SOURCES})
 target_include_directories(VulkanTools PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include> $<INSTALL_INTERFACE:include>)

@@ -6,13 +6,13 @@
 #include <VulkanTools/gltf/Texture.hpp>
 
 
-std::unique_ptr<vkglTF::Model> loadModel(const std::string &modelPath, VulkanDevice *vulkanDevice, VkQueue queue);
-std::unique_ptr<Texture2D> loadTexture(const std::string &texturePath, VulkanDevice *vulkanDevice, VkQueue queue);
+auto loadModel(const std::string &modelPath, VulkanDevice *vulkanDevice, VkQueue queue) -> std::unique_ptr<vkglTF::Model>;
+auto loadTexture(const std::string &texturePath, VulkanDevice *vulkanDevice, VkQueue queue) -> std::unique_ptr<Texture2D>;
 
-VkPipelineShaderStageCreateInfo loadShader(
+auto loadShader(
     VkDevice device,
     std::string fileName,
-    VkShaderStageFlagBits stage);
+    VkShaderStageFlagBits stage) -> VkPipelineShaderStageCreateInfo;
 
 
 #endif

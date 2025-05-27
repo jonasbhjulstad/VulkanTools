@@ -10,7 +10,7 @@
 #define Vulkan_TEXTURE_HPP
 
 #include <fstream>
-#include <stdlib.h>
+#include <cstdlib>
 #include <string>
 #include <vector>
 
@@ -38,7 +38,7 @@ class Texture
 
 	void      updateDescriptor();
 	void      destroy();
-	ktxResult loadKTXFile(std::string filename, ktxTexture **target);
+	auto loadKTXFile(std::string filename, ktxTexture **target) -> ktxResult;
 };
 
 class Texture2D : public Texture

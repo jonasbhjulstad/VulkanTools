@@ -15,7 +15,7 @@ namespace debug
     extern const char *validationLayerNames[];
 
     // Default debug callback
-    VKAPI_ATTR VkBool32 VKAPI_CALL messageCallback(
+    VKAPI_ATTR auto VKAPI_CALL messageCallback(
         VkDebugReportFlagsEXT flags,
         VkDebugReportObjectTypeEXT objType,
         uint64_t srcObject,
@@ -23,7 +23,7 @@ namespace debug
         int32_t msgCode,
         const char *pLayerPrefix,
         const char *pMsg,
-        void *pUserData);
+        void *pUserData) -> VkBool32;
 
     // Load debug function pointers and set debug callback
     // if callBack is NULL, default message callback will be used

@@ -9,7 +9,7 @@
 #ifndef VULKAN_GLTF_MODEL_HPP
 #define VULKAN_GLTF_MODEL_HPP
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <string>
 #include <fstream>
 #include <vector>
@@ -80,8 +80,8 @@ namespace vkglTF
 		vkglTF::Texture* occlusionTexture = nullptr;
 		vkglTF::Texture* emissiveTexture = nullptr;
 
-		vkglTF::Texture* specularGlossinessTexture;
-		vkglTF::Texture* diffuseTexture;
+		vkglTF::Texture* specularGlossinessTexture{};
+		vkglTF::Texture* diffuseTexture{};
 
 		VkDescriptorSet descriptorSet = VK_NULL_HANDLE;
 
@@ -95,16 +95,16 @@ namespace vkglTF
 	struct Primitive {
 		uint32_t firstIndex;
 		uint32_t indexCount;
-		uint32_t firstVertex;
-		uint32_t vertexCount;
+		uint32_t firstVertex{};
+		uint32_t vertexCount{};
 		Material& material;
 
 		struct Dimensions {
 			glm::vec3 min = glm::vec3(FLT_MAX);
 			glm::vec3 max = glm::vec3(-FLT_MAX);
-			glm::vec3 size;
-			glm::vec3 center;
-			float radius;
+			glm::vec3 size{};
+			glm::vec3 center{};
+			float radius{};
 		} dimensions;
 
 		void setDimensions(glm::vec3 min, glm::vec3 max);
@@ -163,8 +163,8 @@ namespace vkglTF
 		glm::vec3 translation{};
 		glm::vec3 scale{ 1.0f };
 		glm::quat rotation{};
-		glm::mat4 localMatrix();
-		glm::mat4 getMatrix();
+		auto localMatrix() -> glm::mat4;
+		auto getMatrix() -> glm::mat4;
 		void update();
 		~Node();
 	};
@@ -216,11 +216,11 @@ namespace vkglTF
 		static VkVertexInputBindingDescription vertexInputBindingDescription;
 		static std::vector<VkVertexInputAttributeDescription> vertexInputAttributeDescriptions;
 		static VkPipelineVertexInputStateCreateInfo pipelineVertexInputStateCreateInfo;
-		static VkVertexInputBindingDescription inputBindingDescription(uint32_t binding);
-		static VkVertexInputAttributeDescription inputAttributeDescription(uint32_t binding, uint32_t location, VertexComponent component);
-		static std::vector<VkVertexInputAttributeDescription> inputAttributeDescriptions(uint32_t binding, const std::vector<VertexComponent> components);
+		static auto inputBindingDescription(uint32_t binding) -> VkVertexInputBindingDescription;
+		static auto inputAttributeDescription(uint32_t binding, uint32_t location, VertexComponent component) -> VkVertexInputAttributeDescription;
+		static auto inputAttributeDescriptions(uint32_t binding, const std::vector<VertexComponent> components) -> std::vector<VkVertexInputAttributeDescription>;
 		/** @brief Returns the default pipeline vertex input state create info structure for the requested vertex components */
-		static VkPipelineVertexInputStateCreateInfo* getPipelineVertexInputState(const std::vector<VertexComponent> components);
+		static auto getPipelineVertexInputState(const std::vector<VertexComponent> components) -> VkPipelineVertexInputStateCreateInfo*;
 	};
 
 	enum FileLoadingFlags {
@@ -243,23 +243,23 @@ namespace vkglTF
 	*/
 	class Model {
 	private:
-		vkglTF::Texture* getTexture(uint32_t index);
+		auto getTexture(uint32_t index) -> vkglTF::Texture*;
 		vkglTF::Texture emptyTexture;
 		void createEmptyTexture(VkQueue transferQueue);
 	public:
-		VulkanDevice* device;
-		VkDescriptorPool descriptorPool;
+		VulkanDevice* device{};
+		VkDescriptorPool descriptorPool{};
 
 		struct Vertices {
 			int count;
 			VkBuffer buffer;
 			VkDeviceMemory memory;
-		} vertices;
+		} vertices{};
 		struct Indices {
 			int count;
 			VkBuffer buffer;
 			VkDeviceMemory memory;
-		} indices;
+		} indices{};
 
 		std::vector<Node*> nodes;
 		std::vector<Node*> linearNodes;
@@ -282,7 +282,7 @@ namespace vkglTF
 		bool buffersBound = false;
 		std::string path;
 
-		Model() {};
+		Model() = default;
 		~Model();
 		void loadNode(vkglTF::Node* parent, const tinygltf::Node& node, uint32_t nodeIndex, const tinygltf::Model& model, std::vector<uint32_t>& indexBuffer, std::vector<Vertex>& vertexBuffer, float globalscale);
 		void loadSkins(tinygltf::Model& gltfModel);
@@ -296,8 +296,8 @@ namespace vkglTF
 		void getNodeDimensions(Node* node, glm::vec3& min, glm::vec3& max);
 		void getSceneDimensions();
 		void updateAnimation(uint32_t index, float time);
-		Node* findNode(Node* parent, uint32_t index);
-		Node* nodeFromIndex(uint32_t index);
+		auto findNode(Node* parent, uint32_t index) -> Node*;
+		auto nodeFromIndex(uint32_t index) -> Node*;
 		void prepareNodeDescriptor(vkglTF::Node* node, VkDescriptorSetLayout descriptorSetLayout);
 	};
 }

@@ -1,0 +1,59 @@
+{
+    "version": 8,
+    "configurePresets": [
+        {
+            "name": "base",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_CXX_FLAGS": "-Wfatal-errors -Wno-implicit-const-int-float-conversion -Wno-unused-const-variable",
+                "CMAKE_LINKER": "/usr/bin/mold",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "CPM_SOURCE_CACHE": "${sourceDir}/build/cpm",
+                "CMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES": "/usr/include/c++/13/",
+                "CMAKE_CXX_COMPILER_LAUNCHER": "/usr/bin/ccache"
+            },
+            "environment": {
+                "CCACHE_DIR": "${sourceDir}/build/ccache/",
+                "CCACHE_SLOPPINESS": "pch_defines,include_file_mtime,include_file_ctime,file_stat_matches",
+                "VULKAN_SDK": "/home/man/vulkan/1.4.309.0/x86_64"
+            },
+            "warnings": {
+                "dev": false
+            },
+            "generator": "Ninja"
+        },
+        {
+            "name": "gcc-13",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_C_COMPILER": "/usr/bin/gcc-13",
+                "CMAKE_CXX_COMPILER": "/usr/bin/g++-13"
+            }
+        },
+        {
+            "name": "Debug",
+            "inherits": ["base","gcc-13"],
+            "binaryDir": "${sourceDir}/build/",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/${presetName}",
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "Release",
+            "inherits": ["base", "gcc-13"],
+            "binaryDir": "${sourceDir}/build/",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/install/${presetName}",
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        }],
+        "buildPresets": [
+        {
+            "name": "Build-Debug",
+            "configurePreset": "Debug",
+            "targets": [
+                "all"
+            ]
+        }]
+}

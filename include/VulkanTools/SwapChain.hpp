@@ -11,10 +11,10 @@
 #ifndef Vulkan_SWAPCHAIN_HPP
 #define Vulkan_SWAPCHAIN_HPP
 
-#include <stdlib.h>
+#include <cstdlib>
 #include <string>
-#include <assert.h>
-#include <stdio.h>
+#include <cassert>
+#include <cstdio>
 #include <vector>
 #include <iostream>
 
@@ -24,10 +24,10 @@
 
 
 
-typedef struct _SwapChainBuffers {
+using SwapChainBuffer = struct SwapChainBuffers {
 	VkImage image;
 	VkImageView view;
-} SwapChainBuffer;
+};
 
 class VulkanSwapChain
 {
@@ -58,8 +58,8 @@ public:
 	void initSurface(VkInstance instance, GLFWwindow* window, VkSurfaceKHR surface, uint32_t width, uint32_t height);
 	void connect(VkInstance instance, VkPhysicalDevice physicalDevice, VkDevice device);
 	void create(ImGui_ImplVulkanH_Window* wd, uint32_t* width, uint32_t* height, bool vsync = false);
-	VkResult acquireNextImage(VkSemaphore presentCompleteSemaphore, uint32_t* imageIndex);
-	VkResult queuePresent(VkQueue queue, uint32_t imageIndex, VkSemaphore waitSemaphore = VK_NULL_HANDLE);
+	auto acquireNextImage(VkSemaphore presentCompleteSemaphore, uint32_t* imageIndex) -> VkResult;
+	auto queuePresent(VkQueue queue, uint32_t imageIndex, VkSemaphore waitSemaphore = VK_NULL_HANDLE) -> VkResult;
 	void cleanup();
 };
 
