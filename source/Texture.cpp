@@ -34,9 +34,9 @@ namespace VKT {
 	{
 		ktxResult result = KTX_SUCCESS;
 	
-		if (!tools::fileExists(filename))
+		if (!::VKT::tools::fileExists(filename))
 		{
-			tools::exitFatal("Could not load texture from " + filename + "\n\nThe file may be part of the additional asset pack.\n\nRun \"download_assets.py\" in the repository root to download the latest version.", -1);
+			::VKT::tools::exitFatal("Could not load texture from " + filename + "\n\nThe file may be part of the additional asset pack.\n\nRun \"download_assets.py\" in the repository root to download the latest version.", -1);
 		}
 		result = ktxTexture_CreateFromNamedFile(filename.c_str(), KTX_TEXTURE_CREATE_LOAD_IMAGE_DATA_BIT, target);
 		return result;
@@ -172,7 +172,7 @@ namespace VKT {
 	
 			// Image barrier for optimal image (target)
 			// Optimal image will be used as destination for the copy
-			tools::setImageLayout(
+			::VKT::tools::setImageLayout(
 				copyCmd,
 				image,
 				VK_IMAGE_LAYOUT_UNDEFINED,
@@ -190,7 +190,7 @@ namespace VKT {
 	
 			// Change texture image layout to shader read after all mip levels have been copied
 			this->imageLayout = imageLayout;
-			tools::setImageLayout(
+			::VKT::tools::setImageLayout(
 				copyCmd,
 				image,
 				VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
@@ -273,7 +273,7 @@ namespace VKT {
 			this->imageLayout = imageLayout;
 	
 			// Setup image memory barrier
-			tools::setImageLayout(copyCmd, image, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_UNDEFINED, imageLayout);
+			::VKT::tools::setImageLayout(copyCmd, image, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_UNDEFINED, imageLayout);
 	
 			device->flushCommandBuffer(copyCmd, copyQueue);
 		}
@@ -422,7 +422,7 @@ namespace VKT {
 	
 		// Image barrier for optimal image (target)
 		// Optimal image will be used as destination for the copy
-		tools::setImageLayout(
+		::VKT::tools::setImageLayout(
 			copyCmd,
 			image,
 			VK_IMAGE_LAYOUT_UNDEFINED,
@@ -440,7 +440,7 @@ namespace VKT {
 	
 		// Change texture image layout to shader read after all mip levels have been copied
 		this->imageLayout = imageLayout;
-		tools::setImageLayout(
+		::VKT::tools::setImageLayout(
 			copyCmd,
 			image,
 			VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
@@ -606,7 +606,7 @@ namespace VKT {
 		subresourceRange.levelCount = mipLevels;
 		subresourceRange.layerCount = layerCount;
 	
-		tools::setImageLayout(
+		::VKT::tools::setImageLayout(
 			copyCmd,
 			image,
 			VK_IMAGE_LAYOUT_UNDEFINED,
@@ -624,7 +624,7 @@ namespace VKT {
 	
 		// Change texture image layout to shader read after all faces have been copied
 		this->imageLayout = imageLayout;
-		tools::setImageLayout(
+		::VKT::tools::setImageLayout(
 			copyCmd,
 			image,
 			VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
@@ -793,7 +793,7 @@ namespace VKT {
 		subresourceRange.levelCount = mipLevels;
 		subresourceRange.layerCount = 6;
 	
-		tools::setImageLayout(
+		::VKT::tools::setImageLayout(
 			copyCmd,
 			image,
 			VK_IMAGE_LAYOUT_UNDEFINED,
@@ -811,7 +811,7 @@ namespace VKT {
 	
 		// Change texture image layout to shader read after all faces have been copied
 		this->imageLayout = imageLayout;
-		tools::setImageLayout(
+		::VKT::tools::setImageLayout(
 			copyCmd,
 			image,
 			VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,
