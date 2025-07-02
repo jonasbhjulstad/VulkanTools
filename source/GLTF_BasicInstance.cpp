@@ -1,3 +1,5 @@
 #include <VulkanTools/GLTF_BasicInstance.hpp>
-namespace glTFBasicInstance
-{}
+namespace VKT {
+    namespace glTFBasicInstance
+    {}
+} // namespace VKT
