@@ -314,7 +314,7 @@ auto VulkanDevice::createLogicalDevice(VkPhysicalDeviceFeatures enabledFeatures,
  *
  * @return VK_SUCCESS if buffer handle and memory have been created and (optionally passed) data has been copied
  */
-auto VulkanDevice::createBuffer(VkBufferUsageFlags usageFlags, VkMemoryPropertyFlags memoryPropertyFlags, VkDeviceSize size, VkBuffer *buffer, VkDeviceMemory *memory, void *data) -> VkResult
+auto VulkanDevice::createBuffer(VkBufferUsageFlags usageFlags, VkMemoryPropertyFlags memoryPropertyFlags, VkDeviceSize size, VkBuffer *buffer, VkDeviceMemory *memory, const void *data) -> VkResult
 {
 	// Create the buffer handle
 	VkBufferCreateInfo bufferCreateInfo = initializers::bufferCreateInfo(usageFlags, size);
@@ -373,7 +373,7 @@ auto VulkanDevice::createBuffer(VkBufferUsageFlags usageFlags, VkMemoryPropertyF
  *
  * @return VK_SUCCESS if buffer handle and memory have been created and (optionally passed) data has been copied
  */
-auto VulkanDevice::createBuffer(VkBufferUsageFlags usageFlags, VkMemoryPropertyFlags memoryPropertyFlags, VulkanBuffer *buffer, VkDeviceSize size, void *data) -> VkResult
+auto VulkanDevice::createBuffer(VkBufferUsageFlags usageFlags, VkMemoryPropertyFlags memoryPropertyFlags, VulkanBuffer *buffer, VkDeviceSize size, const void *data) -> VkResult
 {
 	buffer->device = logicalDevice;
 
