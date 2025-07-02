@@ -49,18 +49,6 @@ namespace VKT {
 			}
 		}
 	
-		void Camera::setPosition(glm::vec3 position)
-		{
-			this->position = position;
-			updateViewMatrix();
-		}
-	
-		void Camera::setRotation(glm::vec3 rotation)
-		{
-			this->rotation = rotation;
-			updateViewMatrix();
-		}
-	
 		void Camera::rotate(glm::vec3 delta)
 		{
 			this->rotation += delta;
@@ -79,15 +67,6 @@ namespace VKT {
 			updateViewMatrix();
 		}
 	
-		void Camera::setRotationSpeed(float rotationSpeed)
-		{
-			this->rotationSpeed = rotationSpeed;
-		}
-	
-		void Camera::setMovementSpeed(float movementSpeed)
-		{
-			this->movementSpeed = movementSpeed;
-		}
 	
 		void Camera::mouseUpdate(ImVec2 mousePos)
 	{

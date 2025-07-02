@@ -19,18 +19,18 @@
 #include <glm/gtc/matrix_transform.hpp>
 namespace VKT {
 	
-	class Camera
+	struct Camera
 	{
-	private:
 	
 		float fov_old;
 		float znear_old, zfar_old, aspect_old;
 		ImGuiWindow* window;
 		ImGuiContext* imguiContext;
 		void updateViewMatrix();
-	public:
 		ImVec2 mousePos_old = {.0f,.0f};
 		float fov, znear, zfar, aspect;
+		float movementSpeedMultipler = 1.0f;
+		float rotationSpeedMultiplier = 1.0f;
 		enum CameraType { lookat, firstperson };
 		CameraType type = CameraType::lookat;
 	
@@ -70,19 +70,11 @@ namespace VKT {
 	
 		void updateAspectRatio(float aspect);
 	
-		void setPosition(glm::vec3 position);
-	
-		void setRotation(glm::vec3 rotation);
-	
 		void rotate(glm::vec3 delta);
 	
 		void setTranslation(glm::vec3 translation);
 	
 		void translate(glm::vec3 delta);
-	
-		void setRotationSpeed(float rotationSpeed);
-	
-		void setMovementSpeed(float movementSpeed);
 	
 		void update(float deltaTime);
 		void mouseUpdate(ImVec2 pos);
