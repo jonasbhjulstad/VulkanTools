@@ -17,21 +17,21 @@
 namespace initializers
 {
 
-	inline auto memoryAllocateInfo() -> VkMemoryAllocateInfo
+	inline constexpr auto memoryAllocateInfo() -> VkMemoryAllocateInfo
 	{
 		VkMemoryAllocateInfo memAllocInfo{};
 		memAllocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
 		return memAllocInfo;
 	}
 
-	inline auto mappedMemoryRange() -> VkMappedMemoryRange
+	inline constexpr auto mappedMemoryRange() -> VkMappedMemoryRange
 	{
 		VkMappedMemoryRange mappedMemoryRange{};
 		mappedMemoryRange.sType = VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE;
 		return mappedMemoryRange;
 	}
 
-	inline auto commandBufferAllocateInfo(
+	inline constexpr auto commandBufferAllocateInfo(
 		VkCommandPool commandPool,
 		VkCommandBufferLevel level,
 		uint32_t bufferCount) -> VkCommandBufferAllocateInfo
@@ -44,35 +44,35 @@ namespace initializers
 		return commandBufferAllocateInfo;
 	}
 
-	inline auto commandPoolCreateInfo() -> VkCommandPoolCreateInfo
+	inline constexpr auto commandPoolCreateInfo() -> VkCommandPoolCreateInfo
 	{
 		VkCommandPoolCreateInfo cmdPoolCreateInfo{};
 		cmdPoolCreateInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
 		return cmdPoolCreateInfo;
 	}
 
-	inline auto commandBufferBeginInfo() -> VkCommandBufferBeginInfo
+	inline constexpr auto commandBufferBeginInfo() -> VkCommandBufferBeginInfo
 	{
 		VkCommandBufferBeginInfo cmdBufferBeginInfo{};
 		cmdBufferBeginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
 		return cmdBufferBeginInfo;
 	}
 
-	inline auto commandBufferInheritanceInfo() -> VkCommandBufferInheritanceInfo
+	inline constexpr auto commandBufferInheritanceInfo() -> VkCommandBufferInheritanceInfo
 	{
 		VkCommandBufferInheritanceInfo cmdBufferInheritanceInfo{};
 		cmdBufferInheritanceInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_INHERITANCE_INFO;
 		return cmdBufferInheritanceInfo;
 	}
 
-	inline auto renderPassBeginInfo() -> VkRenderPassBeginInfo
+	inline constexpr auto renderPassBeginInfo() -> VkRenderPassBeginInfo
 	{
 		VkRenderPassBeginInfo renderPassBeginInfo{};
 		renderPassBeginInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
 		return renderPassBeginInfo;
 	}
 
-	inline auto renderPassCreateInfo() -> VkRenderPassCreateInfo
+	inline constexpr auto renderPassCreateInfo() -> VkRenderPassCreateInfo
 	{
 		VkRenderPassCreateInfo renderPassCreateInfo{};
 		renderPassCreateInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
@@ -80,7 +80,7 @@ namespace initializers
 	}
 
 	/** @brief Initialize an image memory barrier with no image transfer ownership */
-	inline auto imageMemoryBarrier() -> VkImageMemoryBarrier
+	inline constexpr auto imageMemoryBarrier() -> VkImageMemoryBarrier
 	{
 		VkImageMemoryBarrier imageMemoryBarrier{};
 		imageMemoryBarrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
@@ -90,7 +90,7 @@ namespace initializers
 	}
 
 	/** @brief Initialize a buffer memory barrier with no image transfer ownership */
-	inline auto bufferMemoryBarrier() -> VkBufferMemoryBarrier
+	inline constexpr auto bufferMemoryBarrier() -> VkBufferMemoryBarrier
 	{
 		VkBufferMemoryBarrier bufferMemoryBarrier{};
 		bufferMemoryBarrier.sType = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
@@ -99,21 +99,21 @@ namespace initializers
 		return bufferMemoryBarrier;
 	}
 
-	inline auto memoryBarrier() -> VkMemoryBarrier
+	inline constexpr auto memoryBarrier() -> VkMemoryBarrier
 	{
 		VkMemoryBarrier memoryBarrier{};
 		memoryBarrier.sType = VK_STRUCTURE_TYPE_MEMORY_BARRIER;
 		return memoryBarrier;
 	}
 
-	inline auto imageCreateInfo() -> VkImageCreateInfo
+	inline constexpr auto imageCreateInfo() -> VkImageCreateInfo
 	{
 		VkImageCreateInfo imageCreateInfo{};
 		imageCreateInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
 		return imageCreateInfo;
 	}
 
-	inline auto samplerCreateInfo() -> VkSamplerCreateInfo
+	inline constexpr auto samplerCreateInfo() -> VkSamplerCreateInfo
 	{
 		VkSamplerCreateInfo samplerCreateInfo{};
 		samplerCreateInfo.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
@@ -121,28 +121,28 @@ namespace initializers
 		return samplerCreateInfo;
 	}
 
-	inline auto imageViewCreateInfo() -> VkImageViewCreateInfo
+	inline constexpr auto imageViewCreateInfo() -> VkImageViewCreateInfo
 	{
 		VkImageViewCreateInfo imageViewCreateInfo{};
 		imageViewCreateInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
 		return imageViewCreateInfo;
 	}
 
-	inline auto framebufferCreateInfo() -> VkFramebufferCreateInfo
+	inline constexpr auto framebufferCreateInfo() -> VkFramebufferCreateInfo
 	{
 		VkFramebufferCreateInfo framebufferCreateInfo{};
 		framebufferCreateInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
 		return framebufferCreateInfo;
 	}
 
-	inline auto semaphoreCreateInfo() -> VkSemaphoreCreateInfo
+	inline constexpr auto semaphoreCreateInfo() -> VkSemaphoreCreateInfo
 	{
 		VkSemaphoreCreateInfo semaphoreCreateInfo{};
 		semaphoreCreateInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
 		return semaphoreCreateInfo;
 	}
 
-	inline auto fenceCreateInfo(VkFenceCreateFlags flags = 0) -> VkFenceCreateInfo
+	inline constexpr auto fenceCreateInfo(VkFenceCreateFlags flags = 0) -> VkFenceCreateInfo
 	{
 		VkFenceCreateInfo fenceCreateInfo{};
 		fenceCreateInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
@@ -150,21 +150,21 @@ namespace initializers
 		return fenceCreateInfo;
 	}
 
-	inline auto eventCreateInfo() -> VkEventCreateInfo
+	inline constexpr auto eventCreateInfo() -> VkEventCreateInfo
 	{
 		VkEventCreateInfo eventCreateInfo{};
 		eventCreateInfo.sType = VK_STRUCTURE_TYPE_EVENT_CREATE_INFO;
 		return eventCreateInfo;
 	}
 
-	inline auto submitInfo() -> VkSubmitInfo
+	inline constexpr auto submitInfo() -> VkSubmitInfo
 	{
 		VkSubmitInfo submitInfo{};
 		submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
 		return submitInfo;
 	}
 
-	inline auto viewport(
+	inline constexpr auto viewport(
 		float width,
 		float height,
 		float minDepth,
@@ -178,7 +178,7 @@ namespace initializers
 		return viewport;
 	}
 
-	inline auto rect2D(
+	inline constexpr auto rect2D(
 		int32_t width,
 		int32_t height,
 		int32_t offsetX,
@@ -192,14 +192,14 @@ namespace initializers
 		return rect2D;
 	}
 
-	inline auto bufferCreateInfo() -> VkBufferCreateInfo
+	inline constexpr auto bufferCreateInfo() -> VkBufferCreateInfo
 	{
 		VkBufferCreateInfo bufCreateInfo{};
 		bufCreateInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
 		return bufCreateInfo;
 	}
 
-	inline auto bufferCreateInfo(
+	inline constexpr auto bufferCreateInfo(
 		VkBufferUsageFlags usage,
 		VkDeviceSize size) -> VkBufferCreateInfo
 	{
@@ -210,7 +210,7 @@ namespace initializers
 		return bufCreateInfo;
 	}
 
-	inline auto descriptorPoolCreateInfo(
+	inline constexpr auto descriptorPoolCreateInfo(
 		uint32_t poolSizeCount,
 		VkDescriptorPoolSize *pPoolSizes,
 		uint32_t maxSets) -> VkDescriptorPoolCreateInfo
@@ -235,7 +235,7 @@ namespace initializers
 		return descriptorPoolInfo;
 	}
 
-	inline auto descriptorPoolSize(
+	inline constexpr auto descriptorPoolSize(
 		VkDescriptorType type,
 		uint32_t descriptorCount) -> VkDescriptorPoolSize
 	{
@@ -245,7 +245,7 @@ namespace initializers
 		return descriptorPoolSize;
 	}
 
-	inline auto descriptorSetLayoutBinding(
+	inline constexpr auto descriptorSetLayoutBinding(
 		VkDescriptorType type,
 		VkShaderStageFlags stageFlags,
 		uint32_t binding,
@@ -259,7 +259,7 @@ namespace initializers
 		return setLayoutBinding;
 	}
 
-	inline auto descriptorSetLayoutCreateInfo(
+	inline constexpr auto descriptorSetLayoutCreateInfo(
 		const VkDescriptorSetLayoutBinding *pBindings,
 		uint32_t bindingCount) -> VkDescriptorSetLayoutCreateInfo
 	{
@@ -280,7 +280,7 @@ namespace initializers
 		return descriptorSetLayoutCreateInfo;
 	}
 
-	inline auto pipelineLayoutCreateInfo(
+	inline constexpr auto pipelineLayoutCreateInfo(
 		const VkDescriptorSetLayout *pSetLayouts,
 		uint32_t setLayoutCount = 1) -> VkPipelineLayoutCreateInfo
 	{
@@ -291,7 +291,7 @@ namespace initializers
 		return pipelineLayoutCreateInfo;
 	}
 
-	inline auto pipelineLayoutCreateInfo(
+	inline constexpr auto pipelineLayoutCreateInfo(
 		uint32_t setLayoutCount = 1) -> VkPipelineLayoutCreateInfo
 	{
 		VkPipelineLayoutCreateInfo pipelineLayoutCreateInfo{};
@@ -300,7 +300,7 @@ namespace initializers
 		return pipelineLayoutCreateInfo;
 	}
 
-	inline auto descriptorSetAllocateInfo(
+	inline constexpr auto descriptorSetAllocateInfo(
 		VkDescriptorPool descriptorPool,
 		const VkDescriptorSetLayout *pSetLayouts,
 		uint32_t descriptorSetCount) -> VkDescriptorSetAllocateInfo
@@ -313,7 +313,7 @@ namespace initializers
 		return descriptorSetAllocateInfo;
 	}
 
-	inline auto descriptorImageInfo(VkSampler sampler, VkImageView imageView, VkImageLayout imageLayout) -> VkDescriptorImageInfo
+	inline constexpr auto descriptorImageInfo(VkSampler sampler, VkImageView imageView, VkImageLayout imageLayout) -> VkDescriptorImageInfo
 	{
 		VkDescriptorImageInfo descriptorImageInfo{};
 		descriptorImageInfo.sampler = sampler;
@@ -322,7 +322,7 @@ namespace initializers
 		return descriptorImageInfo;
 	}
 
-	inline auto writeDescriptorSet(
+	inline constexpr auto writeDescriptorSet(
 		VkDescriptorSet dstSet,
 		VkDescriptorType type,
 		uint32_t binding,
@@ -339,7 +339,7 @@ namespace initializers
 		return writeDescriptorSet;
 	}
 
-	inline auto writeDescriptorSet(
+	inline constexpr auto writeDescriptorSet(
 		VkDescriptorSet dstSet,
 		VkDescriptorType type,
 		uint32_t binding,
@@ -356,7 +356,7 @@ namespace initializers
 		return writeDescriptorSet;
 	}
 
-	inline auto vertexInputBindingDescription(
+	inline constexpr auto vertexInputBindingDescription(
 		uint32_t binding,
 		uint32_t stride,
 		VkVertexInputRate inputRate) -> VkVertexInputBindingDescription
@@ -368,7 +368,7 @@ namespace initializers
 		return vInputBindDescription;
 	}
 
-	inline auto vertexInputAttributeDescription(
+	inline constexpr auto vertexInputAttributeDescription(
 		uint32_t binding,
 		uint32_t location,
 		VkFormat format,
@@ -382,7 +382,7 @@ namespace initializers
 		return vInputAttribDescription;
 	}
 
-	inline auto pipelineVertexInputStateCreateInfo() -> VkPipelineVertexInputStateCreateInfo
+	inline constexpr auto pipelineVertexInputStateCreateInfo() -> VkPipelineVertexInputStateCreateInfo
 	{
 		VkPipelineVertexInputStateCreateInfo pipelineVertexInputStateCreateInfo{};
 		pipelineVertexInputStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
@@ -402,7 +402,7 @@ namespace initializers
 		return pipelineVertexInputStateCreateInfo;
 	}
 
-	inline auto pipelineInputAssemblyStateCreateInfo(
+	inline constexpr auto pipelineInputAssemblyStateCreateInfo(
 		VkPrimitiveTopology topology,
 		VkPipelineInputAssemblyStateCreateFlags flags,
 		VkBool32 primitiveRestartEnable) -> VkPipelineInputAssemblyStateCreateInfo
@@ -415,7 +415,7 @@ namespace initializers
 		return pipelineInputAssemblyStateCreateInfo;
 	}
 
-	inline auto pipelineRasterizationStateCreateInfo(
+	inline constexpr auto pipelineRasterizationStateCreateInfo(
 		VkPolygonMode polygonMode,
 		VkCullModeFlags cullMode,
 		VkFrontFace frontFace,
@@ -432,7 +432,7 @@ namespace initializers
 		return pipelineRasterizationStateCreateInfo;
 	}
 
-	inline auto pipelineColorBlendAttachmentState(
+	inline constexpr auto pipelineColorBlendAttachmentState(
 		VkColorComponentFlags colorWriteMask,
 		VkBool32 blendEnable) -> VkPipelineColorBlendAttachmentState
 	{
@@ -442,7 +442,7 @@ namespace initializers
 		return pipelineColorBlendAttachmentState;
 	}
 
-	inline auto pipelineColorBlendStateCreateInfo(
+	inline constexpr auto pipelineColorBlendStateCreateInfo(
 		uint32_t attachmentCount,
 		const VkPipelineColorBlendAttachmentState *pAttachments) -> VkPipelineColorBlendStateCreateInfo
 	{
@@ -453,7 +453,7 @@ namespace initializers
 		return pipelineColorBlendStateCreateInfo;
 	}
 
-	inline auto pipelineDepthStencilStateCreateInfo(
+	inline constexpr auto pipelineDepthStencilStateCreateInfo(
 		VkBool32 depthTestEnable,
 		VkBool32 depthWriteEnable,
 		VkCompareOp depthCompareOp) -> VkPipelineDepthStencilStateCreateInfo
@@ -467,7 +467,7 @@ namespace initializers
 		return pipelineDepthStencilStateCreateInfo;
 	}
 
-	inline auto pipelineViewportStateCreateInfo(
+	inline constexpr auto pipelineViewportStateCreateInfo(
 		uint32_t viewportCount,
 		uint32_t scissorCount,
 		VkPipelineViewportStateCreateFlags flags = 0) -> VkPipelineViewportStateCreateInfo
@@ -480,7 +480,7 @@ namespace initializers
 		return pipelineViewportStateCreateInfo;
 	}
 
-	inline auto pipelineMultisampleStateCreateInfo(
+	inline constexpr auto pipelineMultisampleStateCreateInfo(
 		VkSampleCountFlagBits rasterizationSamples,
 		VkPipelineMultisampleStateCreateFlags flags = 0) -> VkPipelineMultisampleStateCreateInfo
 	{
@@ -491,7 +491,7 @@ namespace initializers
 		return pipelineMultisampleStateCreateInfo;
 	}
 
-	inline auto pipelineDynamicStateCreateInfo(
+	inline constexpr auto pipelineDynamicStateCreateInfo(
 		const VkDynamicState *pDynamicStates,
 		uint32_t dynamicStateCount,
 		VkPipelineDynamicStateCreateFlags flags = 0) -> VkPipelineDynamicStateCreateInfo
@@ -516,7 +516,7 @@ namespace initializers
 		return pipelineDynamicStateCreateInfo;
 	}
 
-	inline auto pipelineTessellationStateCreateInfo(uint32_t patchControlPoints) -> VkPipelineTessellationStateCreateInfo
+	inline constexpr auto pipelineTessellationStateCreateInfo(uint32_t patchControlPoints) -> VkPipelineTessellationStateCreateInfo
 	{
 		VkPipelineTessellationStateCreateInfo pipelineTessellationStateCreateInfo{};
 		pipelineTessellationStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_TESSELLATION_STATE_CREATE_INFO;
@@ -524,7 +524,7 @@ namespace initializers
 		return pipelineTessellationStateCreateInfo;
 	}
 
-	inline auto pipelineCreateInfo(
+	inline constexpr auto pipelineCreateInfo(
 		VkPipelineLayout layout,
 		VkRenderPass renderPass,
 		VkPipelineCreateFlags flags = 0) -> VkGraphicsPipelineCreateInfo
@@ -539,7 +539,7 @@ namespace initializers
 		return pipelineCreateInfo;
 	}
 
-	inline auto pipelineCreateInfo() -> VkGraphicsPipelineCreateInfo
+	inline constexpr auto pipelineCreateInfo() -> VkGraphicsPipelineCreateInfo
 	{
 		VkGraphicsPipelineCreateInfo pipelineCreateInfo{};
 		pipelineCreateInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
@@ -548,7 +548,7 @@ namespace initializers
 		return pipelineCreateInfo;
 	}
 
-	inline auto computePipelineCreateInfo(
+	inline constexpr auto computePipelineCreateInfo(
 		VkPipelineLayout layout,
 		VkPipelineCreateFlags flags = 0) -> VkComputePipelineCreateInfo
 	{
@@ -559,7 +559,7 @@ namespace initializers
 		return computePipelineCreateInfo;
 	}
 
-	inline auto pushConstantRange(
+	inline constexpr auto pushConstantRange(
 		VkShaderStageFlags stageFlags,
 		uint32_t size,
 		uint32_t offset) -> VkPushConstantRange
@@ -571,7 +571,7 @@ namespace initializers
 		return pushConstantRange;
 	}
 
-	inline auto bindSparseInfo() -> VkBindSparseInfo
+	inline constexpr auto bindSparseInfo() -> VkBindSparseInfo
 	{
 		VkBindSparseInfo bindSparseInfo{};
 		bindSparseInfo.sType = VK_STRUCTURE_TYPE_BIND_SPARSE_INFO;
@@ -579,7 +579,7 @@ namespace initializers
 	}
 
 	/** @brief Initialize a map entry for a shader specialization constant */
-	inline auto specializationMapEntry(uint32_t constantID, uint32_t offset, size_t size) -> VkSpecializationMapEntry
+	inline constexpr auto specializationMapEntry(uint32_t constantID, uint32_t offset, size_t size) -> VkSpecializationMapEntry
 	{
 		VkSpecializationMapEntry specializationMapEntry{};
 		specializationMapEntry.constantID = constantID;
@@ -589,7 +589,7 @@ namespace initializers
 	}
 
 	/** @brief Initialize a specialization constant info structure to pass to a shader stage */
-	inline auto specializationInfo(uint32_t mapEntryCount, const VkSpecializationMapEntry *mapEntries, size_t dataSize, const void *data) -> VkSpecializationInfo
+	inline constexpr auto specializationInfo(uint32_t mapEntryCount, const VkSpecializationMapEntry *mapEntries, size_t dataSize, const void *data) -> VkSpecializationInfo
 	{
 		VkSpecializationInfo specializationInfo{};
 		specializationInfo.mapEntryCount = mapEntryCount;
@@ -611,42 +611,42 @@ namespace initializers
 	}
 
 	// Ray tracing related
-	inline auto accelerationStructureGeometryKHR() -> VkAccelerationStructureGeometryKHR
+	inline constexpr auto accelerationStructureGeometryKHR() -> VkAccelerationStructureGeometryKHR
 	{
 		VkAccelerationStructureGeometryKHR accelerationStructureGeometryKHR{};
 		accelerationStructureGeometryKHR.sType = VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_KHR;
 		return accelerationStructureGeometryKHR;
 	}
 
-	inline auto accelerationStructureBuildGeometryInfoKHR() -> VkAccelerationStructureBuildGeometryInfoKHR
+	inline constexpr auto accelerationStructureBuildGeometryInfoKHR() -> VkAccelerationStructureBuildGeometryInfoKHR
 	{
 		VkAccelerationStructureBuildGeometryInfoKHR accelerationStructureBuildGeometryInfoKHR{};
 		accelerationStructureBuildGeometryInfoKHR.sType = VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_BUILD_GEOMETRY_INFO_KHR;
 		return accelerationStructureBuildGeometryInfoKHR;
 	}
 
-	inline auto accelerationStructureBuildSizesInfoKHR() -> VkAccelerationStructureBuildSizesInfoKHR
+	inline constexpr auto accelerationStructureBuildSizesInfoKHR() -> VkAccelerationStructureBuildSizesInfoKHR
 	{
 		VkAccelerationStructureBuildSizesInfoKHR accelerationStructureBuildSizesInfoKHR{};
 		accelerationStructureBuildSizesInfoKHR.sType = VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_BUILD_SIZES_INFO_KHR;
 		return accelerationStructureBuildSizesInfoKHR;
 	}
 
-	inline auto rayTracingShaderGroupCreateInfoKHR() -> VkRayTracingShaderGroupCreateInfoKHR
+	inline constexpr auto rayTracingShaderGroupCreateInfoKHR() -> VkRayTracingShaderGroupCreateInfoKHR
 	{
 		VkRayTracingShaderGroupCreateInfoKHR rayTracingShaderGroupCreateInfoKHR{};
 		rayTracingShaderGroupCreateInfoKHR.sType = VK_STRUCTURE_TYPE_RAY_TRACING_SHADER_GROUP_CREATE_INFO_KHR;
 		return rayTracingShaderGroupCreateInfoKHR;
 	}
 
-	inline auto rayTracingPipelineCreateInfoKHR() -> VkRayTracingPipelineCreateInfoKHR
+	inline constexpr auto rayTracingPipelineCreateInfoKHR() -> VkRayTracingPipelineCreateInfoKHR
 	{
 		VkRayTracingPipelineCreateInfoKHR rayTracingPipelineCreateInfoKHR{};
 		rayTracingPipelineCreateInfoKHR.sType = VK_STRUCTURE_TYPE_RAY_TRACING_PIPELINE_CREATE_INFO_KHR;
 		return rayTracingPipelineCreateInfoKHR;
 	}
 
-	inline auto writeDescriptorSetAccelerationStructureKHR() -> VkWriteDescriptorSetAccelerationStructureKHR
+	inline constexpr auto writeDescriptorSetAccelerationStructureKHR() -> VkWriteDescriptorSetAccelerationStructureKHR
 	{
 		VkWriteDescriptorSetAccelerationStructureKHR writeDescriptorSetAccelerationStructureKHR{};
 		writeDescriptorSetAccelerationStructureKHR.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_ACCELERATION_STRUCTURE_KHR;
