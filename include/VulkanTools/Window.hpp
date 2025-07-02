@@ -10,12 +10,14 @@
 #include <VulkanTools/Initializers.hpp>
 
 
-
-void setupGLFWVulkanWindow(
-                       VulkanInstance &vulkanInstance,
-                       int width,
-                       int height,
-                       uint32_t minImageCount = 2);
-void cleanupGLFWVulkanWindow(VkInstance instance, VkDevice device, ImGui_ImplVulkanH_Window *wd);
-
+namespace VKT {
+    
+    void setupGLFWVulkanWindow(
+                           VulkanInstance &vulkanInstance,
+                           int width,
+                           int height,
+                           uint32_t minImageCount = 2);
+    void cleanupGLFWVulkanWindow(VkInstance instance, VkDevice device, ImGui_ImplVulkanH_Window *wd);
+    
+} // namespace VKT
 #endif // Vulkan_WINDOW_HPP

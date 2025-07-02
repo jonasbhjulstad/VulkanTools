@@ -24,43 +24,45 @@
 
 
 
-using SwapChainBuffer = struct SwapChainBuffers {
-	VkImage image;
-	VkImageView view;
-};
-
-class VulkanSwapChain
-{
-private: 
-	VkInstance instance;
-	VkDevice device;
-	VkPhysicalDevice physicalDevice;
-	VkSurfaceKHR surface;
-	// Function pointers
-	PFN_vkGetPhysicalDeviceSurfaceSupportKHR fpGetPhysicalDeviceSurfaceSupportKHR;
-	PFN_vkGetPhysicalDeviceSurfaceCapabilitiesKHR fpGetPhysicalDeviceSurfaceCapabilitiesKHR; 
-	PFN_vkGetPhysicalDeviceSurfaceFormatsKHR fpGetPhysicalDeviceSurfaceFormatsKHR;
-	PFN_vkGetPhysicalDeviceSurfacePresentModesKHR fpGetPhysicalDeviceSurfacePresentModesKHR;
-	PFN_vkCreateSwapchainKHR fpCreateSwapchainKHR;
-	PFN_vkDestroySwapchainKHR fpDestroySwapchainKHR;
-	PFN_vkGetSwapchainImagesKHR fpGetSwapchainImagesKHR;
-	PFN_vkAcquireNextImageKHR fpAcquireNextImageKHR;
-	PFN_vkQueuePresentKHR fpQueuePresentKHR;
-public:
-	VkFormat colorFormat;
-	VkColorSpaceKHR colorSpace;
-	VkSwapchainKHR swapChain = VK_NULL_HANDLE;	
-	uint32_t imageCount = 0;
-	std::vector<VkImage> images;
-	std::vector<SwapChainBuffer> buffers;
-	uint32_t queueNodeIndex = UINT32_MAX;
-
-	void initSurface(VkInstance instance, GLFWwindow* window, VkSurfaceKHR surface, uint32_t width, uint32_t height);
-	void connect(VkInstance instance, VkPhysicalDevice physicalDevice, VkDevice device);
-	void create(ImGui_ImplVulkanH_Window* wd, uint32_t* width, uint32_t* height, bool vsync = false);
-	auto acquireNextImage(VkSemaphore presentCompleteSemaphore, uint32_t* imageIndex) -> VkResult;
-	auto queuePresent(VkQueue queue, uint32_t imageIndex, VkSemaphore waitSemaphore = VK_NULL_HANDLE) -> VkResult;
-	void cleanup();
-};
+namespace VKT {
+	using SwapChainBuffer = struct SwapChainBuffers {
+		VkImage image;
+		VkImageView view;
+	};
+	
+	class VulkanSwapChain
+	{
+	private: 
+		VkInstance instance;
+		VkDevice device;
+		VkPhysicalDevice physicalDevice;
+		VkSurfaceKHR surface;
+		// Function pointers
+		PFN_vkGetPhysicalDeviceSurfaceSupportKHR fpGetPhysicalDeviceSurfaceSupportKHR;
+		PFN_vkGetPhysicalDeviceSurfaceCapabilitiesKHR fpGetPhysicalDeviceSurfaceCapabilitiesKHR; 
+		PFN_vkGetPhysicalDeviceSurfaceFormatsKHR fpGetPhysicalDeviceSurfaceFormatsKHR;
+		PFN_vkGetPhysicalDeviceSurfacePresentModesKHR fpGetPhysicalDeviceSurfacePresentModesKHR;
+		PFN_vkCreateSwapchainKHR fpCreateSwapchainKHR;
+		PFN_vkDestroySwapchainKHR fpDestroySwapchainKHR;
+		PFN_vkGetSwapchainImagesKHR fpGetSwapchainImagesKHR;
+		PFN_vkAcquireNextImageKHR fpAcquireNextImageKHR;
+		PFN_vkQueuePresentKHR fpQueuePresentKHR;
+	public:
+		VkFormat colorFormat;
+		VkColorSpaceKHR colorSpace;
+		VkSwapchainKHR swapChain = VK_NULL_HANDLE;	
+		uint32_t imageCount = 0;
+		std::vector<VkImage> images;
+		std::vector<SwapChainBuffer> buffers;
+		uint32_t queueNodeIndex = UINT32_MAX;
+	
+		void initSurface(VkInstance instance, GLFWwindow* window, VkSurfaceKHR surface, uint32_t width, uint32_t height);
+		void connect(VkInstance instance, VkPhysicalDevice physicalDevice, VkDevice device);
+		void create(ImGui_ImplVulkanH_Window* wd, uint32_t* width, uint32_t* height, bool vsync = false);
+		auto acquireNextImage(VkSemaphore presentCompleteSemaphore, uint32_t* imageIndex) -> VkResult;
+		auto queuePresent(VkQueue queue, uint32_t imageIndex, VkSemaphore waitSemaphore = VK_NULL_HANDLE) -> VkResult;
+		void cleanup();
+	};
+} // namespace VKT
 
 #endif // Vulkan_SWAPCHAIN_HPP
