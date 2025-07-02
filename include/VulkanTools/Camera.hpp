@@ -30,7 +30,7 @@ namespace VKT {
 		ImVec2 mousePos_old = {.0f,.0f};
 		float fov, znear, zfar, aspect;
 		float movementSpeedMultipler = 1.0f;
-		float rotationSpeedMultiplier = 1.0f;
+		ImVec2 rotationSpeedMultiplier = {1.0f, 1.0f};
 		enum CameraType { lookat, firstperson };
 		CameraType type = CameraType::lookat;
 	
