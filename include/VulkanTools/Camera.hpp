@@ -65,7 +65,10 @@ namespace VKT {
 		auto getFarClip() -> float {
 			return zfar;
 		}
-	
+		auto getTransform() -> glm::mat4
+		{
+			return glm::translate(glm::mat4(1.0f), position) * glm::toMat4(glm::quat(rotation));
+		}
 		void setPerspective(float fov, float aspect, float znear, float zfar);
 	
 		void updateAspectRatio(float aspect);
