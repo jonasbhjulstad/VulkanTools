@@ -10,8 +10,6 @@
 #include <VulkanTools/GLTF_Assets.hpp>
 namespace VKT {
     
-    namespace glTFBasicInstance
-    {
         enum InstanceBindIDs
         {
             GLTF_BIP_VERTEX_BIND_ID,
@@ -309,6 +307,5 @@ namespace VKT {
             vkCmdDrawIndexed(commandBuffer, BI_data.model->indices.count, BI_data.N_instances, 0, 0, 0);
         }
     
-    }
 } // namespace VKT
 #endif
