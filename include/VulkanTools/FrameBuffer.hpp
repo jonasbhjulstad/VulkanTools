@@ -2,7 +2,7 @@
 #include <GLFW/glfw3.h>
 namespace VKT
 {
-    auto getFrameBufferSizeChange(GLFWWindow* window, int& width, int& height) -> bool
+    auto getFrameBufferSizeChange(GLFWwindow* window, int& width, int& height) -> bool
     {
         if (window->frameBufferSize.x != width || window->frameBufferSize.y != height)
         {
